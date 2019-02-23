@@ -1,0 +1,1 @@
+web: ./build/install/dorm-keu/bin/dorm-keu
