@@ -1,9 +1,11 @@
-plugins {
-    id 'java'
-}
+apply plugin: 'java'
+apply plugin: 'application'
 
 group 'dorm-keu'
 version '1.0-SNAPSHOT'
+
+applicationName = "dorm-keu"
+mainClassName = "kz.dorm.Main"
 
 sourceCompatibility = 1.8
 
