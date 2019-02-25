@@ -139,7 +139,15 @@ public class DormPOST {
                     }
                 } else {
                     response.status(400);
-                    return request.queryParams(DataConfig.DB_DORM_NAME_F);
+                    return ControlWrite.isCheckRoom(connection,
+                            Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REQUEST_ROOM_ID)),
+                            Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REQUEST_GENDER_ID))) + " " +
+                            ControlWrite.isCheckUIN(connection, Long.parseLong(request.queryParams(DataConfig.DB_DORM_REQUEST_UIN))) + " " +
+                            (Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REQUEST_CHILDREN)) > 0) + " " +
+                            ControlWrite.isCheckPhone(request.queryParams(DataConfig.DB_DORM_REQUEST_PHONE)) + " " +
+                            ControlWrite.isCheckGender(connection, Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REQUEST_GENDER_ID))) + " " +
+                            ControlWrite.isCheckNames(request.queryParams(DataConfig.DB_DORM_NAME_F),
+                                    request.queryParams(DataConfig.DB_DORM_NAME_L));
                 }
             } catch (Exception e) {
                 response.status(409);
