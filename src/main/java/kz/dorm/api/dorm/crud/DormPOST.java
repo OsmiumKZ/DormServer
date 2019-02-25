@@ -138,8 +138,8 @@ public class DormPOST {
                         return HttpStatus.getCode(500).getMessage();
                     }
                 } else {
-                    response.status(405);
-                    return HttpStatus.getCode(405).getMessage();
+                    response.status(400);
+                    return request.queryParams(DataConfig.DB_DORM_NAME_F);
                 }
             } catch (Exception e) {
                 response.status(409);
