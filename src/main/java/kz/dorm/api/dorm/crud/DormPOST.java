@@ -146,8 +146,8 @@ public class DormPOST {
                 return HttpStatus.getCode(409).getMessage();
             }
         } else {
-            response.status(400);
-            return HttpStatus.getCode(400).getMessage();
+            response.status(405);
+            return HttpStatus.getCode(405).getMessage();
         }
     }
 }
