@@ -143,7 +143,8 @@ public class DormGET {
                                     result.getInt(DataConfig.DB_DORM_ROOM_NUMBER),
                                     result.getInt(DataConfig.DB_DORM_ROOM_MAX),
                                     result.getInt(DataConfig.DB_DORM_ROOM_FLOOR_ID),
-                                    result.getInt(DataConfig.DB_DORM_ROOM_AS_AMOUNT)
+                                    result.getInt(DataConfig.DB_DORM_ROOM_AS_AMOUNT),
+                                    result.getInt(DataConfig.DB_DORM_REPORT_GENDER_ID)
                             )
                     );
 

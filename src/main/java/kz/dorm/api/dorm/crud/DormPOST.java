@@ -1,10 +1,7 @@
 package kz.dorm.api.dorm.crud;
 
 import kz.dorm.api.dorm.util.statement.DormINSERT;
-import kz.dorm.utils.ControlWrite;
-import kz.dorm.utils.DataBase;
-import kz.dorm.utils.DataConfig;
-import kz.dorm.utils.DateText;
+import kz.dorm.utils.*;
 import org.eclipse.jetty.http.HttpStatus;
 import spark.Request;
 import spark.Response;
@@ -39,8 +36,7 @@ public class DormPOST {
                         ControlWrite.isCheckStatus(connection, Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REPORT_STATUS_ID))) &&
                         ControlWrite.isCheckGender(connection, Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REPORT_GENDER_ID))) &&
                         ControlWrite.isCheckNames(request.queryParams(DataConfig.DB_DORM_NAME_F),
-                                request.queryParams(DataConfig.DB_DORM_NAME_L),
-                                request.queryParams(DataConfig.DB_DORM_PATRONYMIC))) {
+                                request.queryParams(DataConfig.DB_DORM_NAME_L))) {
                     PreparedStatement statement = connection.prepareStatement(DormINSERT.insertReport(), Statement.RETURN_GENERATED_KEYS);
                     statement.setLong(1, Long.parseLong(request.queryParams(DataConfig.DB_DORM_REPORT_UIN)));
                     statement.setInt(2, Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REPORT_GENDER_ID)));
@@ -54,8 +50,8 @@ public class DormPOST {
                     statement.setString(11, request.queryParams(DataConfig.DB_DORM_REPORT_PHONE));
                     statement.setInt(12, Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REPORT_CHILDREN)));
                     statement.setString(13, request.queryParams(DataConfig.DB_DORM_REPORT_DATE_RESIDENCE));
-                    statement.setInt(14, 0);
-                    statement.setInt(15, 0);
+                    statement.setInt(14, ControlWrite.writeParent(connection, request.headers(DataConfig.DB_DORM_REPORT_AS_MOTHER)));
+                    statement.setInt(15, ControlWrite.writeParent(connection, request.headers(DataConfig.DB_DORM_REPORT_AS_FATHER)));
 
                     if (request.queryParams(DataConfig.DB_DORM_PATRONYMIC) != null)
                         statement.setInt(9, ControlWrite.writePatronymic(connection, request.queryParams(DataConfig.DB_DORM_PATRONYMIC)));
@@ -114,8 +110,7 @@ public class DormPOST {
                         ControlWrite.isCheckPhone(request.queryParams(DataConfig.DB_DORM_REQUEST_PHONE)) &&
                         ControlWrite.isCheckGender(connection, Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REQUEST_GENDER_ID))) &&
                         ControlWrite.isCheckNames(request.queryParams(DataConfig.DB_DORM_NAME_F),
-                                request.queryParams(DataConfig.DB_DORM_NAME_L),
-                                request.queryParams(DataConfig.DB_DORM_PATRONYMIC))) {
+                                request.queryParams(DataConfig.DB_DORM_NAME_L))) {
                     PreparedStatement statement = connection.prepareStatement(DormINSERT.insertRequest());
                     statement.setInt(1, ControlWrite.writeNameF(connection, request.queryParams(DataConfig.DB_DORM_NAME_F)));
                     statement.setInt(2, ControlWrite.writeNameL(connection, request.queryParams(DataConfig.DB_DORM_NAME_L)));
@@ -125,8 +120,8 @@ public class DormPOST {
                     statement.setString(7, request.queryParams(DataConfig.DB_DORM_REQUEST_ADDRESS));
                     statement.setString(8, request.queryParams(DataConfig.DB_DORM_REQUEST_PHONE));
                     statement.setString(9, request.queryParams(DataConfig.DB_DORM_REQUEST_GROUP));
-                    statement.setInt(10, 0); // Mother
-                    statement.setInt(11, 0); // Father
+                    statement.setInt(10, ControlWrite.writeParent(connection, request.headers(DataConfig.DB_DORM_REQUEST_AS_MOTHER)));
+                    statement.setInt(11, ControlWrite.writeParent(connection, request.headers(DataConfig.DB_DORM_REQUEST_AS_FATHER)));
                     statement.setInt(12, Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REQUEST_CHILDREN)));
                     statement.setString(13, request.queryParams(DataConfig.DB_DORM_REQUEST_DATE_RESIDENCE));
 

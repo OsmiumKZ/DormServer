@@ -166,6 +166,9 @@ public class DormAPI {
                     return HttpStatus.getCode(404).getMessage();
                 }
             });
+
+            // Test API
+            post("/test", (request, response) -> request.queryParams("test"));
         });
     }
 

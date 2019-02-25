@@ -69,4 +69,15 @@ public class DormINSERT {
         return "INSERT INTO `"+DataConfig.DB_DORM_PATRONYMIC+"` (`"+DataConfig.DB_DORM_PATRONYMIC+"`.`"+DataConfig.DB_DORM_PATRONYMIC_NAME+"`)\n" +
                 "VALUE (?)";
     }
+
+    /**
+     * Добавить родителя
+     */
+    public static String insertParent(){
+        return "INSERT INTO `"+DataConfig.DB_DORM_PARENT+"` (`"+DataConfig.DB_DORM_PARENT+"`.`"+DataConfig.DB_DORM_PARENT_NAME_F_ID+"`,\n" +
+                "\t`"+DataConfig.DB_DORM_PARENT+"`.`"+DataConfig.DB_DORM_PARENT_NAME_L_ID+"`,\n" +
+                "\t`"+DataConfig.DB_DORM_PARENT+"`.`"+DataConfig.DB_DORM_PARENT_PATRONYMIC_ID+"`,\n" +
+                "\t`"+DataConfig.DB_DORM_PARENT+"`.`"+DataConfig.DB_DORM_PARENT_PHONE+"`)\n" +
+                "VALUE (?, ?, ?, ?)";
+    }
 }

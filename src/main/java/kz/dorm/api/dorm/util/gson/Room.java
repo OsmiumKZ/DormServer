@@ -25,11 +25,16 @@ public class Room {
     @SerializedName(DataConfig.DB_DORM_ROOM_AS_AMOUNT)
     private final int amount;
 
-    public Room(int id, int number, int max, int floorId, int amount) {
+    /* ID гендер комнаты */
+    @SerializedName(DataConfig.DB_DORM_REPORT_GENDER_ID)
+    private final int genderId;
+
+    public Room(int id, int number, int max, int floorId, int amount, int genderId) {
         this.id = id;
         this.number = number;
         this.max = max;
         this.floorId = floorId;
         this.amount = amount;
+        this.genderId = genderId;
     }
 }

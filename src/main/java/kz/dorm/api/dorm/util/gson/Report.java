@@ -61,7 +61,15 @@ public class Report {
     @SerializedName(DataConfig.DB_DORM_PATRONYMIC)
     private final String patronymic;
 
-    public Report(int id, long uin, String address, String phone, int genderId, int number, int dormId, String dateCreate, String dateUpdate, int children, String dateResidence, String nameF, String nameL, String patronymic) {
+    /* Мама */
+    @SerializedName(DataConfig.DB_DORM_REPORT_AS_MOTHER)
+    private final Parent mother;
+
+    /* Папа */
+    @SerializedName(DataConfig.DB_DORM_REPORT_AS_FATHER)
+    private final Parent father;
+
+    public Report(int id, long uin, String address, String phone, int genderId, int number, int dormId, String dateCreate, String dateUpdate, int children, String dateResidence, String nameF, String nameL, String patronymic, Parent mother, Parent father) {
         this.id = id;
         this.uin = uin;
         this.address = address;
@@ -76,5 +84,7 @@ public class Report {
         this.nameF = nameF;
         this.nameL = nameL;
         this.patronymic = patronymic;
+        this.mother = mother;
+        this.father = father;
     }
 }

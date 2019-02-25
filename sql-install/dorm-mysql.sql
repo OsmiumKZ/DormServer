@@ -207,20 +207,18 @@ CREATE TABLE `requests` (
 -- Структура таблицы "Родитель"
 --
 -- `id` - ID родителя
--- `name_f` - Имя
--- `name_l` - Фамилия
--- `patronymic` - Отчество
+-- `name_f_id` - Имя
+-- `name_l_id` - Фамилия
+-- `patronymic_id` - Отчество
 -- `phone` - Телефон
--- `phone` - ID заявления
 --
 
 CREATE TABLE `parents` (
 	`id` INT NOT NULL AUTO_INCREMENT,
-	`name_f_id` VARCHAR(40) NOT NULL,
-	`name_l_id` VARCHAR(40) NOT NULL,
-	`patronymic_id` VARCHAR(40) NULL,
+	`name_f_id` INT NOT NULL,
+	`name_l_id` INT NOT NULL,
+	`patronymic_id` INT NULL,
 	`phone` VARCHAR(15) NOT NULL,
-	`request_id` INT NOT NULL,
 	PRIMARY KEY (`id`)) 
 	ENGINE = InnoDB
 	DEFAULT CHARACTER SET = utf8;

@@ -3,6 +3,8 @@ package kz.dorm.utils;
 import kz.dorm.api.dorm.util.statement.DormINSERT;
 import kz.dorm.api.dorm.util.statement.DormSELECT;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.sql.*;
 import java.util.regex.Pattern;
 
@@ -66,6 +68,9 @@ public class ControlWrite {
      * Умная запись отчества в базу данных.
      */
     public static int writePatronymic(Connection connection, String name) throws SQLException {
+        if (!isCheckText(name))
+            return 0;
+
         PreparedStatement statement = connection.prepareStatement(DormSELECT.selectPatronymic());
         statement.setString(1, name);
         ResultSet result = statement.executeQuery();
@@ -90,11 +95,18 @@ public class ControlWrite {
     }
 
     /**
+     * Добавить родителя
+     */
+    public static int writeParent(Connection connection, String json) throws SQLException {
+            return ControlParent.writeParent(connection, json);
+    }
+
+    /**
      * Проверка правильного ввода новера.
      */
     public static boolean isCheckPhone(String phone){
         if (phone.length() == 11 || phone.length() == 12){
-            String regex = "[+8]7[0-9]{9,10}$";
+            String regex = "((\\+7)|[8])7[0-9]{9}$";
             Pattern pattern = Pattern.compile(regex);
 
             return pattern.matcher(phone).matches();
@@ -111,10 +123,9 @@ public class ControlWrite {
     /**
      * Проверка информации на корректность.
      */
-    public static boolean isCheckNames(String nameF, String nameL, String patronymic) {
+    public static boolean isCheckNames(String nameF, String nameL) {
         return isCheckText(nameF) &&
-                isCheckText(nameL) &&
-                isCheckText(patronymic);
+                isCheckText(nameL);
     }
 
     /**

@@ -40,6 +40,15 @@ public class DormSELECT {
     }
 
     /**
+     * Получить заявления по ID
+     */
+    public static String selectRequestId() {
+        return "SELECT *\n" +
+                "FROM `" + DataConfig.DB_DORM_REQUEST + "`\n" +
+                "WHERE `" + DataConfig.DB_DORM_REQUEST + "`.`" + DataConfig.DB_DORM_REQUEST_ID + "`=?";
+    }
+
+    /**
      * Получить статус по ID.
      */
     public static String selectStatusId() {
@@ -64,15 +73,16 @@ public class DormSELECT {
      * Получить список комнат, конкретного этажа, конкретной общаги, с количеством занятых мест
      */
     public static String selectRooms() {
-        return "SELECT `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_ID + "`, `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_NUMBER + "`, `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_MAX + "`, `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_FLOOR_ID + "`, `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_AS_AMOUNT + "`\n" +
+        return "SELECT `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_ID + "`, `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_NUMBER + "`, `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_MAX + "`, `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_FLOOR_ID + "`, `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_AS_AMOUNT + "`, `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_REPORT_GENDER_ID + "`\n" +
                 "FROM `" + DataConfig.DB_DORM_FLOOR + "`\n" +
                 "INNER JOIN\n" +
-                "\t(SELECT `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_ID + "`, `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_NUMBER + "`, `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_MAX + "`, `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_FLOOR_ID + "`,\n" +
+                "\t(SELECT `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_ID + "`, `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_NUMBER + "`, `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_MAX + "`, `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_FLOOR_ID + "`, `" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_REPORT_GENDER_ID + "`,\n" +
                 "\t\tIF(`" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_ROOM_AS_AMOUNT + "` IS NULL, 0, `" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_ROOM_AS_AMOUNT + "`)\n" +
                 "\t\t\tAS `" + DataConfig.DB_DORM_ROOM_AS_AMOUNT + "`\n" +
                 "\tFROM `" + DataConfig.DB_DORM_ROOM + "`\n" +
                 "\tLEFT JOIN\n" +
                 "\t\t(SELECT `" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_REPORT_ROOM_ID + "`,\n" +
+                "\t\t\t`" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_REPORT_GENDER_ID + "`,\n" +
                 "\t\t\tCOUNT(`" + DataConfig.DB_DORM_STATUS + "`.`" + DataConfig.DB_DORM_STATUS_ACTIVE + "`)\n" +
                 "\t\t\t\tAS `" + DataConfig.DB_DORM_ROOM_AS_AMOUNT + "`\n" +
                 "\t\tFROM `" + DataConfig.DB_DORM_REPORT + "`\n" +

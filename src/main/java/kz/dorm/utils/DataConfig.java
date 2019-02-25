@@ -59,6 +59,8 @@ public class DataConfig {
     public static final String DB_DORM_REQUEST_PARENT_ID_FATHER = "parent_id_father";
     public static final String DB_DORM_REQUEST_CHILDREN = "children";
     public static final String DB_DORM_REQUEST_DATE_RESIDENCE = "date_residence";
+    public static final String DB_DORM_REQUEST_AS_MOTHER= "mother";
+    public static final String DB_DORM_REQUEST_AS_FATHER= "father";
 
     public static final String DB_DORM_NAME_F = "name_f";
     public static final String DB_DORM_NAME_F_ID = "id";
@@ -89,9 +91,13 @@ public class DataConfig {
     public static final String DB_DORM_REPORT_DATE_RESIDENCE = "date_residence";
     public static final String DB_DORM_REPORT_PARENT_ID_MOTHER = "parent_id_mother";
     public static final String DB_DORM_REPORT_PARENT_ID_FATHER = "parent_id_father";
+    public static final String DB_DORM_REPORT_AS_MOTHER= "mother";
+    public static final String DB_DORM_REPORT_AS_FATHER= "father";
 
     public static final String DB_DORM_PARENT = "parents";
+    public static final String DB_DORM_PARENT_ID = "id";
     public static final String DB_DORM_PARENT_NAME_F_ID = "name_f_id";
     public static final String DB_DORM_PARENT_NAME_L_ID = "name_l_id";
     public static final String DB_DORM_PARENT_PATRONYMIC_ID = "patronymic_id";
+    public static final String DB_DORM_PARENT_PHONE = "phone";
 }
