@@ -176,14 +176,16 @@ public class ControlWrite {
      * Проверка ИИНа.
      */
     public static boolean isCheckUIN(Connection connection, long uin) throws SQLException {
-        if (String.valueOf(uin).length() == 12) {
-            PreparedStatement statement = connection.prepareStatement(DormSELECT.selectActiveUIN());
-            statement.setLong(1, uin);
-            statement.setLong(2, uin);
+//        if (String.valueOf(uin).length() == 12) {
+//            PreparedStatement statement = connection.prepareStatement(DormSELECT.selectActiveUIN());
+//            statement.setLong(1, uin);
+//            statement.setLong(2, uin);
+//
+//            return !statement.executeQuery().next();
+//        } else {
+//            return false;
+//        }
 
-            return !statement.executeQuery().next();
-        } else {
-            return false;
-        }
+        return true;
     }
 }
