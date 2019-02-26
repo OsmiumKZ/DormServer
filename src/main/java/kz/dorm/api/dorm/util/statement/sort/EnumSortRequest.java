@@ -3,35 +3,35 @@ package kz.dorm.api.dorm.util.statement.sort;
 import kz.dorm.utils.DataConfig;
 
 public enum EnumSortRequest {
-    GENDER(DataConfig.SORT_REQUEST_GENDER){
+    GENDER(DataConfig.SORT_GENDER){
         @Override
         public String selectSortedRequest() {
             return selectRequest()+
-                    "WHERE `"+DataConfig.DB_DORM_REQUEST+"`.`"+DataConfig.DB_DORM_REQUEST_GENDER_ID+"`=?" +
+                    "WHERE `"+DataConfig.DB_DORM_REQUEST+"`.`"+DataConfig.DB_DORM_REQUEST_GENDER_ID+"`=?\n" +
                     DataConfig.DB_MAX_ITEM_LIST_STRING;
         }
     },
-    CHILDREN(DataConfig.SORT_REQUEST_CHILDREN){
+    CHILDREN(DataConfig.SORT_CHILDREN){
         @Override
         public String selectSortedRequest() {
             return selectRequest() +
-                    "ORDER BY `"+DataConfig.DB_DORM_REQUEST+"`.`"+DataConfig.DB_DORM_REQUEST_CHILDREN+"` DESC" +
+                    "ORDER BY `"+DataConfig.DB_DORM_REQUEST+"`.`"+DataConfig.DB_DORM_REQUEST_CHILDREN+"` DESC\n" +
                     DataConfig.DB_MAX_ITEM_LIST_STRING;
         }
     },
-    DORMS(DataConfig.SORT_REQUEST_DORMS){
+    DORMS(DataConfig.SORT_DORMS){
         @Override
         public String selectSortedRequest() {
             return selectRequest() +
-                    "ORDER BY `"+DataConfig.DB_DORM_FLOOR+"`.`"+DataConfig.DB_DORM_FLOOR_DORM_ID+"`" +
+                    "ORDER BY `"+DataConfig.DB_DORM_FLOOR+"`.`"+DataConfig.DB_DORM_FLOOR_DORM_ID+"`\n" +
                     DataConfig.DB_MAX_ITEM_LIST_STRING;
         }
     },
-    DATE_CREATE(DataConfig.SORT_REQUEST_DATE_CREATE){
+    DATE_CREATE(DataConfig.SORT_DATE_CREATE){
         @Override
         public String selectSortedRequest() {
             return selectRequest() +
-                    "ORDER BY `"+DataConfig.DB_DORM_REQUEST+"`.`"+DataConfig.DB_DORM_REQUEST_DATE_CREATE+"` DESC" +
+                    "ORDER BY `"+DataConfig.DB_DORM_REQUEST+"`.`"+DataConfig.DB_DORM_REQUEST_DATE_CREATE+"` DESC\n" +
                     DataConfig.DB_MAX_ITEM_LIST_STRING;
         }
     };
@@ -43,11 +43,17 @@ public enum EnumSortRequest {
         this.parameter = parameter;
     }
 
+
     /**
-     * Получить значение параметра
+     * Получить тип
      */
-    public String getParameter() {
-        return parameter;
+    public static EnumSortRequest fromString(String text) {
+        for (EnumSortRequest b : EnumSortRequest.values()) {
+            if (b.parameter.equalsIgnoreCase(text)) {
+                return b;
+            }
+        }
+        return CHILDREN;
     }
 
     /**
@@ -109,7 +115,7 @@ public enum EnumSortRequest {
                 "\t\t\tAS `" + DataConfig.DB_DORM_PARENT_MOTHER_AS_PATRONYMIC + "`\n" +
                 "\tFROM `" + DataConfig.DB_DORM_PARENT + "`\n" +
                 "\tINNER JOIN `" + DataConfig.DB_DORM_NAME_F + "`\n" +
-                "\tON `" + DataConfig.DB_DORM_PARENT + "`.`" + DataConfig.DB_DORM_PARENT_NAME_F_ID + "`=`" + DataConfig.DB_DORM_NAME_F_ID + "`.`" + DataConfig.DB_DORM_NAME_F_ID + "`\n" +
+                "\tON `" + DataConfig.DB_DORM_PARENT + "`.`" + DataConfig.DB_DORM_PARENT_NAME_F_ID + "`=`" + DataConfig.DB_DORM_NAME_F + "`.`" + DataConfig.DB_DORM_NAME_F_ID + "`\n" +
                 "\tINNER JOIN `" + DataConfig.DB_DORM_NAME_L + "`\n" +
                 "\tON `" + DataConfig.DB_DORM_PARENT + "`.`" + DataConfig.DB_DORM_PARENT_NAME_L_ID + "`=`" + DataConfig.DB_DORM_NAME_L + "`.`" + DataConfig.DB_DORM_NAME_L_ID + "`\n" +
                 "\tLEFT JOIN `" + DataConfig.DB_DORM_PATRONYMIC + "`\n" +
@@ -129,13 +135,13 @@ public enum EnumSortRequest {
                 "\t\t\tAS `" + DataConfig.DB_DORM_PARENT_FATHER_AS_PATRONYMIC + "`\n" +
                 "\tFROM `" + DataConfig.DB_DORM_PARENT + "`\n" +
                 "\tINNER JOIN `" + DataConfig.DB_DORM_NAME_F + "`\n" +
-                "\tON `" + DataConfig.DB_DORM_PARENT + "`.`" + DataConfig.DB_DORM_PARENT_NAME_F_ID + "`=`" + DataConfig.DB_DORM_NAME_F_ID + "`.`" + DataConfig.DB_DORM_NAME_F_ID + "`\n" +
+                "\tON `" + DataConfig.DB_DORM_PARENT + "`.`" + DataConfig.DB_DORM_PARENT_NAME_F_ID + "`=`" + DataConfig.DB_DORM_NAME_F + "`.`" + DataConfig.DB_DORM_NAME_F_ID + "`\n" +
                 "\tINNER JOIN `" + DataConfig.DB_DORM_NAME_L + "`\n" +
                 "\tON `" + DataConfig.DB_DORM_PARENT + "`.`" + DataConfig.DB_DORM_PARENT_NAME_L_ID + "`=`" + DataConfig.DB_DORM_NAME_L + "`.`" + DataConfig.DB_DORM_NAME_L_ID + "`\n" +
                 "\tLEFT JOIN `" + DataConfig.DB_DORM_PATRONYMIC + "`\n" +
                 "\tON `" + DataConfig.DB_DORM_PARENT + "`.`" + DataConfig.DB_DORM_PARENT_PATRONYMIC_ID + "`=`" + DataConfig.DB_DORM_PATRONYMIC + "`.`" + DataConfig.DB_DORM_PATRONYMIC_ID + "`)\n" +
                 "\tAS `" + DataConfig.DB_DORM_REQUEST_AS_FATHER + "`\n" +
-                "ON `" + DataConfig.DB_DORM_REQUEST + "`.`" + DataConfig.DB_DORM_REQUEST_PARENT_ID_FATHER + "`=`" + DataConfig.DB_DORM_REQUEST_AS_FATHER + "`.`" + DataConfig.DB_DORM_PARENT_FATHER_AS_ID + "`";
+                "ON `" + DataConfig.DB_DORM_REQUEST + "`.`" + DataConfig.DB_DORM_REQUEST_PARENT_ID_FATHER + "`=`" + DataConfig.DB_DORM_REQUEST_AS_FATHER + "`.`" + DataConfig.DB_DORM_PARENT_FATHER_AS_ID + "`\n";
     }
 
     /**

@@ -3,6 +3,8 @@ package kz.dorm.api.dorm.crud;
 import com.google.gson.Gson;
 import kz.dorm.api.dorm.util.gson.*;
 import kz.dorm.api.dorm.util.statement.DormSELECT;
+import kz.dorm.api.dorm.util.statement.sort.EnumSortReport;
+import kz.dorm.api.dorm.util.statement.sort.EnumSortRequest;
 import kz.dorm.utils.DataBase;
 import kz.dorm.utils.DataConfig;
 import kz.dorm.utils.token.Token;
@@ -194,29 +196,129 @@ public class DormGET {
         }
     }
 
-//    /**
-//     * Получить отчеты
-//     */
-//    public static String getReport(Request request, Response response) {
-//        String sort = request.queryParams(DataConfig.GLOBAL_SORT) != null ?
-//                request.queryParams(DataConfig.GLOBAL_SORT) : DataConfig.SORT_REPORT_CHILDREN;
-//
-//        int page = (request.queryParams(DataConfig.GLOBAL_PAGE) != null &&
-//                Integer.parseInt(request.queryParams(DataConfig.GLOBAL_PAGE)) > 0) ?
-//                Integer.parseInt(request.queryParams(DataConfig.GLOBAL_PAGE)) : 0;
-//
-//        page *= DataConfig.DB_MAX_ITEM_LIST_INT;
-//
-//
-//    }
+    /**
+     * Получить отчеты
+     */
+    public static String getReport(Request request, Response response) {
+        String sort = request.queryParams(DataConfig.GLOBAL_SORT) != null ?
+                request.queryParams(DataConfig.GLOBAL_SORT) : DataConfig.SORT_CHILDREN;
+
+        int page = (request.queryParams(DataConfig.GLOBAL_PAGE) != null &&
+                Integer.parseInt(request.queryParams(DataConfig.GLOBAL_PAGE)) > 0) ?
+                Integer.parseInt(request.queryParams(DataConfig.GLOBAL_PAGE)) : 0;
+
+        page *= DataConfig.DB_MAX_ITEM_LIST_INT;
+
+        try (Connection connection = DataBase.getDorm()) {
+            EnumSortReport sortReport = EnumSortReport.fromString(sort);
+            PreparedStatement statement = connection.prepareStatement(sortReport.selectSortedReport());
+
+            if (EnumSortReport.GENDER == sortReport) {
+                int genderId = request.queryParams(DataConfig.GLOBAL_SORT_GENDER_ID) != null ?
+                        Integer.parseInt(DataConfig.GLOBAL_SORT_GENDER_ID) : 1;
+                statement.setInt(1, genderId);
+                statement.setInt(2, page);
+            } else {
+                statement.setInt(1, page);
+            }
+
+            List<Report> reports = new ArrayList<>();
+            ResultSet result = statement.executeQuery();
+
+            while (result.next())
+                reports.add(new Report(result.getInt(DataConfig.DB_DORM_REPORT_ID),
+                        result.getLong(DataConfig.DB_DORM_REPORT_UIN),
+                        result.getString(DataConfig.DB_DORM_REPORT_ADDRESS),
+                        result.getString(DataConfig.DB_DORM_REPORT_PHONE),
+                        result.getInt(DataConfig.DB_DORM_REPORT_GENDER_ID),
+                        result.getInt(DataConfig.DB_DORM_ROOM_NUMBER),
+                        result.getInt(DataConfig.DB_DORM_FLOOR_DORM_ID),
+                        result.getString(DataConfig.DB_DORM_REPORT_DATE_CREATE),
+                        result.getString(DataConfig.DB_DORM_REPORT_DATE_UPDATE),
+                        result.getInt(DataConfig.DB_DORM_REPORT_CHILDREN),
+                        result.getString(DataConfig.DB_DORM_REPORT_DATE_RESIDENCE),
+                        result.getString(DataConfig.DB_DORM_NAME_F),
+                        result.getString(DataConfig.DB_DORM_NAME_L),
+                        result.getString(DataConfig.DB_DORM_PATRONYMIC),
+                        new Parent(result.getString(DataConfig.DB_DORM_PARENT_MOTHER_AS_NAME_F),
+                                result.getString(DataConfig.DB_DORM_PARENT_MOTHER_AS_NAME_L),
+                                result.getString(DataConfig.DB_DORM_PARENT_MOTHER_AS_PATRONYMIC),
+                                result.getString(DataConfig.DB_DORM_PARENT_MOTHER_AS_PHONE)),
+                        new Parent(result.getString(DataConfig.DB_DORM_PARENT_FATHER_AS_NAME_F),
+                                result.getString(DataConfig.DB_DORM_PARENT_FATHER_AS_NAME_L),
+                                result.getString(DataConfig.DB_DORM_PARENT_FATHER_AS_PATRONYMIC),
+                                result.getString(DataConfig.DB_DORM_PARENT_FATHER_AS_PHONE)),
+                        result.getInt(DataConfig.DB_DORM_REPORT_STATUS_ID)));
+
+            response.status(200);
+            return new Gson().toJson(reports);
+        } catch (Exception e) {
+            response.status(409);
+            return e.getMessage();
+        }
+    }
 
 
-//    /**
-//     * Получить заявления
-//     */
-//    public static String getRequest(Request request, Response response) {
-//
-//    }
+    /**
+     * Получить заявления
+     */
+    public static String getRequest(Request request, Response response) {
+        String sort = request.queryParams(DataConfig.GLOBAL_SORT) != null ?
+                request.queryParams(DataConfig.GLOBAL_SORT) : DataConfig.SORT_CHILDREN;
+
+        int page = (request.queryParams(DataConfig.GLOBAL_PAGE) != null &&
+                Integer.parseInt(request.queryParams(DataConfig.GLOBAL_PAGE)) > 0) ?
+                Integer.parseInt(request.queryParams(DataConfig.GLOBAL_PAGE)) : 0;
+
+        page *= DataConfig.DB_MAX_ITEM_LIST_INT;
+
+        try (Connection connection = DataBase.getDorm()) {
+            EnumSortRequest sortRequest = EnumSortRequest.fromString(sort);
+            PreparedStatement statement = connection.prepareStatement(sortRequest.selectSortedRequest());
+
+            if (EnumSortRequest.GENDER == sortRequest) {
+                int genderId = request.queryParams(DataConfig.GLOBAL_SORT_GENDER_ID) != null ?
+                        Integer.parseInt(DataConfig.GLOBAL_SORT_GENDER_ID) : 1;
+                statement.setInt(1, genderId);
+                statement.setInt(2, page);
+            } else {
+                statement.setInt(1, page);
+            }
+
+            List<kz.dorm.api.dorm.util.gson.Request> reports = new ArrayList<>();
+            ResultSet result = statement.executeQuery();
+
+            while (result.next())
+                reports.add(new kz.dorm.api.dorm.util.gson
+                        .Request(result.getInt(DataConfig.DB_DORM_REQUEST_ID),
+                        result.getLong(DataConfig.DB_DORM_REQUEST_UIN),
+                        result.getString(DataConfig.DB_DORM_REQUEST_ADDRESS),
+                        result.getString(DataConfig.DB_DORM_REQUEST_PHONE),
+                        result.getString(DataConfig.DB_DORM_REQUEST_GROUP),
+                        result.getInt(DataConfig.DB_DORM_REQUEST_GENDER_ID),
+                        result.getInt(DataConfig.DB_DORM_ROOM_NUMBER),
+                        result.getInt(DataConfig.DB_DORM_FLOOR_DORM_ID),
+                        result.getInt(DataConfig.DB_DORM_REQUEST_CHILDREN),
+                        result.getString(DataConfig.DB_DORM_REQUEST_DATE_RESIDENCE),
+                        result.getString(DataConfig.DB_DORM_NAME_F),
+                        result.getString(DataConfig.DB_DORM_NAME_L),
+                        result.getString(DataConfig.DB_DORM_PATRONYMIC),
+                        new Parent(result.getString(DataConfig.DB_DORM_PARENT_MOTHER_AS_NAME_F),
+                                result.getString(DataConfig.DB_DORM_PARENT_MOTHER_AS_NAME_L),
+                                result.getString(DataConfig.DB_DORM_PARENT_MOTHER_AS_PATRONYMIC),
+                                result.getString(DataConfig.DB_DORM_PARENT_MOTHER_AS_PHONE)),
+                        new Parent(result.getString(DataConfig.DB_DORM_PARENT_FATHER_AS_NAME_F),
+                                result.getString(DataConfig.DB_DORM_PARENT_FATHER_AS_NAME_L),
+                                result.getString(DataConfig.DB_DORM_PARENT_FATHER_AS_PATRONYMIC),
+                                result.getString(DataConfig.DB_DORM_PARENT_FATHER_AS_PHONE))));
+
+            response.status(200);
+            return new Gson().toJson(reports);
+        } catch (Exception e) {
+            response.status(409);
+            return HttpStatus.getCode(409).getMessage();
+        }
+    }
 
     /**
      * Найти названия в БД и записать в JSON.

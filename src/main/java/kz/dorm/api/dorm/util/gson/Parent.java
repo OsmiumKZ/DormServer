@@ -5,10 +5,6 @@ import kz.dorm.utils.DataConfig;
 
 public class Parent {
 
-    /* ID родителя */
-    @SerializedName(DataConfig.DB_DORM_PARENT_ID)
-    private final int id;
-
     /* Имя */
     @SerializedName(DataConfig.DB_DORM_NAME_F)
     private final String nameF;
@@ -25,8 +21,7 @@ public class Parent {
     @SerializedName(DataConfig.DB_DORM_PARENT_PHONE)
     private final String phone;
 
-    public Parent(int id, String nameF, String nameL, String patronymic, String phone) {
-        this.id = id;
+    public Parent(String nameF, String nameL, String patronymic, String phone) {
         this.nameF = nameF;
         this.nameL = nameL;
         this.patronymic = patronymic;

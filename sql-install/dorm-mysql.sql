@@ -87,6 +87,9 @@ CREATE TABLE `genders` (
 -- `date_residence` - Дата начала проживания.
 -- `parent_id_mother` - ID таблицы `parents` - Мама
 -- `parent_id_father` - ID таблицы `parents` - Папа
+-- `name_f` - Имя
+-- `name_l` - Фамилия
+-- `patronymic` - Отчество
 --
 CREATE TABLE `reports` (
 	`id` INT NOT NULL AUTO_INCREMENT,
@@ -102,6 +105,9 @@ CREATE TABLE `reports` (
 	`date_residence` DATE NOT NULL,
 	`parent_id_mother` INT NULL,
 	`parent_id_father` INT NULL,
+	`name_f_id` VARCHAR(40) NOT NULL,
+	`name_l_id` VARCHAR(40) NOT NULL,
+	`patronymic_id` VARCHAR(40) NULL,
 	PRIMARY KEY (`id`)) 
 	ENGINE = InnoDB
 	DEFAULT CHARACTER SET = utf8;
@@ -447,7 +453,7 @@ LEFT JOIN
 	INNER JOIN `name_f`
 	ON `parents`.`name_f_id`=`name_f`.`id`
 	INNER JOIN `name_l`
-	ON `parents`.`name_l_id`=`name_l`.`id`
+	ON `parents`.`name_l_id`=`name_l`.`id`patronymic
 	LEFT JOIN `patronymic`
 	ON `parents`.`patronymic_id`=`patronymic`.`id`)
 	AS `father`

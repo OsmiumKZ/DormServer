@@ -7,22 +7,18 @@ public class DataConfig {
     public static final String DB_MAX_ITEM_LIST_STRING = "LIMIT ?, " + DB_MAX_ITEM_LIST_INT;
     public static final String GLOBAL_SORT = "sort";
     public static final String GLOBAL_PAGE = "page";
+    public static final String GLOBAL_SORT_GENDER_ID = "sort_gender_id";
 
     public static final String GLOBAL_SEARCH_NAME = "names";
     public static final String GLOBAL_SEARCH_NAME_TEXT = "text";
     public static final String GLOBAL_SEARCH_NAME_TYPE = "type";
 
-    public static final String SORT_REQUEST_GENDER = "gender";
-    public static final String SORT_REQUEST_CHILDREN = "children";
-    public static final String SORT_REQUEST_DORMS = "dorms";
-    public static final String SORT_REQUEST_DATE_CREATE = "date_create";
-
-    public static final String SORT_REPORT_GENDER = "gender";
-    public static final String SORT_REPORT_CHILDREN = "children";
-    public static final String SORT_REPORT_DORMS = "dorms";
-    public static final String SORT_REPORT_DATE_CREATE = "date_create";
-    public static final String SORT_REPORT_DATE_UPDATE = "date_update";
-    public static final String SORT_REPORT_STATUS = "status";
+    public static final String SORT_GENDER = "gender";
+    public static final String SORT_CHILDREN = "children";
+    public static final String SORT_DORMS = "dorms";
+    public static final String SORT_DATE_CREATE = "date_create";
+    public static final String SORT_DATE_UPDATE = "date_update";
+    public static final String SORT_STATUS = "status";
 
     public static final String DB_DORM_DORM = "dorms";
     public static final String DB_DORM_DORM_ID = "id";

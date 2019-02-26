@@ -36,11 +36,9 @@ public class DormAPI {
              */
             get("/db", (request, response) -> {
                 if (DomainHTTP.getDorm(request.host())) {
-
                     return DormGET.getDB(response);
                 } else {
                     response.status(404);
-
                     return HttpStatus.getCode(404).getMessage();
                 }
             });
@@ -54,11 +52,9 @@ public class DormAPI {
              */
             get("/auth", (request, response) -> {
                 if (DomainHTTP.getDorm(request.host())) {
-
                     return DormGET.auth(request, response);
                 } else {
                     response.status(404);
-
                     return HttpStatus.getCode(404).getMessage();
                 }
             });
@@ -71,11 +67,9 @@ public class DormAPI {
              */
             get("/room", (request, response) -> {
                 if (DomainHTTP.getDorm(request.host())) {
-
                     return DormGET.getRooms(request, response);
                 } else {
                     response.status(404);
-
                     return HttpStatus.getCode(404).getMessage();
                 }
             });
@@ -91,11 +85,59 @@ public class DormAPI {
              */
             get("/search/name", (request, response) -> {
                 if (DomainHTTP.getDorm(request.host())) {
-
                     return DormGET.searchName(request, response);
                 } else {
                     response.status(404);
+                    return HttpStatus.getCode(404).getMessage();
+                }
+            });
 
+            /** {Not Javadoc}
+             * Получить отчеты
+             *
+             * http://localhost/api/report ?
+             * & {@link DataConfig#GLOBAL_SORT} = Критерий сортирования данных ({@link DataConfig#SORT_GENDER},
+             *                                                                  {@link DataConfig#SORT_CHILDREN},
+             *                                                                  {@link DataConfig#SORT_DATE_CREATE},
+             *                                                                  {@link DataConfig#SORT_DATE_UPDATE},
+             *                                                                  {@link DataConfig#SORT_DORMS},
+             *                                                                  {@link DataConfig#SORT_STATUS}).
+             * & {@link DataConfig#GLOBAL_PAGE} = С какой страницы начать получать данные.
+             * & {@link DataConfig#GLOBAL_SORT_GENDER_ID} = ID гендера.
+             */
+            get("/report", (request, response) -> {
+                if (DomainHTTP.getDorm(request.host())) {
+                    if (Token.getInstance().checkToken(request.headers(DataConfig.GLOBAL_TOKEN))){
+                        return DormGET.getReport(request, response);
+                    } else {
+                        response.status(401);
+                        return HttpStatus.getCode(401).getMessage();
+                    }
+                } else {
+                    response.status(404);
+                    return HttpStatus.getCode(404).getMessage();
+                }
+            });
+
+            /** {Not Javadoc}
+             * Получить заявления
+             *
+             * http://localhost/api/request ?
+             * & {@link DataConfig#GLOBAL_SEARCH_NAME_TYPE} = Название таблицы ({@link DataConfig#DB_DORM_PATRONYMIC},
+             *                                                                  {@link DataConfig#DB_DORM_NAME_L},
+             *                                                                  {@link DataConfig#DB_DORM_NAME_F}).
+             * & {@link DataConfig#GLOBAL_SEARCH_NAME_TEXT} = Текст для поиска названий.
+             */
+            get("/request", (request, response) -> {
+                if (DomainHTTP.getDorm(request.host())) {
+                    if (Token.getInstance().checkToken(request.headers(DataConfig.GLOBAL_TOKEN))){
+                        return DormGET.getRequest(request, response);
+                    } else {
+                        response.status(401);
+                        return HttpStatus.getCode(401).getMessage();
+                    }
+                } else {
+                    response.status(404);
                     return HttpStatus.getCode(404).getMessage();
                 }
             });
@@ -130,12 +172,10 @@ public class DormAPI {
                         return DormPOST.addReport(request, response);
                     } else {
                         response.status(401);
-
                         return HttpStatus.getCode(401).getMessage();
                     }
                 } else {
                     response.status(404);
-
                     return HttpStatus.getCode(404).getMessage();
                 }
             });
@@ -158,11 +198,9 @@ public class DormAPI {
              */
             post("/request", (request, response) -> {
                 if (DomainHTTP.getDorm(request.host())) {
-
                     return DormPOST.addRequest(request, response);
                 } else {
                     response.status(404);
-
                     return HttpStatus.getCode(404).getMessage();
                 }
             });
@@ -188,12 +226,10 @@ public class DormAPI {
                         return DormPUT.updateStatus(request, response);
                     } else {
                         response.status(401);
-
                         return HttpStatus.getCode(401).getMessage();
                     }
                 } else {
                     response.status(404);
-
                     return HttpStatus.getCode(404).getMessage();
                 }
             });
@@ -218,12 +254,10 @@ public class DormAPI {
                         return DormDELETE.deleteRequest(request, response);
                     } else {
                         response.status(401);
-
                         return HttpStatus.getCode(401).getMessage();
                     }
                 } else {
                     response.status(404);
-
                     return HttpStatus.getCode(404).getMessage();
                 }
             });

@@ -3,51 +3,51 @@ package kz.dorm.api.dorm.util.statement.sort;
 import kz.dorm.utils.DataConfig;
 
 public enum EnumSortReport {
-    GENDER(DataConfig.SORT_REPORT_GENDER) {
+    GENDER(DataConfig.SORT_GENDER) {
         @Override
         public String selectSortedReport() {
             return selectReport() +
-                    "WHERE `" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_REPORT_GENDER_ID + "`=?" +
+                    "WHERE `" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_REPORT_GENDER_ID + "`=?\n" +
                     DataConfig.DB_MAX_ITEM_LIST_STRING;
         }
     },
-    CHILDREN(DataConfig.SORT_REPORT_CHILDREN) {
+    CHILDREN(DataConfig.SORT_CHILDREN) {
         @Override
         public String selectSortedReport() {
             return selectReport() +
-                    "ORDER BY `" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_REPORT_CHILDREN + "` DESC" +
+                    "ORDER BY `" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_REPORT_CHILDREN + "` DESC\n" +
                     DataConfig.DB_MAX_ITEM_LIST_STRING;
         }
     },
-    DORMS(DataConfig.SORT_REPORT_DORMS) {
+    DORMS(DataConfig.SORT_DORMS) {
         @Override
         public String selectSortedReport() {
             return selectReport() +
-                    "ORDER BY `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_FLOOR_DORM_ID + "`" +
+                    "ORDER BY `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_FLOOR_DORM_ID + "`\n" +
                     DataConfig.DB_MAX_ITEM_LIST_STRING;
         }
     },
-    DATE_CREATE(DataConfig.SORT_REPORT_DATE_CREATE) {
+    DATE_CREATE(DataConfig.SORT_DATE_CREATE) {
         @Override
         public String selectSortedReport() {
             return selectReport() +
-                    "ORDER BY `" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_REPORT_DATE_CREATE + "` DESC" +
+                    "ORDER BY `" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_REPORT_DATE_CREATE + "` DESC\n" +
                     DataConfig.DB_MAX_ITEM_LIST_STRING;
         }
     },
-    DATE_UPDATE(DataConfig.SORT_REPORT_DATE_UPDATE) {
+    DATE_UPDATE(DataConfig.SORT_DATE_UPDATE) {
         @Override
         public String selectSortedReport() {
             return selectReport() +
-                    "ORDER BY `" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_REPORT_DATE_UPDATE + "` DESC" +
+                    "ORDER BY `" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_REPORT_DATE_UPDATE + "` DESC\n" +
                     DataConfig.DB_MAX_ITEM_LIST_STRING;
         }
     },
-    STATUS(DataConfig.SORT_REPORT_STATUS) {
+    STATUS(DataConfig.SORT_STATUS) {
         @Override
         public String selectSortedReport() {
             return selectReport() +
-                    "ORDER BY `" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_REPORT_STATUS_ID + "`" +
+                    "ORDER BY `" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_REPORT_STATUS_ID + "`\n" +
                     DataConfig.DB_MAX_ITEM_LIST_STRING;
         }
     };
@@ -60,10 +60,15 @@ public enum EnumSortReport {
     }
 
     /**
-     * Получить значение параметра
+     * Получить тип
      */
-    public String getParameter() {
-        return parameter;
+    public static EnumSortReport fromString(String text) {
+        for (EnumSortReport b : EnumSortReport.values()) {
+            if (b.parameter.equalsIgnoreCase(text)) {
+                return b;
+            }
+        }
+        return CHILDREN;
     }
 
     /**
@@ -125,7 +130,7 @@ public enum EnumSortReport {
                 "\t\t\tAS `" + DataConfig.DB_DORM_PARENT_MOTHER_AS_PATRONYMIC + "`\n" +
                 "\tFROM `" + DataConfig.DB_DORM_PARENT + "`\n" +
                 "\tINNER JOIN `" + DataConfig.DB_DORM_NAME_F + "`\n" +
-                "\tON `" + DataConfig.DB_DORM_PARENT + "`.`" + DataConfig.DB_DORM_PARENT_NAME_F_ID + "`=`" + DataConfig.DB_DORM_NAME_F_ID + "`.`" + DataConfig.DB_DORM_NAME_F_ID + "`\n" +
+                "\tON `" + DataConfig.DB_DORM_PARENT + "`.`" + DataConfig.DB_DORM_PARENT_NAME_F_ID + "`=`" + DataConfig.DB_DORM_NAME_F + "`.`" + DataConfig.DB_DORM_NAME_F_ID + "`\n" +
                 "\tINNER JOIN `" + DataConfig.DB_DORM_NAME_L + "`\n" +
                 "\tON `" + DataConfig.DB_DORM_PARENT + "`.`" + DataConfig.DB_DORM_PARENT_NAME_L_ID + "`=`" + DataConfig.DB_DORM_NAME_L + "`.`" + DataConfig.DB_DORM_NAME_L_ID + "`\n" +
                 "\tLEFT JOIN `" + DataConfig.DB_DORM_PATRONYMIC + "`\n" +
@@ -145,13 +150,13 @@ public enum EnumSortReport {
                 "\t\t\tAS `" + DataConfig.DB_DORM_PARENT_FATHER_AS_PATRONYMIC + "`\n" +
                 "\tFROM `" + DataConfig.DB_DORM_PARENT + "`\n" +
                 "\tINNER JOIN `" + DataConfig.DB_DORM_NAME_F + "`\n" +
-                "\tON `" + DataConfig.DB_DORM_PARENT + "`.`" + DataConfig.DB_DORM_PARENT_NAME_F_ID + "`=`" + DataConfig.DB_DORM_NAME_F_ID + "`.`" + DataConfig.DB_DORM_NAME_F_ID + "`\n" +
+                "\tON `" + DataConfig.DB_DORM_PARENT + "`.`" + DataConfig.DB_DORM_PARENT_NAME_F_ID + "`=`" + DataConfig.DB_DORM_NAME_F + "`.`" + DataConfig.DB_DORM_NAME_F_ID + "`\n" +
                 "\tINNER JOIN `" + DataConfig.DB_DORM_NAME_L + "`\n" +
                 "\tON `" + DataConfig.DB_DORM_PARENT + "`.`" + DataConfig.DB_DORM_PARENT_NAME_L_ID + "`=`" + DataConfig.DB_DORM_NAME_L + "`.`" + DataConfig.DB_DORM_NAME_L_ID + "`\n" +
                 "\tLEFT JOIN `" + DataConfig.DB_DORM_PATRONYMIC + "`\n" +
                 "\tON `" + DataConfig.DB_DORM_PARENT + "`.`" + DataConfig.DB_DORM_PARENT_PATRONYMIC_ID + "`=`" + DataConfig.DB_DORM_PATRONYMIC + "`.`" + DataConfig.DB_DORM_PATRONYMIC_ID + "`)\n" +
                 "\tAS `" + DataConfig.DB_DORM_REPORT_AS_FATHER + "`\n" +
-                "ON `" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_REPORT_PARENT_ID_FATHER + "`=`" + DataConfig.DB_DORM_REPORT_AS_FATHER + "`.`" + DataConfig.DB_DORM_PARENT_FATHER_AS_ID + "`";
+                "ON `" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_REPORT_PARENT_ID_FATHER + "`=`" + DataConfig.DB_DORM_REPORT_AS_FATHER + "`.`" + DataConfig.DB_DORM_PARENT_FATHER_AS_ID + "`\n";
     }
 
     /**
