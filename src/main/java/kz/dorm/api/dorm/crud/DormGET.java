@@ -215,7 +215,7 @@ public class DormGET {
 
             if (EnumSortReport.GENDER == sortReport) {
                 int genderId = request.queryParams(DataConfig.GLOBAL_SORT_GENDER_ID) != null ?
-                        Integer.parseInt(DataConfig.GLOBAL_SORT_GENDER_ID) : 1;
+                        Integer.parseInt(request.queryParams(DataConfig.GLOBAL_SORT_GENDER_ID)) : 1;
                 statement.setInt(1, genderId);
                 statement.setInt(2, page);
             } else {
@@ -278,7 +278,7 @@ public class DormGET {
 
             if (EnumSortRequest.GENDER == sortRequest) {
                 int genderId = request.queryParams(DataConfig.GLOBAL_SORT_GENDER_ID) != null ?
-                        Integer.parseInt(DataConfig.GLOBAL_SORT_GENDER_ID) : 1;
+                        Integer.parseInt(request.queryParams(DataConfig.GLOBAL_SORT_GENDER_ID)) : 1;
                 statement.setInt(1, genderId);
                 statement.setInt(2, page);
             } else {
