@@ -194,6 +194,30 @@ public class DormGET {
         }
     }
 
+//    /**
+//     * Получить отчеты
+//     */
+//    public static String getReport(Request request, Response response) {
+//        String sort = request.queryParams(DataConfig.GLOBAL_SORT) != null ?
+//                request.queryParams(DataConfig.GLOBAL_SORT) : DataConfig.SORT_REPORT_CHILDREN;
+//
+//        int page = (request.queryParams(DataConfig.GLOBAL_PAGE) != null &&
+//                Integer.parseInt(request.queryParams(DataConfig.GLOBAL_PAGE)) > 0) ?
+//                Integer.parseInt(request.queryParams(DataConfig.GLOBAL_PAGE)) : 0;
+//
+//        page *= DataConfig.DB_MAX_ITEM_LIST_INT;
+//
+//
+//    }
+
+
+//    /**
+//     * Получить заявления
+//     */
+//    public static String getRequest(Request request, Response response) {
+//
+//    }
+
     /**
      * Найти названия в БД и записать в JSON.
      */

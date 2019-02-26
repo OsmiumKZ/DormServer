@@ -101,6 +101,8 @@ public class DormPOST {
                 request.queryParams(DataConfig.DB_DORM_REQUEST_DATE_RESIDENCE) != null &&
                 request.queryParams(DataConfig.DB_DORM_REQUEST_GROUP) != null &&
                 request.queryParams(DataConfig.DB_DORM_REQUEST_GENDER_ID) != null) {
+            String date = DateText.getDateText(new Date(System.currentTimeMillis()));
+
             try (Connection connection = DataBase.getDorm()) {
                 if (ControlWrite.isCheckRoom(connection,
                         Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REQUEST_ROOM_ID)),
@@ -123,7 +125,8 @@ public class DormPOST {
                     statement.setInt(10, ControlWrite.writeParent(connection, request.headers(DataConfig.DB_DORM_REQUEST_AS_MOTHER)));
                     statement.setInt(11, ControlWrite.writeParent(connection, request.headers(DataConfig.DB_DORM_REQUEST_AS_FATHER)));
                     statement.setInt(12, Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REQUEST_CHILDREN)));
-                    statement.setString(13, request.queryParams(DataConfig.DB_DORM_REQUEST_DATE_RESIDENCE));
+                    statement.setString(13, date);
+                    statement.setString(14, request.queryParams(DataConfig.DB_DORM_REQUEST_DATE_RESIDENCE));
 
                     if (request.queryParams(DataConfig.DB_DORM_PATRONYMIC) != null)
                         statement.setInt(3, ControlWrite.writePatronymic(connection, request.queryParams(DataConfig.DB_DORM_PATRONYMIC)));

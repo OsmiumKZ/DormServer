@@ -292,6 +292,16 @@ SELECT `requests`.`id`,
 	`rooms`.`number`,
 	`rooms`.`dorm_id`,
 	`requests`.`children`,
+	`mother`.`parent_id_mother`,
+	`mother`.`parent_phone_mother`,
+	`mother`.`parent_name_f_mother`,
+	`mother`.`parent_name_l_mother`,
+	`mother`.`parent_patronymic_mother`,
+	`father`.`parent_id_father`,
+	`father`.`parent_phone_father`,
+	`father`.`parent_name_f_father`,
+	`father`.`parent_name_l_father`,
+	`father`.`parent_patronymic_father`,
 	`requests`.`date_residence`,
 	`name_f`.`name`
 		AS `name_f`, 
@@ -304,7 +314,7 @@ INNER JOIN `name_f`
 ON `requests`.`name_f_id`=`name_f`.`id`
 INNER JOIN `name_l`
 ON `requests`.`name_l_id`=`name_l`.`id`
-INNER JOIN `patronymic`
+LEFT JOIN `patronymic`
 ON `requests`.`patronymic_id`=`patronymic`.`id`
 INNER JOIN 
 	(SELECT `rooms`.`id`, 
@@ -315,6 +325,46 @@ INNER JOIN
 	ON `rooms`.`floor_id`=`floors`.`id`)
 	AS `rooms`
 ON `requests`.`room_id`=`rooms`.`id`
+LEFT JOIN 
+	(SELECT `parents`.`id`
+			AS `parent_id_mother`,
+		`parents`.`phone`
+			AS `parent_phone_mother`,
+		`name_f`.`name`
+			AS `parent_name_f_mother`,
+		`name_l`.`name`
+			AS `parent_name_l_mother`,
+		`patronymic`.`name`
+			AS `parent_patronymic_mother`
+	FROM `parents`
+	INNER JOIN `name_f`
+	ON `parents`.`name_f_id`=`name_f`.`id`
+	INNER JOIN `name_l`
+	ON `parents`.`name_l_id`=`name_l`.`id`
+	LEFT JOIN `patronymic`
+	ON `parents`.`patronymic_id`=`patronymic`.`id`)
+	AS `mother`
+ON `requests`.`parent_id_mother`=`mother`.`parent_id_mother`
+LEFT JOIN 
+	(SELECT `parents`.`id`
+			AS `parent_id_father`,
+		`parents`.`phone`
+			AS `parent_phone_father`,
+		`name_f`.`name`
+			AS `parent_name_f_father`,
+		`name_l`.`name`
+			AS `parent_name_l_father`,
+		`patronymic`.`name`
+			AS `parent_patronymic_father`
+	FROM `parents`
+	INNER JOIN `name_f`
+	ON `parents`.`name_f_id`=`name_f`.`id`
+	INNER JOIN `name_l`
+	ON `parents`.`name_l_id`=`name_l`.`id`
+	LEFT JOIN `patronymic`
+	ON `parents`.`patronymic_id`=`patronymic`.`id`)
+	AS `father`
+ON `requests`.`parent_id_father`=`father`.`parent_id_father`
 
 
 
@@ -325,11 +375,22 @@ SELECT `reports`.`id`,
 	`reports`.`address`,
 	`reports`.`phone`,
 	`reports`.`gender_id`,
+	`reports`.`status_id`,
 	`rooms`.`number`,
 	`rooms`.`dorm_id`,
 	`reports`.`date_create`,
 	`reports`.`date_update`,
 	`reports`.`children`,
+	`mother`.`parent_id_mother`,
+	`mother`.`parent_phone_mother`,
+	`mother`.`parent_name_f_mother`,
+	`mother`.`parent_name_l_mother`,
+	`mother`.`parent_patronymic_mother`,
+	`father`.`parent_id_father`,
+	`father`.`parent_phone_father`,
+	`father`.`parent_name_f_father`,
+	`father`.`parent_name_l_father`,
+	`father`.`parent_patronymic_father`,
 	`reports`.`date_residence`,
 	`name_f`.`name`
 		AS `name_f`, 
@@ -351,6 +412,46 @@ INNER JOIN
 	ON `rooms`.`floor_id`=`floors`.`id`)
 	AS `rooms`
 ON `reports`.`room_id`=`rooms`.`id`
+LEFT JOIN 
+	(SELECT `parents`.`id`
+			AS `parent_id_mother`,
+		`parents`.`phone`
+			AS `parent_phone_mother`,
+		`name_f`.`name`
+			AS `parent_name_f_mother`,
+		`name_l`.`name`
+			AS `parent_name_l_mother`,
+		`patronymic`.`name`
+			AS `parent_patronymic_mother`
+	FROM `parents`
+	INNER JOIN `name_f`
+	ON `parents`.`name_f_id`=`name_f`.`id`
+	INNER JOIN `name_l`
+	ON `parents`.`name_l_id`=`name_l`.`id`
+	LEFT JOIN `patronymic`
+	ON `parents`.`patronymic_id`=`patronymic`.`id`)
+	AS `mother`
+ON `reports`.`parent_id_mother`=`mother`.`parent_id_mother`
+LEFT JOIN 
+	(SELECT `parents`.`id`
+			AS `parent_id_father`,
+		`parents`.`phone`
+			AS `parent_phone_father`,
+		`name_f`.`name`
+			AS `parent_name_f_father`,
+		`name_l`.`name`
+			AS `parent_name_l_father`,
+		`patronymic`.`name`
+			AS `parent_patronymic_father`
+	FROM `parents`
+	INNER JOIN `name_f`
+	ON `parents`.`name_f_id`=`name_f`.`id`
+	INNER JOIN `name_l`
+	ON `parents`.`name_l_id`=`name_l`.`id`
+	LEFT JOIN `patronymic`
+	ON `parents`.`patronymic_id`=`patronymic`.`id`)
+	AS `father`
+ON `reports`.`parent_id_father`=`father`.`parent_id_father`
 
 
 

@@ -3,10 +3,26 @@ package kz.dorm.utils;
 public class DataConfig {
     public static final String GLOBAL_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
     public static final String GLOBAL_TOKEN = "token";
+    public static final int DB_MAX_ITEM_LIST_INT = 30;
+    public static final String DB_MAX_ITEM_LIST_STRING = "LIMIT ?, " + DB_MAX_ITEM_LIST_INT;
+    public static final String GLOBAL_SORT = "sort";
+    public static final String GLOBAL_PAGE = "page";
 
     public static final String GLOBAL_SEARCH_NAME = "names";
     public static final String GLOBAL_SEARCH_NAME_TEXT = "text";
     public static final String GLOBAL_SEARCH_NAME_TYPE = "type";
+
+    public static final String SORT_REQUEST_GENDER = "gender";
+    public static final String SORT_REQUEST_CHILDREN = "children";
+    public static final String SORT_REQUEST_DORMS = "dorms";
+    public static final String SORT_REQUEST_DATE_CREATE = "date_create";
+
+    public static final String SORT_REPORT_GENDER = "gender";
+    public static final String SORT_REPORT_CHILDREN = "children";
+    public static final String SORT_REPORT_DORMS = "dorms";
+    public static final String SORT_REPORT_DATE_CREATE = "date_create";
+    public static final String SORT_REPORT_DATE_UPDATE = "date_update";
+    public static final String SORT_REPORT_STATUS = "status";
 
     public static final String DB_DORM_DORM = "dorms";
     public static final String DB_DORM_DORM_ID = "id";
@@ -59,6 +75,7 @@ public class DataConfig {
     public static final String DB_DORM_REQUEST_PARENT_ID_FATHER = "parent_id_father";
     public static final String DB_DORM_REQUEST_CHILDREN = "children";
     public static final String DB_DORM_REQUEST_DATE_RESIDENCE = "date_residence";
+    public static final String DB_DORM_REQUEST_DATE_CREATE = "date_create";
     public static final String DB_DORM_REQUEST_AS_MOTHER= "mother";
     public static final String DB_DORM_REQUEST_AS_FATHER= "father";
 
@@ -100,4 +117,14 @@ public class DataConfig {
     public static final String DB_DORM_PARENT_NAME_L_ID = "name_l_id";
     public static final String DB_DORM_PARENT_PATRONYMIC_ID = "patronymic_id";
     public static final String DB_DORM_PARENT_PHONE = "phone";
+    public static final String DB_DORM_PARENT_MOTHER_AS_ID = "parent_id_mother";
+    public static final String DB_DORM_PARENT_MOTHER_AS_PHONE = "parent_phone_mother";
+    public static final String DB_DORM_PARENT_MOTHER_AS_NAME_F = "parent_name_f_mother";
+    public static final String DB_DORM_PARENT_MOTHER_AS_NAME_L = "parent_name_l_mother";
+    public static final String DB_DORM_PARENT_MOTHER_AS_PATRONYMIC = "parent_patronymic_mother";
+    public static final String DB_DORM_PARENT_FATHER_AS_ID = "parent_id_father";
+    public static final String DB_DORM_PARENT_FATHER_AS_PHONE = "parent_phone_father";
+    public static final String DB_DORM_PARENT_FATHER_AS_NAME_F = "parent_name_f_father";
+    public static final String DB_DORM_PARENT_FATHER_AS_NAME_L = "parent_name_l_father";
+    public static final String DB_DORM_PARENT_FATHER_AS_PATRONYMIC = "parent_patronymic_father";
 }
