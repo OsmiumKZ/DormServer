@@ -453,7 +453,7 @@ LEFT JOIN
 	INNER JOIN `name_f`
 	ON `parents`.`name_f_id`=`name_f`.`id`
 	INNER JOIN `name_l`
-	ON `parents`.`name_l_id`=`name_l`.`id`patronymic
+	ON `parents`.`name_l_id`=`name_l`.`id`
 	LEFT JOIN `patronymic`
 	ON `parents`.`patronymic_id`=`patronymic`.`id`)
 	AS `father`
