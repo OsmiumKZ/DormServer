@@ -279,358 +279,67 @@ CREATE TABLE `patronymic` (
 	
 	
 	
-
 	
-	
-	
-	
-	
-	
-	Заявки
-	
-	
-SELECT `requests`.`id`,
-	`requests`.`uin`,
-	`requests`.`address`,
-	`requests`.`phone`,
-	`requests`.`group`,
-	`requests`.`gender_id`,
-	`rooms`.`number`,
-	`rooms`.`dorm_id`,
-	`requests`.`children`,
-	`mother`.`parent_id_mother`,
-	`mother`.`parent_phone_mother`,
-	`mother`.`parent_name_f_mother`,
-	`mother`.`parent_name_l_mother`,
-	`mother`.`parent_patronymic_mother`,
-	`father`.`parent_id_father`,
-	`father`.`parent_phone_father`,
-	`father`.`parent_name_f_father`,
-	`father`.`parent_name_l_father`,
-	`father`.`parent_patronymic_father`,
-	`requests`.`date_residence`,
-	`name_f`.`name`
-		AS `name_f`, 
-	`name_l`.`name`
-		AS `name_l`, 
-	`patronymic`.`name`
-		AS `patronymic`
-FROM `requests`
-INNER JOIN `name_f`
-ON `requests`.`name_f_id`=`name_f`.`id`
-INNER JOIN `name_l`
-ON `requests`.`name_l_id`=`name_l`.`id`
-LEFT JOIN `patronymic`
-ON `requests`.`patronymic_id`=`patronymic`.`id`
-INNER JOIN 
-	(SELECT `rooms`.`id`, 
-		`rooms`.`number`, 
-		`floors`.`dorm_id`
-	FROM `rooms`
-	INNER JOIN `floors`
-	ON `rooms`.`floor_id`=`floors`.`id`)
-	AS `rooms`
-ON `requests`.`room_id`=`rooms`.`id`
-LEFT JOIN 
-	(SELECT `parents`.`id`
-			AS `parent_id_mother`,
-		`parents`.`phone`
-			AS `parent_phone_mother`,
-		`name_f`.`name`
-			AS `parent_name_f_mother`,
-		`name_l`.`name`
-			AS `parent_name_l_mother`,
-		`patronymic`.`name`
-			AS `parent_patronymic_mother`
-	FROM `parents`
-	INNER JOIN `name_f`
-	ON `parents`.`name_f_id`=`name_f`.`id`
-	INNER JOIN `name_l`
-	ON `parents`.`name_l_id`=`name_l`.`id`
-	LEFT JOIN `patronymic`
-	ON `parents`.`patronymic_id`=`patronymic`.`id`)
-	AS `mother`
-ON `requests`.`parent_id_mother`=`mother`.`parent_id_mother`
-LEFT JOIN 
-	(SELECT `parents`.`id`
-			AS `parent_id_father`,
-		`parents`.`phone`
-			AS `parent_phone_father`,
-		`name_f`.`name`
-			AS `parent_name_f_father`,
-		`name_l`.`name`
-			AS `parent_name_l_father`,
-		`patronymic`.`name`
-			AS `parent_patronymic_father`
-	FROM `parents`
-	INNER JOIN `name_f`
-	ON `parents`.`name_f_id`=`name_f`.`id`
-	INNER JOIN `name_l`
-	ON `parents`.`name_l_id`=`name_l`.`id`
-	LEFT JOIN `patronymic`
-	ON `parents`.`patronymic_id`=`patronymic`.`id`)
-	AS `father`
-ON `requests`.`parent_id_father`=`father`.`parent_id_father`
-
-
-
-Отчеты
-
-SELECT `reports`.`id`,
-	`reports`.`uin`,
-	`reports`.`address`,
-	`reports`.`phone`,
-	`reports`.`gender_id`,
-	`reports`.`status_id`,
-	`rooms`.`number`,
-	`rooms`.`dorm_id`,
-	`reports`.`date_create`,
-	`reports`.`date_update`,
-	`reports`.`children`,
-	`mother`.`parent_id_mother`,
-	`mother`.`parent_phone_mother`,
-	`mother`.`parent_name_f_mother`,
-	`mother`.`parent_name_l_mother`,
-	`mother`.`parent_patronymic_mother`,
-	`father`.`parent_id_father`,
-	`father`.`parent_phone_father`,
-	`father`.`parent_name_f_father`,
-	`father`.`parent_name_l_father`,
-	`father`.`parent_patronymic_father`,
-	`reports`.`date_residence`,
-	`name_f`.`name`
-		AS `name_f`, 
-	`name_l`.`name`
-		AS `name_l`, 
-	`patronymic`.`name`
-		AS `patronymic`
-FROM `reports`
-INNER JOIN `name_f`
-ON `reports`.`name_f_id`=`name_f`.`id`
-INNER JOIN `name_l`
-ON `reports`.`name_l_id`=`name_l`.`id`
-INNER JOIN `patronymic`
-ON `reports`.`patronymic_id`=`patronymic`.`id`
-INNER JOIN 
-	(SELECT `rooms`.`id`, `rooms`.`number`, `floors`.`dorm_id`
-	FROM `rooms`
-	INNER JOIN `floors`
-	ON `rooms`.`floor_id`=`floors`.`id`)
-	AS `rooms`
-ON `reports`.`room_id`=`rooms`.`id`
-LEFT JOIN 
-	(SELECT `parents`.`id`
-			AS `parent_id_mother`,
-		`parents`.`phone`
-			AS `parent_phone_mother`,
-		`name_f`.`name`
-			AS `parent_name_f_mother`,
-		`name_l`.`name`
-			AS `parent_name_l_mother`,
-		`patronymic`.`name`
-			AS `parent_patronymic_mother`
-	FROM `parents`
-	INNER JOIN `name_f`
-	ON `parents`.`name_f_id`=`name_f`.`id`
-	INNER JOIN `name_l`
-	ON `parents`.`name_l_id`=`name_l`.`id`
-	LEFT JOIN `patronymic`
-	ON `parents`.`patronymic_id`=`patronymic`.`id`)
-	AS `mother`
-ON `reports`.`parent_id_mother`=`mother`.`parent_id_mother`
-LEFT JOIN 
-	(SELECT `parents`.`id`
-			AS `parent_id_father`,
-		`parents`.`phone`
-			AS `parent_phone_father`,
-		`name_f`.`name`
-			AS `parent_name_f_father`,
-		`name_l`.`name`
-			AS `parent_name_l_father`,
-		`patronymic`.`name`
-			AS `parent_patronymic_father`
-	FROM `parents`
-	INNER JOIN `name_f`
-	ON `parents`.`name_f_id`=`name_f`.`id`
-	INNER JOIN `name_l`
-	ON `parents`.`name_l_id`=`name_l`.`id`
-	LEFT JOIN `patronymic`
-	ON `parents`.`patronymic_id`=`patronymic`.`id`)
-	AS `father`
-ON `reports`.`parent_id_father`=`father`.`parent_id_father`
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-SELECT `rooms`.`id`, `rooms`.`number`, `rooms`.`max`, `rooms`.`floor_id`, `rooms`.`amount` 
-FROM `floors`
-INNER JOIN 
-	(SELECT `rooms`.`id`, `rooms`.`number`, `rooms`.`max`, `rooms`.`floor_id`, 
-		IF(`reports`.`amount` IS NULL, 0, `reports`.`amount`) 
-		AS `amount`
-	FROM `rooms`
-	LEFT JOIN 
-		(SELECT `reports`.`room_id`, COUNT(`status`.`active`) 
-		AS `amount` 
-		FROM `reports`
-		LEFT JOIN 
-			(SELECT `status`.`id`, `status`.`active` 
-			FROM `status`
-			WHERE `status`.`active`=1)
-		AS `status` 
-		ON `reports`.`status_id`=`status`.`id`
-		GROUP BY `reports`.`room_id`)
-	AS `reports` 
-	ON `rooms`.`id`=`reports`.`room_id`)
-AS `rooms` 
-ON `floors`.`id`=`rooms`.`floor_id`
-WHERE `floors`.`number`=2 AND `floors`.`dorm_id`=1
-
-
-
-
-
-
-
-SELECT `requests`.`uin` 
-FROM `requests`
-WHERE `requests`.`uin`=?
-UNION
-SELECT `reports`.`uin` 
-FROM `reports`
-INNER JOIN 
-	(SELECT *
-	FROM `status`
-	WHERE `status`.`active`=1)
-AS `status`
-ON `reports`.`status_id`=`status`.`id`
-WHERE `reports`.`uin`=?
-
-
-
-SELECT * 
+SELECT SUM(`statistic`.`accepted_requests`) 
+		AS `accepted_requests`,
+	SUM(`statistic`.`curr_live`) 
+		AS `curr_live`,
+	SUM(`statistic`.`free_rooms`) 
+		AS `free_rooms` 
 FROM 
-	(SELECT `rooms`.`id`, `rooms`.`max`,
-		IF(`reports`.`gender_id` IS NULL, 0, `reports`.`gender_id`)
-			AS `gender_id`,
-		IF(`reports`.`amount` IS NULL, 0, `reports`.`amount`) 
-			AS `amount`
-	FROM `rooms`
-	LEFT JOIN 
-		(SELECT `reports`.`room_id`, `reports`.`gender_id`,
-			COUNT(`status`.`active`) 
-				AS `amount` 
+	((SELECT COUNT(`reports`.`id`) 
+				AS `accepted_requests`, 
+			NULL 
+				AS `curr_live`,
+			NULL  
+				AS `free_rooms`
 		FROM `reports`
-		LEFT JOIN 
-			(SELECT `status`.`id`, `status`.`active` 
+		INNER JOIN 
+			(SELECT `status`.`id`
+			FROM `status`
+			WHERE `status`.`active`>=0)
+			AS `status`
+		ON `reports`.`status_id`=`status`.`id`)
+
+		UNION ALL
+
+		(SELECT NULL  
+				AS `accepted_requests`,
+			COUNT(`reports`.`id`) 
+				AS `curr_live`, 
+			NULL  
+				AS `free_rooms`
+		FROM `reports`
+		INNER JOIN 
+			(SELECT `status`.`id`
 			FROM `status`
 			WHERE `status`.`active`=1)
-			AS `status` 
-		ON `reports`.`status_id`=`status`.`id`
-		GROUP BY `reports`.`room_id`)
-		AS `reports` 
-	ON `rooms`.`id`=`reports`.`room_id`)
-	AS `rooms`
-WHERE `rooms`.`id`=?
-	AND (`rooms`.`gender_id`=? OR `rooms`.`gender_id`=0)
-	AND `rooms`.`max`>`rooms`.`amount`
-	
-	
-	
-	
-	
-	
+			AS `status`
+		ON `reports`.`status_id`=`status`.`id`)
+
+		UNION ALL
+
+		(SELECT NULL  
+				AS `accepted_requests`, 
+			NULL  
+				AS `curr_live`,
+			(SUM(`rooms`.`max`)-SUM(`reports`.`amount`)) 
+				AS `free_rooms`
+		FROM `rooms`
+		LEFT JOIN 
+			(SELECT `reports`.`room_id`, 
+				COUNT(`reports`.`id`) 
+					AS `amount`
+			FROM `reports`
+			INNER JOIN
+				(SELECT `status`.`id`
+				FROM `status`
+				WHERE `status`.`active`=1)
+				AS `status`
+			ON `reports`.`status_id`=`status`.`id`
+			GROUP BY `reports`.`room_id`)
+			AS `reports`
+		ON `rooms`.`id`=`reports`.`room_id`
+		WHERE `rooms`.`max`>`reports`.`amount`
+		OR `reports`.`amount` IS NULL))
+		AS `statistic`

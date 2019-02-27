@@ -3,8 +3,6 @@ package kz.dorm.utils;
 import kz.dorm.api.dorm.util.statement.DormINSERT;
 import kz.dorm.api.dorm.util.statement.DormSELECT;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.sql.*;
 import java.util.regex.Pattern;
 
@@ -173,13 +171,27 @@ public class ControlWrite {
     }
 
     /**
-     * Проверка ИИНа.
+     * Проверка ИИНа для заявлений.
      */
-    public static boolean isCheckUIN(Connection connection, long uin) throws SQLException {
+    public static boolean isCheckUINRequest(Connection connection, long uin) throws SQLException {
         if (String.valueOf(uin).length() == 12) {
-            PreparedStatement statement = connection.prepareStatement(DormSELECT.selectActiveUIN());
+            PreparedStatement statement = connection.prepareStatement(DormSELECT.selectActiveUINRequest());
             statement.setLong(1, uin);
             statement.setLong(2, uin);
+
+            return !statement.executeQuery().next();
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Проверка ИИНа для репорта.
+     */
+    public static boolean isCheckUINReport(Connection connection, long uin) throws SQLException {
+        if (String.valueOf(uin).length() == 12) {
+            PreparedStatement statement = connection.prepareStatement(DormSELECT.selectActiveUINReport());
+            statement.setLong(1, uin);
 
             return !statement.executeQuery().next();
         } else {

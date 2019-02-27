@@ -30,7 +30,7 @@ public class DormPOST {
                 if (ControlWrite.isCheckRoom(connection,
                         Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REPORT_ROOM_ID)),
                         Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REPORT_GENDER_ID))) &&
-                        ControlWrite.isCheckUIN(connection, Long.parseLong(request.queryParams(DataConfig.DB_DORM_REPORT_UIN))) &&
+                        ControlWrite.isCheckUINReport(connection, Long.parseLong(request.queryParams(DataConfig.DB_DORM_REPORT_UIN))) &&
                         Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REPORT_CHILDREN)) > 0 &&
                         ControlWrite.isCheckPhone(request.queryParams(DataConfig.DB_DORM_REPORT_PHONE)) &&
                         ControlWrite.isCheckStatus(connection, Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REPORT_STATUS_ID))) &&
@@ -107,7 +107,7 @@ public class DormPOST {
                 if (ControlWrite.isCheckRoom(connection,
                         Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REQUEST_ROOM_ID)),
                         Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REQUEST_GENDER_ID))) &&
-                        ControlWrite.isCheckUIN(connection, Long.parseLong(request.queryParams(DataConfig.DB_DORM_REQUEST_UIN))) &&
+                        ControlWrite.isCheckUINRequest(connection, Long.parseLong(request.queryParams(DataConfig.DB_DORM_REQUEST_UIN))) &&
                         Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REQUEST_CHILDREN)) > 0 &&
                         ControlWrite.isCheckPhone(request.queryParams(DataConfig.DB_DORM_REQUEST_PHONE)) &&
                         ControlWrite.isCheckGender(connection, Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REQUEST_GENDER_ID))) &&
