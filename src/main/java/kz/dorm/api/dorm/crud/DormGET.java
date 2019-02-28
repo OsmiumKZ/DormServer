@@ -321,6 +321,26 @@ public class DormGET {
     }
 
     /**
+     * Получить общую статистику.
+     */
+    public static String statistic(Request request, Response response) {
+        try (Connection connection = DataBase.getDorm()) {
+            PreparedStatement statement = connection.prepareStatement(DormSELECT.selectStatistic());
+            ResultSet result = statement.executeQuery();
+            response.status(200);
+            result.next();
+
+            return new Gson()
+                    .toJson(new Statistic(result.getInt(DataConfig.DB_DORM_STATISTIC_ACCEPTED_REQUESTS),
+                            result.getInt(DataConfig.DB_DORM_STATISTIC_CURR_LIVE),
+                            result.getInt(DataConfig.DB_DORM_STATISTIC_FREE_ROOMS)));
+        } catch (Exception e) {
+            response.status(409);
+            return HttpStatus.getCode(409).getMessage();
+        }
+    }
+
+    /**
      * Найти названия в БД и записать в JSON.
      */
     private static String getSearchNames(String type, String name, String text, Response response) {

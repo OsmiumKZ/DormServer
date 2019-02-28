@@ -201,4 +201,73 @@ public class DormSELECT {
                 "FROM `" + type + "`\n" +
                 "WHERE `" + type + "`.`" + name + "` LIKE ?";
     }
+
+    /**
+     * Получить общую статистику.
+     */
+    public static String selectStatistic() {
+        return "SELECT SUM(`"+DataConfig.DB_DORM_STATISTIC+"`.`"+DataConfig.DB_DORM_STATISTIC_ACCEPTED_REQUESTS+"`)\n" +
+                "\t\tAS `"+DataConfig.DB_DORM_STATISTIC_ACCEPTED_REQUESTS+"`,\n" +
+                "\tSUM(`"+DataConfig.DB_DORM_STATISTIC+"`.`"+DataConfig.DB_DORM_STATISTIC_CURR_LIVE+"`)\n" +
+                "\t\tAS `"+DataConfig.DB_DORM_STATISTIC_CURR_LIVE+"`,\n" +
+                "\tSUM(`"+DataConfig.DB_DORM_STATISTIC+"`.`"+DataConfig.DB_DORM_STATISTIC_FREE_ROOMS+"`)\n" +
+                "\t\tAS `"+DataConfig.DB_DORM_STATISTIC_FREE_ROOMS+"`\n" +
+                "FROM\n" +
+                "\t((SELECT COUNT(`"+DataConfig.DB_DORM_REPORT+"`.`"+DataConfig.DB_DORM_REPORT_ID+"`)\n" +
+                "\t\t\t\tAS `"+DataConfig.DB_DORM_STATISTIC_ACCEPTED_REQUESTS+"`,\n" +
+                "\t\t\tNULL\n" +
+                "\t\t\t\tAS `"+DataConfig.DB_DORM_STATISTIC_CURR_LIVE+"`,\n" +
+                "\t\t\tNULL\n" +
+                "\t\t\t\tAS `"+DataConfig.DB_DORM_STATISTIC_FREE_ROOMS+"`\n" +
+                "\t\tFROM `"+DataConfig.DB_DORM_REPORT+"`\n" +
+                "\t\tINNER JOIN\n" +
+                "\t\t\t(SELECT `"+DataConfig.DB_DORM_STATUS+"`.`"+DataConfig.DB_DORM_STATUS_ID+"`\n" +
+                "\t\t\tFROM `"+DataConfig.DB_DORM_STATUS+"`\n" +
+                "\t\t\tWHERE `"+DataConfig.DB_DORM_STATUS+"`.`"+DataConfig.DB_DORM_STATUS_ACTIVE+"`>=0)\n" +
+                "\t\t\tAS `"+DataConfig.DB_DORM_STATUS+"`\n" +
+                "\t\tON `"+DataConfig.DB_DORM_REPORT+"`.`"+DataConfig.DB_DORM_REPORT_STATUS_ID+"`=`"+DataConfig.DB_DORM_STATUS+"`.`"+DataConfig.DB_DORM_STATUS_ID+"`)\n" +
+                "\n" +
+                "\t\tUNION ALL\n" +
+                "\n" +
+                "\t\t(SELECT NULL\n" +
+                "\t\t\t\tAS `"+DataConfig.DB_DORM_STATISTIC_ACCEPTED_REQUESTS+"`,\n" +
+                "\t\t\tCOUNT(`"+DataConfig.DB_DORM_REPORT+"`.`"+DataConfig.DB_DORM_REPORT_ID+"`)\n" +
+                "\t\t\t\tAS `"+DataConfig.DB_DORM_STATISTIC_CURR_LIVE+"`,\n" +
+                "\t\t\tNULL\n" +
+                "\t\t\t\tAS `"+DataConfig.DB_DORM_STATISTIC_FREE_ROOMS+"`\n" +
+                "\t\tFROM `"+DataConfig.DB_DORM_REPORT+"`\n" +
+                "\t\tINNER JOIN\n" +
+                "\t\t\t(SELECT `"+DataConfig.DB_DORM_STATUS+"`.`"+DataConfig.DB_DORM_STATUS_ID+"`\n" +
+                "\t\t\tFROM `"+DataConfig.DB_DORM_STATUS+"`\n" +
+                "\t\t\tWHERE `"+DataConfig.DB_DORM_STATUS+"`.`"+DataConfig.DB_DORM_STATUS_ACTIVE+"`=1)\n" +
+                "\t\t\tAS `"+DataConfig.DB_DORM_STATUS+"`\n" +
+                "\t\tON `"+DataConfig.DB_DORM_REPORT+"`.`"+DataConfig.DB_DORM_REPORT_STATUS_ID+"`=`"+DataConfig.DB_DORM_STATUS+"`.`"+DataConfig.DB_DORM_STATUS_ID+"`)\n" +
+                "\n" +
+                "\t\tUNION ALL\n" +
+                "\n" +
+                "\t\t(SELECT NULL\n" +
+                "\t\t\t\tAS `"+DataConfig.DB_DORM_STATISTIC_ACCEPTED_REQUESTS+"`,\n" +
+                "\t\t\tNULL\n" +
+                "\t\t\t\tAS `"+DataConfig.DB_DORM_STATISTIC_CURR_LIVE+"`,\n" +
+                "\t\t\tCOUNT(`"+DataConfig.DB_DORM_ROOM+"`.`"+DataConfig.DB_DORM_ROOM_ID+"`)\n" +
+                "\t\t\t\tAS `"+DataConfig.DB_DORM_STATISTIC_FREE_ROOMS+"`\n" +
+                "\t\tFROM `"+DataConfig.DB_DORM_ROOM+"`\n" +
+                "\t\tLEFT JOIN\n" +
+                "\t\t\t(SELECT `"+DataConfig.DB_DORM_REPORT+"`.`"+DataConfig.DB_DORM_REPORT_ROOM_ID+"`,\n" +
+                "\t\t\t\tCOUNT(`"+DataConfig.DB_DORM_REPORT+"`.`"+DataConfig.DB_DORM_REPORT_ID+"`) \n" +
+                "\t\t\t\t\tAS `"+DataConfig.DB_DORM_ROOM_AS_AMOUNT+"`\n" +
+                "\t\t\tFROM `"+DataConfig.DB_DORM_REPORT+"`\n" +
+                "\t\t\tINNER JOIN\n" +
+                "\t\t\t\t(SELECT `"+DataConfig.DB_DORM_STATUS+"`.`"+DataConfig.DB_DORM_STATUS_ID+"`\n" +
+                "\t\t\t\tFROM `"+DataConfig.DB_DORM_STATUS+"`\n" +
+                "\t\t\t\tWHERE `"+DataConfig.DB_DORM_STATUS+"`.`"+DataConfig.DB_DORM_STATUS_ACTIVE+"`=1)\n" +
+                "\t\t\t\tAS `"+DataConfig.DB_DORM_STATUS+"`\n" +
+                "\t\t\tON `"+DataConfig.DB_DORM_REPORT+"`.`"+DataConfig.DB_DORM_REPORT_STATUS_ID+"`=`"+DataConfig.DB_DORM_STATUS+"`.`"+DataConfig.DB_DORM_STATUS_ID+"`\n" +
+                "\t\t\tGROUP BY `"+DataConfig.DB_DORM_REPORT+"`.`"+DataConfig.DB_DORM_REPORT_ROOM_ID+"`)\n" +
+                "\t\t\tAS `"+DataConfig.DB_DORM_REPORT+"`\n" +
+                "\t\tON `"+DataConfig.DB_DORM_ROOM+"`.`"+DataConfig.DB_DORM_ROOM_ID+"`=`"+DataConfig.DB_DORM_REPORT+"`.`"+DataConfig.DB_DORM_REPORT_ROOM_ID+"`\n" +
+                "\t\tWHERE `"+DataConfig.DB_DORM_ROOM+"`.`"+DataConfig.DB_DORM_ROOM_MAX+"`>`"+DataConfig.DB_DORM_REPORT+"`.`"+DataConfig.DB_DORM_ROOM_AS_AMOUNT+"`\n" +
+                "\t\tOR `"+DataConfig.DB_DORM_REPORT+"`.`"+DataConfig.DB_DORM_ROOM_AS_AMOUNT+"` IS NULL))\n" +
+                "\t\tAS `"+DataConfig.DB_DORM_STATISTIC+"`";
+    }
 }

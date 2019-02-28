@@ -123,4 +123,9 @@ public class DataConfig {
     public static final String DB_DORM_PARENT_FATHER_AS_NAME_F = "parent_name_f_father";
     public static final String DB_DORM_PARENT_FATHER_AS_NAME_L = "parent_name_l_father";
     public static final String DB_DORM_PARENT_FATHER_AS_PATRONYMIC = "parent_patronymic_father";
+
+    public static final String DB_DORM_STATISTIC = "statistic";
+    public static final String DB_DORM_STATISTIC_ACCEPTED_REQUESTS = "accepted_requests";
+    public static final String DB_DORM_STATISTIC_CURR_LIVE = "curr_live";
+    public static final String DB_DORM_STATISTIC_FREE_ROOMS = "free_rooms";
 }

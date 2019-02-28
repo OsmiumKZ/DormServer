@@ -136,9 +136,8 @@ CREATE TABLE `floors` (
 -- Структура таблицы "статус"
 --
 -- `id` - ID статуса
-import kz.dorm.api.dorm.util.statement.DormSELECT;
 -- `name_id` - Название статуса
--- `active` - (0 - свободно) или (1 - занято) место.
+-- `active` - (0 - свободно), (1 - занято) место. (-1) отказ (после принятия заявления).
 --
 
 CREATE TABLE `status` (
@@ -323,7 +322,7 @@ FROM
 				AS `accepted_requests`, 
 			NULL  
 				AS `curr_live`,
-			(SUM(`rooms`.`max`)-SUM(`reports`.`amount`)) 
+			COUNT(`rooms`.`id`) 
 				AS `free_rooms`
 		FROM `rooms`
 		LEFT JOIN 

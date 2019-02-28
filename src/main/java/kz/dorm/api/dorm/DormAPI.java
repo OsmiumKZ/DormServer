@@ -75,6 +75,20 @@ public class DormAPI {
             });
 
             /** {Not Javadoc}
+             * Получить общую статистику.
+             *
+             * http://localhost/api/statistic
+             */
+            get("/statistic", (request, response) -> {
+                if (DomainHTTP.getDorm(request.host())) {
+                    return DormGET.statistic(request, response);
+                } else {
+                    response.status(404);
+                    return HttpStatus.getCode(404).getMessage();
+                }
+            });
+
+            /** {Not Javadoc}
              * Поиск названий. Подсказка.
              *
              * http://localhost/api/search/name ?
