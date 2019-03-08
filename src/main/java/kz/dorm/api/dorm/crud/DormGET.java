@@ -388,10 +388,7 @@ public class DormGET {
                     IOUtils.copy(in, os);
                     in.close();
                     os.close();
-
-                    final Logger LOGGER = Logger.getLogger(DormGET.class.getName());
-                    LOGGER.info(file.getAbsolutePath());
-//                    file.delete();
+                    file.delete();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

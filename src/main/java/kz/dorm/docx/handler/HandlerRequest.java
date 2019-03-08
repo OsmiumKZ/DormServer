@@ -16,6 +16,7 @@ import padeg.lib.Padeg;
 import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.util.*;
+import java.util.logging.Logger;
 
 public class HandlerRequest {
 
@@ -54,6 +55,8 @@ public class HandlerRequest {
             documentPart.variableReplace(map);
             Docx4J.save(wpMLP, fileOut);
         } catch (Docx4JException | JAXBException e) {
+            final Logger LOGGER = Logger.getLogger(HandlerRequest.class.getName());
+            LOGGER.info(e.getMessage());
             return "docs/null";
         } catch (Exception e) {
             e.printStackTrace();
