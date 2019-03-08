@@ -11,7 +11,6 @@ import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
 import org.docx4j.wml.ContentAccessor;
 import org.docx4j.wml.P;
-import org.docx4j.wml.Tbl;
 import padeg.lib.Padeg;
 
 import javax.xml.bind.JAXBException;
@@ -34,7 +33,7 @@ public class HandlerRequest {
                 .requireNonNull(HandlerRequest
                         .class
                         .getClassLoader()
-                        .getResource("docx/request.docx"))
+                        .getResource("docs/request.docx"))
                 .getFile());
 
         Student student = new Student(name_f, name_l, patronymic, Integer.parseInt(genderId) == 1);

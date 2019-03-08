@@ -28,7 +28,7 @@ public class HandlerDirection {
                 .requireNonNull(HandlerRequest
                         .class
                         .getClassLoader()
-                        .getResource("docx/direction.docx"))
+                        .getResource("docs/direction.docx"))
                 .getFile());
 
         try {
