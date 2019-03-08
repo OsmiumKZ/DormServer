@@ -29,12 +29,13 @@ public class HandlerRequest {
                                  Parent mother, String address, String genderId) {
         String outFileName = "docs/request_" + phone.substring(1) + ".docx";
         File fileOut = new File(outFileName);
-        File file = new File(Objects
-                .requireNonNull(HandlerRequest
-                        .class
-                        .getClassLoader()
-                        .getResource("docs/request.docx"))
-                .getFile());
+        File file = new File(ClassLoader.getSystemResource("docs/request.docx").getFile());
+//        File file = new File(Objects
+//                .requireNonNull(HandlerRequest
+//                        .class
+//                        .getClassLoader()
+//                        .getResource("docs/request.docx"))
+//                .getFile());
 
         Student student = new Student(name_f, name_l, patronymic, Integer.parseInt(genderId) == 1);
 

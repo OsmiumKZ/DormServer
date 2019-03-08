@@ -44,7 +44,7 @@ public class HandlerDirection {
             documentPart.variableReplace(map);
             Docx4J.save(wpMLP, fileOut);
         } catch (Docx4JException | JAXBException e) {
-            return "";
+            return "docs/null";
         }
 
         return outFileName;
