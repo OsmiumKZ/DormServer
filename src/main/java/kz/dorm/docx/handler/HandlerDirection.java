@@ -23,12 +23,7 @@ public class HandlerDirection {
                                  String phone) {
         String outFileName = "docs/direction_" + phone.substring(1) + ".docx";
         File fileOut = new File(outFileName);
-        File file = new File(Objects
-                .requireNonNull(HandlerRequest
-                        .class
-                        .getClassLoader()
-                        .getResource("docs/direction.docx"))
-                .getFile());
+        File file = new File("docs/patterns/direction.docx");
 
         try {
             Map<String, String> map = new HashMap<>();
