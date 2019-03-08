@@ -375,8 +375,7 @@ public class DormGET {
                         ControlWrite.isCheckText(request.queryParams(DataConfig.DB_DORM_PATRONYMIC)))
                     patronymic = request.queryParams(DataConfig.DB_DORM_PATRONYMIC);
 
-                File file = new File(System.getProperty("user.dir") +
-                        DocxConstructor.createRequest(request, patronymic, father, mother));
+                File file = new File(DocxConstructor.createRequest(request, patronymic, father, mother));
 
                 response.header("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"");
                 response.type("application/octet-stream");
@@ -424,8 +423,7 @@ public class DormGET {
                         ControlWrite.isCheckText(request.queryParams(DataConfig.DB_DORM_PATRONYMIC)))
                     patronymic = request.queryParams(DataConfig.DB_DORM_PATRONYMIC);
 
-                File file = new File(System.getProperty("user.dir") +
-                        DocxConstructor.createDirection(request, patronymic));
+                File file = new File(DocxConstructor.createDirection(request, patronymic));
 
                 response.header("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"");
                 response.type("application/octet-stream");

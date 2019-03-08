@@ -26,9 +26,8 @@ public class HandlerRequest {
                                  String group, int dormId, String date_residence,
                                  String children, String phone, Parent father,
                                  Parent mother, String address, String genderId) {
-        String rootDir = System.getProperty("user.dir");
-        String outFileName = "/docs/request_" + phone.substring(1) + ".docx";
-        File fileOut = new File(rootDir + outFileName);
+        String outFileName = "docs/request_" + phone.substring(1) + ".docx";
+        File fileOut = new File(outFileName);
         File file = new File(Objects
                 .requireNonNull(HandlerRequest
                         .class
@@ -55,7 +54,6 @@ public class HandlerRequest {
             documentPart.variableReplace(map);
             Docx4J.save(wpMLP, fileOut);
         } catch (Docx4JException | JAXBException e) {
-            System.out.println(e);
             return "";
         } catch (Exception e) {
             e.printStackTrace();

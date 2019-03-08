@@ -21,9 +21,8 @@ public class HandlerDirection {
     public static String create(String name_f, String name_l, String patronymic,
                                  String genderId, int dormId, String address,
                                  String phone) {
-        String rootDir = System.getProperty("user.dir");
-        String outFileName = "/docs/direction_" + phone.substring(1) + ".docx";
-        File fileOut = new File(rootDir + outFileName);
+        String outFileName = "docs/direction_" + phone.substring(1) + ".docx";
+        File fileOut = new File(outFileName);
         File file = new File(Objects
                 .requireNonNull(HandlerRequest
                         .class
@@ -45,7 +44,6 @@ public class HandlerDirection {
             documentPart.variableReplace(map);
             Docx4J.save(wpMLP, fileOut);
         } catch (Docx4JException | JAXBException e) {
-            System.out.println(e);
             return "";
         }
 
