@@ -8,27 +8,33 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.sql.*;
 
-class ControlParent {
+public class ControlParent {
 
     /**
      * Добавить родителя
      */
     static int writeParent(Connection connection, String json) throws SQLException {
-        if (json == null)
-            return 0;
+        Parent parent = parseParent(json);
 
-        Parent parent;
-
-        try {
-            parent = new Gson().fromJson(URLDecoder.decode(json, "utf-8"), Parent.class);
-        } catch (UnsupportedEncodingException e) {
-            return 0;
-        }
-
-        if (isCheckInfo(parent))
+        if (parent != null &&
+                isCheckInfo(parent))
             return insertParent(connection, parent);
         else
             return 0;
+    }
+
+    /**
+     * Распарсить Parent.
+     */
+    public static Parent parseParent(String json){
+        if (json == null)
+            return null;
+
+        try {
+            return new Gson().fromJson(URLDecoder.decode(json, "utf-8"), Parent.class);
+        } catch (UnsupportedEncodingException e) {
+            return null;
+        }
     }
 
     /**
@@ -67,7 +73,6 @@ class ControlParent {
     private static boolean isCheckInfo(Parent parent) {
         return parent.getNameF() != null &&
                 parent.getNameL() != null &&
-                parent.getPatronymic() != null &&
                 parent.getPhone() != null;
     }
 }

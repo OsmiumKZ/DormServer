@@ -28,9 +28,26 @@ public class TestControlWrite {
 
     @Test
     public void testCheckNames(){
-        assertTrue(ControlWrite.isCheckNames("Влад", "Влад", "Влад"));   // true
-        assertTrue(!ControlWrite.isCheckNames("1Влад", "Влад", "Влад"));  // false
-        assertTrue(!ControlWrite.isCheckNames("влад", "Влад", "Влад"));   // false
-        assertTrue(!ControlWrite.isCheckNames("Vlad", "Влад", "Влад"));   // false
+        assertTrue(ControlWrite.isCheckNames("Влад", "Влад"));    // true
+        assertTrue(!ControlWrite.isCheckNames("1Влад", "Влад"));  // false
+        assertTrue(!ControlWrite.isCheckNames("влад", "Влад"));   // false
+        assertTrue(!ControlWrite.isCheckNames("Vlad", "Влад"));   // false
+    }
+
+    @Test
+    public void testCheckAddress(){
+        assertTrue(ControlWrite
+                .isCheckAddress("ул.Малинова, г.Караганда, ёё Казахстан 23-23-23"));                 // true
+        assertTrue(!ControlWrite
+                .isCheckAddress("Malinova 23-23-23 ;"));                                             // false
+        assertTrue(!ControlWrite
+                .isCheckAddress("123456789123456789123456789123456789123456789123456789123456789")); // false
+    }
+
+    @Test
+    public void testCheckGroup(){
+        assertTrue(ControlWrite.isCheckGroup("ВТ-13С"));                   // true
+        assertTrue(!ControlWrite.isCheckGroup("VT-13"));                   // false
+        assertTrue(!ControlWrite.isCheckGroup("VVVVVVVVVVVVVVVVVVVVVVV")); // false
     }
 }

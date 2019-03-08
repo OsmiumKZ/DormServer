@@ -1,5 +1,6 @@
 package kz.dorm.utils;
 
+import kz.dorm.api.dorm.util.gson.Parent;
 import kz.dorm.api.dorm.util.statement.DormINSERT;
 import kz.dorm.api.dorm.util.statement.DormSELECT;
 
@@ -22,9 +23,9 @@ public class ControlWrite {
         statement = connection.prepareStatement(DormINSERT.insertNameF(), Statement.RETURN_GENERATED_KEYS);
         statement.setString(1, name);
 
-        if (statement.executeUpdate() != 0){
-            try (ResultSet generatedKeys = statement.getGeneratedKeys()){
-                if (generatedKeys.next()){
+        if (statement.executeUpdate() != 0) {
+            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
                     return Math.toIntExact(generatedKeys.getLong(1));
                 } else {
                     throw new SQLException();
@@ -49,9 +50,9 @@ public class ControlWrite {
         statement = connection.prepareStatement(DormINSERT.insertNameL(), Statement.RETURN_GENERATED_KEYS);
         statement.setString(1, name);
 
-        if (statement.executeUpdate() != 0){
-            try (ResultSet generatedKeys = statement.getGeneratedKeys()){
-                if (generatedKeys.next()){
+        if (statement.executeUpdate() != 0) {
+            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
                     return Math.toIntExact(generatedKeys.getLong(1));
                 } else {
                     throw new SQLException();
@@ -79,9 +80,9 @@ public class ControlWrite {
         statement = connection.prepareStatement(DormINSERT.insertPatronymic(), Statement.RETURN_GENERATED_KEYS);
         statement.setString(1, name);
 
-        if (statement.executeUpdate() != 0){
-            try (ResultSet generatedKeys = statement.getGeneratedKeys()){
-                if (generatedKeys.next()){
+        if (statement.executeUpdate() != 0) {
+            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
                     return Math.toIntExact(generatedKeys.getLong(1));
                 } else {
                     throw new SQLException();
@@ -96,26 +97,63 @@ public class ControlWrite {
      * Добавить родителя
      */
     public static int writeParent(Connection connection, String json) throws SQLException {
-            return ControlParent.writeParent(connection, json);
+        return ControlParent.writeParent(connection, json);
+    }
+
+    /**
+     * Получить полное ФИО студента.
+     */
+    public static String getFullName(String name_f, String name_l, String patronymic) {
+        if (patronymic != null)
+            return name_l + " " + name_f + " " + patronymic;
+        else
+            return name_l + " " + name_f;
+    }
+
+    /**
+     * Получить полное ФИО студента.
+     */
+    public static String getFullName(Parent parent) {
+        return getFullName(parent.getNameF(), parent.getNameL(), parent.getPatronymic());
+    }
+
+    /**
+     * Получить ID общежития, из ID комнаты.
+     */
+    public static int getIdDormForRoom(String roomId) {
+        try (Connection connection = DataBase.getDorm()) {
+            PreparedStatement statement = connection.prepareStatement(DormSELECT.selectRoomIdToDormId());
+            statement.setInt(1, Integer.parseInt(roomId));
+            ResultSet result = statement.executeQuery();
+
+            if (result.next())
+                return result.getInt(DataConfig.DB_DORM_FLOOR_DORM_ID);
+            else
+                return 0;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return 0;
+        }
+    }
+
+    /**
+     * Получить ФИо студента в инициалах.
+     */
+    public static String getAttrName(String name_f, String name_l, String patronymic) {
+        if (patronymic != null)
+            return name_l + " " + name_f.substring(0, 1) + "." + patronymic.substring(0, 1) + ".";
+        else
+            return name_l + " " + name_f.substring(0, 1) + ".";
     }
 
     /**
      * Проверка правильного ввода новера.
      */
-    public static boolean isCheckPhone(String phone){
-        if (phone.length() == 11 || phone.length() == 12){
-            String regex = "((\\+7)|[8])7[0-9]{9}$";
-            Pattern pattern = Pattern.compile(regex);
+    public static boolean isCheckPhone(String phone) {
+        String regex = "((((\\+7)|[8])7[0-9]{9}$)|([0-9]{2}-[0-9]{2}-[0-9]{2}$))";
+        Pattern pattern = Pattern.compile(regex);
 
-            return pattern.matcher(phone).matches();
-        } else if (phone.length() == 8){
-            String regex = "[0-9]{2}-[0-9]{2}-[0-9]{2}$";
-            Pattern pattern = Pattern.compile(regex);
-
-            return pattern.matcher(phone).matches();
-        } else {
-            return false;
-        }
+        return pattern.matcher(phone).matches();
     }
 
     /**
@@ -127,12 +165,30 @@ public class ControlWrite {
     }
 
     /**
+     * Проверка адреса на корректность.
+     */
+    public static boolean isCheckAddress(String address) {
+        String regex = "[\\-,.а-яёА-ЯЁ0-9 ]{5,60}$";
+        Pattern pattern = Pattern.compile(regex);
+        return pattern.matcher(address).matches();
+    }
+
+    /**
+     * Проверка группы на корректность.
+     */
+    public static boolean isCheckGroup(String group) {
+        String regex = "[\\-А-ЯЁ0-9 ]{2,12}$";
+        Pattern pattern = Pattern.compile(regex);
+        return pattern.matcher(group).matches();
+    }
+
+    /**
      * Проверка символов через регулярные выражения.
      * Первая буква всегда заглавная, все остальные строчные.
      * Только русские буквы.
      * Минимум 2 буквы, максимум 40. (Одна заглавная и строчная)
      */
-    private static boolean isCheckText(String text) {
+    public static boolean isCheckText(String text) {
         String regex = "[А-ЯЁ][а-яё]{1,39}$";
         Pattern pattern = Pattern.compile(regex);
 

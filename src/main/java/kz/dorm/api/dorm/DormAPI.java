@@ -89,6 +89,51 @@ public class DormAPI {
             });
 
             /** {Not Javadoc}
+             * Получить документ "Заявление".
+             *
+             * http://localhost/api/doc/request ?
+             * & {@link DataConfig#DB_DORM_NAME_F} = Имя
+             * & {@link DataConfig#DB_DORM_NAME_L} = Фамилия
+             * & {@link DataConfig#DB_DORM_REQUEST_GROUP} = Группа
+             * & {@link DataConfig#DB_DORM_REQUEST_DATE_RESIDENCE} = Дата заселения
+             * & {@link DataConfig#DB_DORM_REQUEST_CHILDREN} = Сколько детей в семье
+             * & {@link DataConfig#DB_DORM_REQUEST_PHONE} = Телефонный номер
+             * & {@link DataConfig#DB_DORM_REQUEST_ADDRESS} = Адрес проживания
+             * & {@link DataConfig#DB_DORM_REQUEST_GENDER_ID} = ID гендера
+             * & {@link DataConfig#DB_DORM_REQUEST_ROOM_ID} = ID этажа
+             * [&] {@link DataConfig#DB_DORM_PATRONYMIC} = Отчество
+             */
+            get("/doc/request", (request, response) -> {
+                if (DomainHTTP.getDorm(request.host())) {
+                    return DormGET.createRequest(request, response);
+                } else {
+                    response.status(404);
+                    return HttpStatus.getCode(404).getMessage();
+                }
+            });
+
+            /** {Not Javadoc}
+             * Получить документ "Направление".
+             *
+             * http://localhost/api/doc/direction ?
+             * & {@link DataConfig#DB_DORM_NAME_F} = Имя
+             * & {@link DataConfig#DB_DORM_NAME_L} = Фамилия
+             * & {@link DataConfig#DB_DORM_REPORT_GENDER_ID} = ID гендера
+             * & {@link DataConfig#DB_DORM_REPORT_ADDRESS} = Адрес проживания
+             * & {@link DataConfig#DB_DORM_REPORT_PHONE} = Телефонный номер
+             * & {@link DataConfig#DB_DORM_REQUEST_ROOM_ID} = ID комнаты
+             * [&] {@link DataConfig#DB_DORM_PATRONYMIC} = Отчество
+             */
+            get("/doc/direction", (request, response) -> {
+                if (DomainHTTP.getDorm(request.host())) {
+                    return DormGET.createDirection(request, response);
+                } else {
+                    response.status(404);
+                    return HttpStatus.getCode(404).getMessage();
+                }
+            });
+
+            /** {Not Javadoc}
              * Поиск названий. Подсказка.
              *
              * http://localhost/api/search/name ?

@@ -1,7 +1,6 @@
 package kz.dorm.utils;
 
 public class DataConfig {
-    public static final String GLOBAL_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
     public static final String GLOBAL_TOKEN = "token";
     public static final int DB_MAX_ITEM_LIST_INT = 30;
     public static final String DB_MAX_ITEM_LIST_STRING = "LIMIT ?, " + DB_MAX_ITEM_LIST_INT;

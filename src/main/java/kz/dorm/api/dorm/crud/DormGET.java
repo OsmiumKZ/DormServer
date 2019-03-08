@@ -5,19 +5,28 @@ import kz.dorm.api.dorm.util.gson.*;
 import kz.dorm.api.dorm.util.statement.DormSELECT;
 import kz.dorm.api.dorm.util.statement.sort.EnumSortReport;
 import kz.dorm.api.dorm.util.statement.sort.EnumSortRequest;
+import kz.dorm.docx.DocxConstructor;
+import kz.dorm.utils.ControlParent;
+import kz.dorm.utils.ControlWrite;
 import kz.dorm.utils.DataBase;
 import kz.dorm.utils.DataConfig;
 import kz.dorm.utils.token.Token;
 import org.eclipse.jetty.http.HttpStatus;
 import spark.Request;
 import spark.Response;
+import spark.utils.IOUtils;
 
+import javax.servlet.ServletOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("ResultOfMethodCallIgnored")
 public class DormGET {
 
     /**
@@ -337,6 +346,110 @@ public class DormGET {
         } catch (Exception e) {
             response.status(409);
             return HttpStatus.getCode(409).getMessage();
+        }
+    }
+
+    /**
+     * Получить файл "Заявление".
+     */
+    public static String createRequest(Request request, Response response) {
+        if (request.queryParams(DataConfig.DB_DORM_NAME_F) != null &&
+                request.queryParams(DataConfig.DB_DORM_NAME_L) != null &&
+                request.queryParams(DataConfig.DB_DORM_REQUEST_GROUP) != null &&
+                request.queryParams(DataConfig.DB_DORM_REQUEST_DATE_RESIDENCE) != null &&
+                request.queryParams(DataConfig.DB_DORM_REQUEST_CHILDREN) != null &&
+                request.queryParams(DataConfig.DB_DORM_REQUEST_PHONE) != null &&
+                request.queryParams(DataConfig.DB_DORM_REQUEST_ADDRESS) != null &&
+                request.queryParams(DataConfig.DB_DORM_REQUEST_GENDER_ID) != null &&
+                request.queryParams(DataConfig.DB_DORM_REQUEST_ROOM_ID) != null) {
+            if (ControlWrite.isCheckPhone(request.queryParams(DataConfig.DB_DORM_REQUEST_PHONE)) &&
+                    ControlWrite.isCheckGroup(request.queryParams(DataConfig.DB_DORM_REQUEST_GROUP)) &&
+                    ControlWrite.isCheckAddress(request.queryParams(DataConfig.DB_DORM_REQUEST_ADDRESS)) &&
+                    ControlWrite.isCheckNames(request.queryParams(DataConfig.DB_DORM_NAME_F),
+                            request.queryParams(DataConfig.DB_DORM_NAME_L))) {
+                String patronymic = null;
+                Parent father = ControlParent.parseParent(request.headers(DataConfig.DB_DORM_REQUEST_AS_FATHER));
+                Parent mother = ControlParent.parseParent(request.headers(DataConfig.DB_DORM_REQUEST_AS_MOTHER));
+
+                if (request.queryParams(DataConfig.DB_DORM_PATRONYMIC) != null &&
+                        ControlWrite.isCheckText(request.queryParams(DataConfig.DB_DORM_PATRONYMIC)))
+                    patronymic = request.queryParams(DataConfig.DB_DORM_PATRONYMIC);
+
+                File file = new File(System.getProperty("user.dir") +
+                        DocxConstructor.createRequest(request, patronymic, father, mother));
+
+                response.header("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"");
+                response.type("application/octet-stream");
+                response.raw().setContentLength((int) file.length());
+
+                try {
+                    final ServletOutputStream os = response.raw().getOutputStream();
+                    final FileInputStream in = new FileInputStream(file);
+                    IOUtils.copy(in, os);
+                    in.close();
+                    os.close();
+                    file.delete();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                return null;
+            } else {
+                response.status(400);
+                return HttpStatus.getCode(400).getMessage();
+            }
+        } else {
+            response.status(400);
+            return HttpStatus.getCode(400).getMessage();
+        }
+    }
+
+    /**
+     * Получить файл "Направление".
+     */
+    public static String createDirection(Request request, Response response) {
+        if (request.queryParams(DataConfig.DB_DORM_NAME_F) != null &&
+                request.queryParams(DataConfig.DB_DORM_NAME_L) != null &&
+                request.queryParams(DataConfig.DB_DORM_REPORT_GENDER_ID) != null &&
+                request.queryParams(DataConfig.DB_DORM_REPORT_ADDRESS) != null &&
+                request.queryParams(DataConfig.DB_DORM_REPORT_PHONE) != null &&
+                request.queryParams(DataConfig.DB_DORM_REQUEST_ROOM_ID) != null) {
+            if (ControlWrite.isCheckPhone(request.queryParams(DataConfig.DB_DORM_REPORT_PHONE)) &&
+                    ControlWrite.isCheckAddress(request.queryParams(DataConfig.DB_DORM_REPORT_ADDRESS)) &&
+                    ControlWrite.isCheckNames(request.queryParams(DataConfig.DB_DORM_NAME_F),
+                            request.queryParams(DataConfig.DB_DORM_NAME_L))) {
+                String patronymic = null;
+
+                if (request.queryParams(DataConfig.DB_DORM_PATRONYMIC) != null &&
+                        ControlWrite.isCheckText(request.queryParams(DataConfig.DB_DORM_PATRONYMIC)))
+                    patronymic = request.queryParams(DataConfig.DB_DORM_PATRONYMIC);
+
+                File file = new File(System.getProperty("user.dir") +
+                        DocxConstructor.createDirection(request, patronymic));
+
+                response.header("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"");
+                response.type("application/octet-stream");
+                response.raw().setContentLength((int) file.length());
+
+                try {
+                    final ServletOutputStream os = response.raw().getOutputStream();
+                    final FileInputStream in = new FileInputStream(file);
+                    IOUtils.copy(in, os);
+                    in.close();
+                    os.close();
+                    file.delete();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                return null;
+            } else {
+                response.status(400);
+                return HttpStatus.getCode(400).getMessage();
+            }
+        } else {
+            response.status(400);
+            return HttpStatus.getCode(400).getMessage();
         }
     }
 

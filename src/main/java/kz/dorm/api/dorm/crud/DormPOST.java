@@ -33,6 +33,7 @@ public class DormPOST {
                         ControlWrite.isCheckUINReport(connection, Long.parseLong(request.queryParams(DataConfig.DB_DORM_REPORT_UIN))) &&
                         Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REPORT_CHILDREN)) > 0 &&
                         ControlWrite.isCheckPhone(request.queryParams(DataConfig.DB_DORM_REPORT_PHONE)) &&
+                        ControlWrite.isCheckAddress(request.queryParams(DataConfig.DB_DORM_REPORT_ADDRESS)) &&
                         ControlWrite.isCheckStatus(connection, Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REPORT_STATUS_ID))) &&
                         ControlWrite.isCheckGender(connection, Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REPORT_GENDER_ID))) &&
                         ControlWrite.isCheckNames(request.queryParams(DataConfig.DB_DORM_NAME_F),
@@ -110,6 +111,8 @@ public class DormPOST {
                         ControlWrite.isCheckUINRequest(connection, Long.parseLong(request.queryParams(DataConfig.DB_DORM_REQUEST_UIN))) &&
                         Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REQUEST_CHILDREN)) > 0 &&
                         ControlWrite.isCheckPhone(request.queryParams(DataConfig.DB_DORM_REQUEST_PHONE)) &&
+                        ControlWrite.isCheckGroup(request.queryParams(DataConfig.DB_DORM_REQUEST_GROUP)) &&
+                        ControlWrite.isCheckAddress(request.queryParams(DataConfig.DB_DORM_REQUEST_ADDRESS)) &&
                         ControlWrite.isCheckGender(connection, Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REQUEST_GENDER_ID))) &&
                         ControlWrite.isCheckNames(request.queryParams(DataConfig.DB_DORM_NAME_F),
                                 request.queryParams(DataConfig.DB_DORM_NAME_L))) {

@@ -20,6 +20,8 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.2'
     compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.13'
     compile 'joda-time:joda-time:2.10.1'
+    compile files('libs/padeg-3.3.0.24.jar')
+    compile group: 'org.docx4j', name: 'docx4j', version: '6.0.0'
 }
 
 defaultTasks = ['clean']
