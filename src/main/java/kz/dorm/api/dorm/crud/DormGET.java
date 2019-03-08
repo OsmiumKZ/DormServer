@@ -25,6 +25,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 @SuppressWarnings("ResultOfMethodCallIgnored")
 public class DormGET {
@@ -387,7 +388,10 @@ public class DormGET {
                     IOUtils.copy(in, os);
                     in.close();
                     os.close();
-                    file.delete();
+
+                    final Logger LOGGER = Logger.getLogger(DormGET.class.getName());
+                    LOGGER.info(file.getAbsolutePath());
+//                    file.delete();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
