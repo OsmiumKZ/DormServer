@@ -24,7 +24,8 @@ public class DocxConstructor {
                 mother,
                 request.queryParams(DataConfig.DB_DORM_REQUEST_ADDRESS),
                 request.queryParams(DataConfig.DB_DORM_REQUEST_GENDER_ID),
-                request.queryParams(DataConfig.DB_DORM_REQUEST_ROOM_ID));
+                request.queryParams(DataConfig.DB_DORM_REQUEST_ROOM_ID),
+                request.queryParams(DataConfig.DB_DORM_REQUEST_ID));
     }
 
     /**
@@ -33,12 +34,14 @@ public class DocxConstructor {
     public static String createRequest(String name_f, String name_l, String patronymic,
                                         String group, String date_residence, String children,
                                         String phone, Parent father, Parent mother,
-                                        String address, String genderId, String roomId) {
+                                        String address, String genderId, String roomId,
+                                       String number) {
         return HandlerRequest
                 .create(name_f, name_l, patronymic,
                         group, ControlWrite.getIdDormForRoom(roomId), date_residence,
                         children, phone, father,
-                        mother, address, genderId);
+                        mother, address, genderId,
+                        number);
     }
 
     /**

@@ -30,6 +30,8 @@ public class DataConfigRequest {
     public static final String DOC_DATE = "Дата";
     public static final String DOC_VERIFICATION = "ФИО и подпись";
 
+    public static final String DOC_REQUEST_NUMBER = "№-";
+
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public static final String DOC_KEY_POSITION = "position";
@@ -71,4 +73,6 @@ public class DataConfigRequest {
     public static final String DOC_KEY_DATE_WRITE = "date_write";
     public static final String DOC_KEY_VERIFICATION = "verification";
     public static final String DOC_KEY_VERIFICATION_WRITE = "verification_write";
+
+    public static final String DOC_KEY_REQUEST_NUMBER_WRITE = "request_number";
 }

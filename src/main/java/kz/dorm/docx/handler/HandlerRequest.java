@@ -24,9 +24,10 @@ public class HandlerRequest {
      * Создать документ на основе данных.
      */
     public static String create(String name_f, String name_l, String patronymic,
-                                 String group, int dormId, String date_residence,
-                                 String children, String phone, Parent father,
-                                 Parent mother, String address, String genderId) {
+                                String group, int dormId, String date_residence,
+                                String children, String phone, Parent father,
+                                Parent mother, String address, String genderId,
+                                String number) {
         String outFileName = "docs/request_" + phone.substring(1) + ".docx";
         File fileOut = new File(outFileName);
         File file = new File("docs/patterns/request.docx");
@@ -46,6 +47,7 @@ public class HandlerRequest {
             address(map, address);
             rule(map, Integer.parseInt(genderId));
             verification(map, student);
+            number(map, number);
 
             documentPart.variableReplace(map);
             Docx4J.save(wpMLP, fileOut);
@@ -152,6 +154,13 @@ public class HandlerRequest {
         map.put(DataConfigRequest.DOC_KEY_DATE_WRITE, DateText.getDocCreate());
         map.put(DataConfigRequest.DOC_KEY_VERIFICATION, DataConfigRequest.DOC_VERIFICATION);
         map.put(DataConfigRequest.DOC_KEY_VERIFICATION_WRITE, student.getFullName());
+    }
+
+    /**
+     * Заполнение номера документа.
+     */
+    private static void number(Map<String, String> map, String number) {
+        map.put(DataConfigRequest.DOC_KEY_REQUEST_NUMBER_WRITE, DataConfigRequest.DOC_REQUEST_NUMBER + number);
     }
 
     /**

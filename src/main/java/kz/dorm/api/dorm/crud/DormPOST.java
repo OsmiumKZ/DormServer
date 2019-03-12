@@ -38,7 +38,7 @@ public class DormPOST {
                         ControlWrite.isCheckGender(connection, Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REPORT_GENDER_ID))) &&
                         ControlWrite.isCheckNames(request.queryParams(DataConfig.DB_DORM_NAME_F),
                                 request.queryParams(DataConfig.DB_DORM_NAME_L))) {
-                    PreparedStatement statement = connection.prepareStatement(DormINSERT.insertReport(), Statement.RETURN_GENERATED_KEYS);
+                    PreparedStatement statement = connection.prepareStatement(DormINSERT.insertReport());
                     statement.setLong(1, Long.parseLong(request.queryParams(DataConfig.DB_DORM_REPORT_UIN)));
                     statement.setInt(2, Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REPORT_GENDER_ID)));
                     statement.setInt(3, Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REPORT_ROOM_ID)));
@@ -59,20 +59,12 @@ public class DormPOST {
                     else
                         statement.setNull(9, Types.INTEGER);
 
-                    if (statement.executeUpdate() == 0) {
+                    if (statement.executeUpdate() > 0) {
+                        response.status(201);
+                        return HttpStatus.getCode(201).getMessage();
+                    } else {
                         response.status(500);
                         return HttpStatus.getCode(500).getMessage();
-                    }
-
-                    try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
-                        if (generatedKeys.next()) {
-                            response.status(201);
-
-                            return HttpStatus.getCode(201).getMessage();
-                        } else {
-                            response.status(500);
-                            return HttpStatus.getCode(500).getMessage();
-                        }
                     }
                 } else {
                     response.status(400);
@@ -116,7 +108,7 @@ public class DormPOST {
                         ControlWrite.isCheckGender(connection, Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REQUEST_GENDER_ID))) &&
                         ControlWrite.isCheckNames(request.queryParams(DataConfig.DB_DORM_NAME_F),
                                 request.queryParams(DataConfig.DB_DORM_NAME_L))) {
-                    PreparedStatement statement = connection.prepareStatement(DormINSERT.insertRequest());
+                    PreparedStatement statement = connection.prepareStatement(DormINSERT.insertRequest(), Statement.RETURN_GENERATED_KEYS);
                     statement.setInt(1, ControlWrite.writeNameF(connection, request.queryParams(DataConfig.DB_DORM_NAME_F)));
                     statement.setInt(2, ControlWrite.writeNameL(connection, request.queryParams(DataConfig.DB_DORM_NAME_L)));
                     statement.setLong(4, Long.parseLong(request.queryParams(DataConfig.DB_DORM_REQUEST_UIN)));
@@ -137,12 +129,18 @@ public class DormPOST {
                     else
                         statement.setNull(3, Types.INTEGER);
 
-                    if (statement.executeUpdate() > 0) {
-                        response.status(201);
-                        return HttpStatus.getCode(201).getMessage();
-                    } else {
-                        response.status(500);
-                        return HttpStatus.getCode(500).getMessage();
+                    statement.executeUpdate();
+
+                    try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                        if (generatedKeys.next()) {
+                            response.status(201);
+
+                            return "{\"" + DataConfig.DB_DORM_REQUEST_ID + "\": " + Math.toIntExact(generatedKeys.getLong(1)) + "}";
+                        } else {
+                            response.status(500);
+
+                            return HttpStatus.getCode(500).getMessage();
+                        }
                     }
                 } else {
                     response.status(400);
