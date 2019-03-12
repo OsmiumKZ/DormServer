@@ -182,10 +182,13 @@ public class DormAPI {
              * Получить заявления
              *
              * http://localhost/api/request ?
-             * & {@link DataConfig#GLOBAL_SEARCH_NAME_TYPE} = Название таблицы ({@link DataConfig#DB_DORM_PATRONYMIC},
-             *                                                                  {@link DataConfig#DB_DORM_NAME_L},
-             *                                                                  {@link DataConfig#DB_DORM_NAME_F}).
-             * & {@link DataConfig#GLOBAL_SEARCH_NAME_TEXT} = Текст для поиска названий.
+             * & {@link DataConfig#GLOBAL_SORT} = Критерий сортирования данных ({@link DataConfig#SORT_GENDER},
+             *                                                                  {@link DataConfig#SORT_CHILDREN},
+             *                                                                  {@link DataConfig#SORT_DATE_CREATE},
+             *                                                                  {@link DataConfig#SORT_DORMS},
+             *                                                                  {@link DataConfig#SORT_ACTIVE}).
+             * & {@link DataConfig#GLOBAL_PAGE} = С какой страницы начать получать данные.
+             * & {@link DataConfig#GLOBAL_SORT_GENDER_ID} = ID гендера.
              */
             get("/request", (request, response) -> {
                 if (DomainHTTP.getDorm(request.host())) {

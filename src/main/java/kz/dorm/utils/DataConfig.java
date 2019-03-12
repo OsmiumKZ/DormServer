@@ -18,6 +18,7 @@ public class DataConfig {
     public static final String SORT_DATE_CREATE = "date_create";
     public static final String SORT_DATE_UPDATE = "date_update";
     public static final String SORT_STATUS = "status";
+    public static final String SORT_ACTIVE = "active";
 
     public static final String DB_DORM_DORM = "dorms";
     public static final String DB_DORM_DORM_ID = "id";
