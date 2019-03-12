@@ -70,6 +70,7 @@ public class DataConfig {
     public static final String DB_DORM_REQUEST_PARENT_ID_FATHER = "parent_id_father";
     public static final String DB_DORM_REQUEST_CHILDREN = "children";
     public static final String DB_DORM_REQUEST_DATE_RESIDENCE = "date_residence";
+    public static final String DB_DORM_REQUEST_ACTIVE = "active";
     public static final String DB_DORM_REQUEST_DATE_CREATE = "date_create";
     public static final String DB_DORM_REQUEST_AS_MOTHER= "mother";
     public static final String DB_DORM_REQUEST_AS_FATHER= "father";

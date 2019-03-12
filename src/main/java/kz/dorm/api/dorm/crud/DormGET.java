@@ -320,7 +320,8 @@ public class DormGET {
                         new Parent(result.getString(DataConfig.DB_DORM_PARENT_FATHER_AS_NAME_F),
                                 result.getString(DataConfig.DB_DORM_PARENT_FATHER_AS_NAME_L),
                                 result.getString(DataConfig.DB_DORM_PARENT_FATHER_AS_PATRONYMIC),
-                                result.getString(DataConfig.DB_DORM_PARENT_FATHER_AS_PHONE))));
+                                result.getString(DataConfig.DB_DORM_PARENT_FATHER_AS_PHONE)),
+                        result.getInt(DataConfig.DB_DORM_REQUEST_ACTIVE)));
 
             response.status(200);
             return new Gson().toJson(reports);

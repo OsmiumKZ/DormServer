@@ -185,6 +185,7 @@ CREATE TABLE `accounts` (
 -- `parent_id_father` - ID таблицы `parents` - Папа
 -- `children` - Сколько в семье детей.
 -- `date_residence` - Дата начала проживания.
+-- `active` - (0 - закрыт) и (1 - открыт).
 --
 
 CREATE TABLE `requests` (
@@ -202,6 +203,7 @@ CREATE TABLE `requests` (
 	`parent_id_father` INT NULL,
 	`children` INT NOT NULL,
 	`date_residence` DATE NOT NULL,
+	`active` INT NOT NULL,
 	PRIMARY KEY (`id`)) 
 	ENGINE = InnoDB
 	DEFAULT CHARACTER SET = utf8;
@@ -275,70 +277,3 @@ CREATE TABLE `patronymic` (
 	PRIMARY KEY (`id`)) 
 	ENGINE = InnoDB
 	DEFAULT CHARACTER SET = utf8;
-	
-	
-	
-	
-SELECT SUM(`statistic`.`accepted_requests`) 
-		AS `accepted_requests`,
-	SUM(`statistic`.`curr_live`) 
-		AS `curr_live`,
-	SUM(`statistic`.`free_rooms`) 
-		AS `free_rooms` 
-FROM 
-	((SELECT COUNT(`reports`.`id`) 
-				AS `accepted_requests`, 
-			NULL 
-				AS `curr_live`,
-			NULL  
-				AS `free_rooms`
-		FROM `reports`
-		INNER JOIN 
-			(SELECT `status`.`id`
-			FROM `status`
-			WHERE `status`.`active`>=0)
-			AS `status`
-		ON `reports`.`status_id`=`status`.`id`)
-
-		UNION ALL
-
-		(SELECT NULL  
-				AS `accepted_requests`,
-			COUNT(`reports`.`id`) 
-				AS `curr_live`, 
-			NULL  
-				AS `free_rooms`
-		FROM `reports`
-		INNER JOIN 
-			(SELECT `status`.`id`
-			FROM `status`
-			WHERE `status`.`active`=1)
-			AS `status`
-		ON `reports`.`status_id`=`status`.`id`)
-
-		UNION ALL
-
-		(SELECT NULL  
-				AS `accepted_requests`, 
-			NULL  
-				AS `curr_live`,
-			COUNT(`rooms`.`id`) 
-				AS `free_rooms`
-		FROM `rooms`
-		LEFT JOIN 
-			(SELECT `reports`.`room_id`, 
-				COUNT(`reports`.`id`) 
-					AS `amount`
-			FROM `reports`
-			INNER JOIN
-				(SELECT `status`.`id`
-				FROM `status`
-				WHERE `status`.`active`=1)
-				AS `status`
-			ON `reports`.`status_id`=`status`.`id`
-			GROUP BY `reports`.`room_id`)
-			AS `reports`
-		ON `rooms`.`id`=`reports`.`room_id`
-		WHERE `rooms`.`max`>`reports`.`amount`
-		OR `reports`.`amount` IS NULL))
-		AS `statistic`

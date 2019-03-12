@@ -122,25 +122,6 @@ public class DormSELECT {
     }
 
     /**
-     * Возвращает совпадение, если есть уже такой UIN в отчетах или заявках.
-     */
-    public static String selectActiveUINRequest() {
-        return "SELECT `" + DataConfig.DB_DORM_REQUEST + "`.`" + DataConfig.DB_DORM_REQUEST_UIN + "`\n" +
-                "FROM `" + DataConfig.DB_DORM_REQUEST + "`\n" +
-                "WHERE `" + DataConfig.DB_DORM_REQUEST + "`.`" + DataConfig.DB_DORM_REQUEST_UIN + "`=?\n" +
-                "UNION\n" +
-                "SELECT `" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_REPORT_UIN + "`\n" +
-                "FROM `" + DataConfig.DB_DORM_REPORT + "`\n" +
-                "INNER JOIN\n" +
-                "\t(SELECT `" + DataConfig.DB_DORM_STATUS + "`.`" + DataConfig.DB_DORM_STATUS_ID + "`\n" +
-                "\tFROM `" + DataConfig.DB_DORM_STATUS + "`\n" +
-                "\tWHERE `" + DataConfig.DB_DORM_STATUS + "`.`" + DataConfig.DB_DORM_STATUS_ACTIVE + "`=1)\n" +
-                "AS `" + DataConfig.DB_DORM_STATUS + "`\n" +
-                "ON `" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_REPORT_STATUS_ID + "`=`" + DataConfig.DB_DORM_STATUS + "`.`" + DataConfig.DB_DORM_STATUS_ID + "`\n" +
-                "WHERE `" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_REPORT_UIN + "`=?";
-    }
-
-    /**
      * Возвращает совпадение, если есть уже такой UIN в отчетах.
      */
     public static String selectActiveUINReport() {

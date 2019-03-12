@@ -65,7 +65,11 @@ public class Request {
     @SerializedName(DataConfig.DB_DORM_REQUEST_AS_FATHER)
     private final Parent father;
 
-    public Request(int id, long uin, String address, String phone, String group, int genderId, int number, int dormId, int children, String dateResidence, String nameF, String nameL, String patronymic, Parent mother, Parent father) {
+    /* Статус заявления */
+    @SerializedName(DataConfig.DB_DORM_REQUEST_ACTIVE)
+    private final int active;
+
+    public Request(int id, long uin, String address, String phone, String group, int genderId, int number, int dormId, int children, String dateResidence, String nameF, String nameL, String patronymic, Parent mother, Parent father, int active) {
         this.id = id;
         this.uin = uin;
         this.address = address;
@@ -81,5 +85,6 @@ public class Request {
         this.patronymic = patronymic;
         this.mother = mother;
         this.father = father;
+        this.active = active;
     }
 }

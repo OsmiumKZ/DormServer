@@ -130,6 +130,7 @@ public class DormPOST {
                     statement.setInt(12, Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REQUEST_CHILDREN)));
                     statement.setString(13, date);
                     statement.setString(14, request.queryParams(DataConfig.DB_DORM_REQUEST_DATE_RESIDENCE));
+                    statement.setInt(15, 0);
 
                     if (request.queryParams(DataConfig.DB_DORM_PATRONYMIC) != null)
                         statement.setInt(3, ControlWrite.writePatronymic(connection, request.queryParams(DataConfig.DB_DORM_PATRONYMIC)));

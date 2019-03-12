@@ -230,9 +230,8 @@ public class ControlWrite {
      */
     public static boolean isCheckUINRequest(Connection connection, long uin) throws SQLException {
         if (String.valueOf(uin).length() == 12) {
-            PreparedStatement statement = connection.prepareStatement(DormSELECT.selectActiveUINRequest());
+            PreparedStatement statement = connection.prepareStatement(DormSELECT.selectActiveUINReport());
             statement.setLong(1, uin);
-            statement.setLong(2, uin);
 
             return !statement.executeQuery().next();
         } else {
