@@ -299,7 +299,8 @@ public class DormGET {
             ResultSet result = statement.executeQuery();
 
             while (result.next())
-                reports.add(new kz.dorm.api.dorm.util.gson
+                reports.add(new kz
+                        .dorm.api.dorm.util.gson
                         .Request(result.getInt(DataConfig.DB_DORM_REQUEST_ID),
                         result.getLong(DataConfig.DB_DORM_REQUEST_UIN),
                         result.getString(DataConfig.DB_DORM_REQUEST_ADDRESS),
@@ -328,6 +329,56 @@ public class DormGET {
         } catch (Exception e) {
             response.status(409);
             return HttpStatus.getCode(409).getMessage();
+        }
+    }
+
+    /**
+     * Получить заявление по его ID.
+     */
+    public static String getRequestId(Request request, Response response) {
+        if (request.queryParams(DataConfig.DB_DORM_REQUEST_ID) != null) {
+            try (Connection connection = DataBase.getDorm()) {
+                PreparedStatement statement = connection.prepareStatement(DormSELECT.selectRequestIdFull());
+                statement.setInt(1, Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REQUEST_ID)));
+                ResultSet result = statement.executeQuery();
+                response.status(200);
+
+                if (result.next())
+                    return new Gson()
+                            .toJson(new kz
+                                    .dorm.api.dorm.util.gson
+                                    .Request(result.getInt(DataConfig.DB_DORM_REQUEST_ID),
+                                    result.getLong(DataConfig.DB_DORM_REQUEST_UIN),
+                                    result.getString(DataConfig.DB_DORM_REQUEST_ADDRESS),
+                                    result.getString(DataConfig.DB_DORM_REQUEST_PHONE),
+                                    result.getString(DataConfig.DB_DORM_REQUEST_GROUP),
+                                    result.getInt(DataConfig.DB_DORM_REQUEST_GENDER_ID),
+                                    result.getInt(DataConfig.DB_DORM_ROOM_NUMBER),
+                                    result.getInt(DataConfig.DB_DORM_FLOOR_DORM_ID),
+                                    result.getInt(DataConfig.DB_DORM_REQUEST_CHILDREN),
+                                    result.getString(DataConfig.DB_DORM_REQUEST_DATE_RESIDENCE),
+                                    result.getString(DataConfig.DB_DORM_NAME_F),
+                                    result.getString(DataConfig.DB_DORM_NAME_L),
+                                    result.getString(DataConfig.DB_DORM_PATRONYMIC),
+                                    new Parent(result.getString(DataConfig.DB_DORM_PARENT_MOTHER_AS_NAME_F),
+                                            result.getString(DataConfig.DB_DORM_PARENT_MOTHER_AS_NAME_L),
+                                            result.getString(DataConfig.DB_DORM_PARENT_MOTHER_AS_PATRONYMIC),
+                                            result.getString(DataConfig.DB_DORM_PARENT_MOTHER_AS_PHONE)),
+                                    new Parent(result.getString(DataConfig.DB_DORM_PARENT_FATHER_AS_NAME_F),
+                                            result.getString(DataConfig.DB_DORM_PARENT_FATHER_AS_NAME_L),
+                                            result.getString(DataConfig.DB_DORM_PARENT_FATHER_AS_PATRONYMIC),
+                                            result.getString(DataConfig.DB_DORM_PARENT_FATHER_AS_PHONE)),
+                                    result.getInt(DataConfig.DB_DORM_REQUEST_ACTIVE)));
+
+                response.status(400);
+                return HttpStatus.getCode(400).getMessage();
+            } catch (Exception e) {
+                response.status(409);
+                return HttpStatus.getCode(409).getMessage();
+            }
+        } else {
+            response.status(400);
+            return HttpStatus.getCode(400).getMessage();
         }
     }
 

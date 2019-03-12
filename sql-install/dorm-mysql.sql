@@ -185,7 +185,7 @@ CREATE TABLE `accounts` (
 -- `parent_id_father` - ID таблицы `parents` - Папа
 -- `children` - Сколько в семье детей.
 -- `date_residence` - Дата начала проживания.
--- `active` - (0 - закрыт) и (1 - открыт).
+-- `active` - (0 - открыт) и (1 - закрыт). Или же (0 - не прочтен) и (1 - прочтен).
 --
 
 CREATE TABLE `requests` (

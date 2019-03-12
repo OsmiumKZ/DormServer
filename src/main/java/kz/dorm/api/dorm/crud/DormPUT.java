@@ -13,6 +13,7 @@ import spark.Response;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,7 +31,7 @@ public class DormPUT {
                 PreparedStatement statement = connection.prepareStatement(DormSELECT.selectStatusId());
                 statement.setInt(1, Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REPORT_STATUS_ID)));
 
-                if (!statement.executeQuery().next()){
+                if (!statement.executeQuery().next()) {
                     response.status(400);
 
                     return HttpStatus.getCode(400).getMessage();
@@ -41,7 +42,7 @@ public class DormPUT {
                 statement.setString(2, date);
                 statement.setInt(3, Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REPORT_ID)));
 
-                if (statement.executeUpdate() > 0){
+                if (statement.executeUpdate() > 0) {
                     Map<String, String> answer = new HashMap<>();
                     answer.put(DataConfig.DB_DORM_REPORT_DATE_UPDATE, date);
                     response.status(200);
@@ -55,7 +56,37 @@ public class DormPUT {
             } catch (Exception e) {
                 response.status(409);
 
-                return e.getMessage();
+                return HttpStatus.getCode(409).getMessage();
+            }
+        } else {
+            response.status(400);
+
+            return HttpStatus.getCode(400).getMessage();
+        }
+    }
+
+    /**
+     * Сделать, как прочитанное заявление.
+     */
+    public static String updateRequestActive(Request request, Response response) {
+        if (request.queryParams(DataConfig.DB_DORM_REQUEST_ID) != null) {
+            try (Connection connection = DataBase.getDorm()) {
+                PreparedStatement statement = connection.prepareStatement(DormUPDATE.updateRequestActive());
+                statement.setInt(1, Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REQUEST_ID)));
+
+                if (statement.executeUpdate() > 0) {
+                    response.status(200);
+
+                    return HttpStatus.getCode(200).getMessage();
+                } else {
+                    response.status(409);
+
+                    return HttpStatus.getCode(409).getMessage();
+                }
+            } catch (Exception e) {
+                response.status(409);
+
+                return HttpStatus.getCode(409).getMessage();
             }
         } else {
             response.status(400);

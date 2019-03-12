@@ -200,6 +200,26 @@ public class DormAPI {
                     return HttpStatus.getCode(404).getMessage();
                 }
             });
+
+            /** {Not Javadoc}
+             * Получить заявление по ID.
+             *
+             * http://localhost/api/search/request ?
+             * & {@link DataConfig#DB_DORM_REQUEST_ID} = ID заявления.
+             */
+            get("/search/request", (request, response) -> {
+                if (DomainHTTP.getDorm(request.host())) {
+                    if (Token.getInstance().checkToken(request.headers(DataConfig.GLOBAL_TOKEN))){
+                        return DormGET.getRequestId(request, response);
+                    } else {
+                        response.status(401);
+                        return HttpStatus.getCode(401).getMessage();
+                    }
+                } else {
+                    response.status(404);
+                    return HttpStatus.getCode(404).getMessage();
+                }
+            });
         });
     }
 
@@ -283,6 +303,26 @@ public class DormAPI {
                 if (DomainHTTP.getDorm(request.host())) {
                     if (Token.getInstance().checkToken(request.headers(DataConfig.GLOBAL_TOKEN))){
                         return DormPUT.updateStatus(request, response);
+                    } else {
+                        response.status(401);
+                        return HttpStatus.getCode(401).getMessage();
+                    }
+                } else {
+                    response.status(404);
+                    return HttpStatus.getCode(404).getMessage();
+                }
+            });
+
+            /** {Not Javadoc}
+             * Сделать, как прочитанное заявление.
+             *
+             * http://localhost/api/active/request ?
+             * & {@link DataConfig#DB_DORM_REQUEST_ID} = ID заявления.
+             */
+            put("/active/request", (request, response) -> {
+                if (DomainHTTP.getDorm(request.host())) {
+                    if (Token.getInstance().checkToken(request.headers(DataConfig.GLOBAL_TOKEN))){
+                        return DormPUT.updateRequestActive(request, response);
                     } else {
                         response.status(401);
                         return HttpStatus.getCode(401).getMessage();
