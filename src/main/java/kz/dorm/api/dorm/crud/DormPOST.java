@@ -1,12 +1,17 @@
 package kz.dorm.api.dorm.crud;
 
+import kz.dorm.api.dorm.util.statement.DormDELETE;
 import kz.dorm.api.dorm.util.statement.DormINSERT;
+import kz.dorm.api.dorm.util.statement.DormSELECT;
+import kz.dorm.api.dorm.util.statement.DormUPDATE;
 import kz.dorm.utils.*;
 import org.eclipse.jetty.http.HttpStatus;
 import spark.Request;
 import spark.Response;
 
 import java.sql.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DormPOST {
 
@@ -108,7 +113,14 @@ public class DormPOST {
                         ControlWrite.isCheckGender(connection, Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REQUEST_GENDER_ID))) &&
                         ControlWrite.isCheckNames(request.queryParams(DataConfig.DB_DORM_NAME_F),
                                 request.queryParams(DataConfig.DB_DORM_NAME_L))) {
-                    PreparedStatement statement = connection.prepareStatement(DormINSERT.insertRequest(), Statement.RETURN_GENERATED_KEYS);
+                    int oldRequestId = getOldRequestId(connection, request);
+                    PreparedStatement statement;
+
+                    if (oldRequestId > 0)
+                        statement = connection.prepareStatement(DormUPDATE.updateRequest());
+                    else
+                        statement = connection.prepareStatement(DormINSERT.insertRequest(), Statement.RETURN_GENERATED_KEYS);
+
                     statement.setInt(1, ControlWrite.writeNameF(connection, request.queryParams(DataConfig.DB_DORM_NAME_F)));
                     statement.setInt(2, ControlWrite.writeNameL(connection, request.queryParams(DataConfig.DB_DORM_NAME_L)));
                     statement.setLong(4, Long.parseLong(request.queryParams(DataConfig.DB_DORM_REQUEST_UIN)));
@@ -122,24 +134,31 @@ public class DormPOST {
                     statement.setInt(12, Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REQUEST_CHILDREN)));
                     statement.setString(13, date);
                     statement.setString(14, request.queryParams(DataConfig.DB_DORM_REQUEST_DATE_RESIDENCE));
-                    statement.setInt(15, 1);
+                    statement.setInt(15, 0);
 
                     if (request.queryParams(DataConfig.DB_DORM_PATRONYMIC) != null)
                         statement.setInt(3, ControlWrite.writePatronymic(connection, request.queryParams(DataConfig.DB_DORM_PATRONYMIC)));
                     else
                         statement.setNull(3, Types.INTEGER);
 
+                    if (oldRequestId > 0)
+                        statement.setInt(16, oldRequestId);
+
                     statement.executeUpdate();
 
-                    try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
-                        if (generatedKeys.next()) {
-                            response.status(201);
+                    if (oldRequestId > 0) {
+                        return "{\"" + DataConfig.DB_DORM_REQUEST_ID + "\": " + oldRequestId + "}";
+                    } else {
+                        try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                            if (generatedKeys.next()) {
+                                response.status(201);
 
-                            return "{\"" + DataConfig.DB_DORM_REQUEST_ID + "\": " + Math.toIntExact(generatedKeys.getLong(1)) + "}";
-                        } else {
-                            response.status(500);
+                                return "{\"" + DataConfig.DB_DORM_REQUEST_ID + "\": " + Math.toIntExact(generatedKeys.getLong(1)) + "}";
+                            } else {
+                                response.status(500);
 
-                            return HttpStatus.getCode(500).getMessage();
+                                return HttpStatus.getCode(500).getMessage();
+                            }
                         }
                     }
                 } else {
@@ -148,11 +167,40 @@ public class DormPOST {
                 }
             } catch (Exception e) {
                 response.status(409);
-                return HttpStatus.getCode(409).getMessage();
+                return e.getMessage();
             }
         } else {
             response.status(400);
             return HttpStatus.getCode(400).getMessage();
+        }
+    }
+
+    /**
+     * Поиск на существование заявления, по ИИН.
+     */
+    private static int getOldRequestId(Connection connection, Request request) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement(DormSELECT.selectRequestUIN());
+        statement.setLong(1, Long.parseLong(request.queryParams(DataConfig.DB_DORM_REQUEST_UIN)));
+        ResultSet result = statement.executeQuery();
+        int id = 0;
+
+        if (result.next()) {
+            id = result.getInt(DataConfig.DB_DORM_REQUEST_ID);
+            deleteParent(connection, result.getInt(DataConfig.DB_DORM_REQUEST_PARENT_ID_FATHER));
+            deleteParent(connection, result.getInt(DataConfig.DB_DORM_REQUEST_PARENT_ID_MOTHER));
+        }
+
+        return id;
+    }
+
+    /**
+     * Удаление родителя по ID.
+     */
+    private static void deleteParent(Connection connection, int idParent) throws SQLException {
+        if (idParent > 0) {
+            PreparedStatement statement = connection.prepareStatement(DormDELETE.deleteParentId());
+            statement.setInt(1, idParent);
+            statement.executeUpdate();
         }
     }
 }

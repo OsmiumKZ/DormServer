@@ -63,7 +63,7 @@ public class DormSELECT {
     /**
      * Получить заявление по ID. Ответ в виде расширенно информации.
      */
-    public static String selectRequestIdFull(){
+    public static String selectRequestIdFull() {
         return selectRequest() + "WHERE `" + DataConfig.DB_DORM_REQUEST + "`.`" + DataConfig.DB_DORM_REQUEST_ID + "`=?";
     }
 
@@ -242,6 +242,16 @@ public class DormSELECT {
                 "\tON `" + DataConfig.DB_DORM_PARENT + "`.`" + DataConfig.DB_DORM_PARENT_PATRONYMIC_ID + "`=`" + DataConfig.DB_DORM_PATRONYMIC + "`.`" + DataConfig.DB_DORM_PATRONYMIC_ID + "`)\n" +
                 "\tAS `" + DataConfig.DB_DORM_REQUEST_AS_FATHER + "`\n" +
                 "ON `" + DataConfig.DB_DORM_REQUEST + "`.`" + DataConfig.DB_DORM_REQUEST_PARENT_ID_FATHER + "`=`" + DataConfig.DB_DORM_REQUEST_AS_FATHER + "`.`" + DataConfig.DB_DORM_PARENT_FATHER_AS_ID + "`\n";
+    }
+
+    /**
+     * Получить заявление по UIN.
+     */
+    public static String selectRequestUIN() {
+        return "SELECT *\n" +
+                "FROM `" + DataConfig.DB_DORM_REQUEST + "`\n" +
+                "WHERE `" + DataConfig.DB_DORM_REQUEST + "`.`" + DataConfig.DB_DORM_REQUEST_ACTIVE + "`=0\n" +
+                "\tAND `" + DataConfig.DB_DORM_REQUEST + "`.`" + DataConfig.DB_DORM_REQUEST_UIN + "`=?";
     }
 
     /**

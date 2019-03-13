@@ -7,7 +7,7 @@ public class DormDELETE {
     /**
      * Удаление заявки
      */
-    public static String deleteRequests() {
+    public static String deleteRequestsId() {
         return "DELETE FROM `" + DataConfig.DB_DORM_REQUEST + "`\n" +
                 "WHERE `" + DataConfig.DB_DORM_REQUEST + "`.`" + DataConfig.DB_DORM_REQUEST_ID + "`=?";
     }
@@ -15,7 +15,7 @@ public class DormDELETE {
     /**
      * Удаление родителя
      */
-    public static String deleteParent() {
+    public static String deleteParentId() {
         return "DELETE FROM `" + DataConfig.DB_DORM_PARENT + "`\n" +
                 "WHERE `" + DataConfig.DB_DORM_PARENT + "`.`" + DataConfig.DB_DORM_PARENT_ID + "`=?";
     }

@@ -29,7 +29,7 @@ public class DormDELETE {
                             result.getInt(DataConfig.DB_DORM_REQUEST_PARENT_ID_MOTHER),
                             result.getInt(DataConfig.DB_DORM_REQUEST_PARENT_ID_FATHER));
 
-                statement = connection.prepareStatement(kz.dorm.api.dorm.util.statement.DormDELETE.deleteRequests());
+                statement = connection.prepareStatement(kz.dorm.api.dorm.util.statement.DormDELETE.deleteRequestsId());
                 statement.setInt(1, Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REQUEST_ID)));
 
                 if (statement.executeUpdate() != 0){
@@ -53,7 +53,7 @@ public class DormDELETE {
      * Удалить родителей
      */
     private static void deleteParents(Connection connection, int mother, int father) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement(kz.dorm.api.dorm.util.statement.DormDELETE.deleteParent());
+        PreparedStatement statement = connection.prepareStatement(kz.dorm.api.dorm.util.statement.DormDELETE.deleteParentId());
 
         if (mother > 0){
             statement.setInt(1, mother);
