@@ -112,7 +112,7 @@ public class HandlerRequest {
                 map.put(DataConfigRequest.DOC_KEY_PARENT_FATHER_FULL_NAME_WRITE, ControlWrite.getFullName(father));
                 map.put(DataConfigRequest.DOC_KEY_PARENT_FATHER_PHONE_WRITE, father.getPhone());
             } else {
-                remove(documentPart, P.class, 12);
+                remove(documentPart, P.class, 13);
             }
 
             if (mother != null) {
@@ -120,11 +120,11 @@ public class HandlerRequest {
                 map.put(DataConfigRequest.DOC_KEY_PARENT_MOTHER_FULL_NAME_WRITE, ControlWrite.getFullName(mother));
                 map.put(DataConfigRequest.DOC_KEY_PARENT_MOTHER_PHONE_WRITE, mother.getPhone());
             } else {
-                remove(documentPart, P.class, 13);
+                remove(documentPart, P.class, 14);
             }
         } else {
             for (int i = 0; i < 4; i++)
-                remove(documentPart, P.class, 10);
+                remove(documentPart, P.class, 11);
         }
     }
 
