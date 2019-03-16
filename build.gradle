@@ -19,6 +19,7 @@ dependencies {
     compile 'com.sparkjava:spark-core:2.8.0'
     compile 'com.google.code.gson:gson:2.8.2'
     compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.13'
+    testCompile group: 'com.microsoft.sqlserver', name: 'mssql-jdbc', version: '7.0.0.jre8'
     compile 'joda-time:joda-time:2.10.1'
     compile files('libs/padeg-3.3.0.24.jar')
     compile group: 'org.docx4j', name: 'docx4j', version: '6.0.0'

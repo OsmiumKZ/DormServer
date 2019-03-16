@@ -1,9 +1,11 @@
 package kz.dorm.utils;
 
 public class DataConfig {
+    public static final EnumDBType DB_TYPE = EnumDBType.MYSQL;
     public static final String GLOBAL_TOKEN = "token";
     public static final int DB_MAX_ITEM_LIST_INT = 30;
-    public static final String DB_MAX_ITEM_LIST_STRING = "LIMIT ?, " + DB_MAX_ITEM_LIST_INT;
+    public static final String DB_MAX_ITEM_LIST_STRING_MYSQL = "LIMIT ?, " + DB_MAX_ITEM_LIST_INT;
+    public static final String DB_MAX_ITEM_LIST_STRING_MSSQL = "OFFSET ? ROWS FETCH NEXT " + DB_MAX_ITEM_LIST_INT + "ROWS ONLY";
     public static final String GLOBAL_SORT = "sort";
     public static final String GLOBAL_PAGE = "page";
     public static final String GLOBAL_SORT_GENDER_ID = "sort_gender_id";

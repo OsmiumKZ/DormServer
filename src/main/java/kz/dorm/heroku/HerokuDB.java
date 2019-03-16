@@ -17,7 +17,8 @@ class HerokuDB {
         );
     }
 
-    private static Connection connection(String url, String login, String password) throws SQLException {
+    private static Connection connection(String url, String login, String password) throws Exception {
+        Class.forName("com.mysql.jdbc.Driver").newInstance();
         return DriverManager.getConnection(url, login, password);
     }
 }
