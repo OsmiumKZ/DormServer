@@ -1,7 +1,10 @@
--- Accounts
+﻿-- Accounts
+SET IDENTITY_INSERT [accounts] ON
 INSERT INTO [accounts] ([accounts].[id], [accounts].[login], [accounts].[password]) VALUES (1, 'root', 'root');
+SET IDENTITY_INSERT [accounts] OFF
 
 -- Names
+SET IDENTITY_INSERT [names] ON
 INSERT INTO [names] ([names].[id], [names].[name_ru], [names].[name_kz], [names].[name_en]) VALUES (1, 'Мужской', '', '');
 INSERT INTO [names] ([names].[id], [names].[name_ru], [names].[name_kz], [names].[name_en]) VALUES (2, 'Женский', '', '');
 INSERT INTO [names] ([names].[id], [names].[name_ru], [names].[name_kz], [names].[name_en]) VALUES (3, 'Ожидание', '', '');
@@ -11,23 +14,31 @@ INSERT INTO [names] ([names].[id], [names].[name_ru], [names].[name_kz], [names]
 INSERT INTO [names] ([names].[id], [names].[name_ru], [names].[name_kz], [names].[name_en]) VALUES (7, 'Академическая, 5/1', '', '');
 INSERT INTO [names] ([names].[id], [names].[name_ru], [names].[name_kz], [names].[name_en]) VALUES (8, 'Академическая, 5', '', '');
 INSERT INTO [names] ([names].[id], [names].[name_ru], [names].[name_kz], [names].[name_en]) VALUES (9, 'Комиссарова, 32', '', '');
+SET IDENTITY_INSERT [names] OFF
 
 -- Genders
+SET IDENTITY_INSERT [genders] ON
 INSERT INTO [genders] ([genders].[id], [genders].[name_id]) VALUES (1, 1);
 INSERT INTO [genders] ([genders].[id], [genders].[name_id]) VALUES (2, 2);
+SET IDENTITY_INSERT [genders] OFF
 
 -- Status
+SET IDENTITY_INSERT [status] ON
 INSERT INTO [status] ([status].[id], [status].[name_id], [status].[active]) VALUES (1, 3, 0);
 INSERT INTO [status] ([status].[id], [status].[name_id], [status].[active]) VALUES (2, 4, 1);
 INSERT INTO [status] ([status].[id], [status].[name_id], [status].[active]) VALUES (3, 5, 0);
 INSERT INTO [status] ([status].[id], [status].[name_id], [status].[active]) VALUES (4, 6, -1);
+SET IDENTITY_INSERT [status] OFF
 
 -- Dorms
+SET IDENTITY_INSERT [dorms] ON
 INSERT INTO [dorms] ([dorms].[id], [dorms].[name_id]) VALUES (1, 7);
 INSERT INTO [dorms] ([dorms].[id], [dorms].[name_id]) VALUES (2, 8);
 INSERT INTO [dorms] ([dorms].[id], [dorms].[name_id]) VALUES (3, 9);
+SET IDENTITY_INSERT [dorms] OFF
 
 -- Floors
+SET IDENTITY_INSERT [floors] ON
 INSERT INTO [floors] ([floors].[id], [floors].[number], [floors].[dorm_id]) VALUES (1, 1, 1);
 INSERT INTO [floors] ([floors].[id], [floors].[number], [floors].[dorm_id]) VALUES (2, 2, 1);
 INSERT INTO [floors] ([floors].[id], [floors].[number], [floors].[dorm_id]) VALUES (3, 3, 1);
@@ -35,8 +46,10 @@ INSERT INTO [floors] ([floors].[id], [floors].[number], [floors].[dorm_id]) VALU
 INSERT INTO [floors] ([floors].[id], [floors].[number], [floors].[dorm_id]) VALUES (5, 1, 3);
 INSERT INTO [floors] ([floors].[id], [floors].[number], [floors].[dorm_id]) VALUES (6, 2, 3);
 INSERT INTO [floors] ([floors].[id], [floors].[number], [floors].[dorm_id]) VALUES (7, 3, 3);
+SET IDENTITY_INSERT [floors] OFF
 
 -- Rooms
+SET IDENTITY_INSERT [rooms] ON
 INSERT INTO [rooms] ([rooms].[id], [rooms].[number], [rooms].[max], [rooms].[floor_id]) VALUES (1, 101, 4, 1);
 INSERT INTO [rooms] ([rooms].[id], [rooms].[number], [rooms].[max], [rooms].[floor_id]) VALUES (2, 102, 4, 1);
 INSERT INTO [rooms] ([rooms].[id], [rooms].[number], [rooms].[max], [rooms].[floor_id]) VALUES (3, 103, 4, 1);
@@ -163,4 +176,4 @@ INSERT INTO [rooms] ([rooms].[id], [rooms].[number], [rooms].[max], [rooms].[flo
 INSERT INTO [rooms] ([rooms].[id], [rooms].[number], [rooms].[max], [rooms].[floor_id]) VALUES (123, 25, 4, 7);
 INSERT INTO [rooms] ([rooms].[id], [rooms].[number], [rooms].[max], [rooms].[floor_id]) VALUES (124, 26, 4, 7);
 INSERT INTO [rooms] ([rooms].[id], [rooms].[number], [rooms].[max], [rooms].[floor_id]) VALUES (125, 32, 4, 7);
-
+SET IDENTITY_INSERT [rooms] OFF
