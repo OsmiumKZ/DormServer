@@ -1,8 +1,7 @@
 package kz.dorm.utils;
 
 import kz.dorm.api.dorm.util.gson.Parent;
-import kz.dorm.api.dorm.util.statement.DormINSERT;
-import kz.dorm.api.dorm.util.statement.DormSELECT;
+import kz.dorm.api.dorm.util.statement.providers.StatenentSQL;
 
 import java.sql.*;
 import java.util.regex.Pattern;
@@ -13,14 +12,14 @@ public class ControlWrite {
      * Умная запись имени в базу данных.
      */
     public static int writeNameF(Connection connection, String name) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement(DormSELECT.selectNameF());
+        PreparedStatement statement = connection.prepareStatement(StatenentSQL.select().selectNameF());
         statement.setString(1, name);
         ResultSet result = statement.executeQuery();
 
         if (result.next())
             return result.getInt(DataConfig.DB_DORM_NAME_F_ID);
 
-        statement = connection.prepareStatement(DormINSERT.insertNameF(), Statement.RETURN_GENERATED_KEYS);
+        statement = connection.prepareStatement(StatenentSQL.insert().insertNameF(), Statement.RETURN_GENERATED_KEYS);
         statement.setString(1, name);
 
         if (statement.executeUpdate() != 0) {
@@ -40,14 +39,14 @@ public class ControlWrite {
      * Умная запись фамилии в базу данных.
      */
     public static int writeNameL(Connection connection, String name) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement(DormSELECT.selectNameL());
+        PreparedStatement statement = connection.prepareStatement(StatenentSQL.select().selectNameL());
         statement.setString(1, name);
         ResultSet result = statement.executeQuery();
 
         if (result.next())
             return result.getInt(DataConfig.DB_DORM_NAME_L_ID);
 
-        statement = connection.prepareStatement(DormINSERT.insertNameL(), Statement.RETURN_GENERATED_KEYS);
+        statement = connection.prepareStatement(StatenentSQL.insert().insertNameL(), Statement.RETURN_GENERATED_KEYS);
         statement.setString(1, name);
 
         if (statement.executeUpdate() != 0) {
@@ -70,14 +69,14 @@ public class ControlWrite {
         if (!isCheckText(name))
             return 0;
 
-        PreparedStatement statement = connection.prepareStatement(DormSELECT.selectPatronymic());
+        PreparedStatement statement = connection.prepareStatement(StatenentSQL.select().selectPatronymic());
         statement.setString(1, name);
         ResultSet result = statement.executeQuery();
 
         if (result.next())
             return result.getInt(DataConfig.DB_DORM_PATRONYMIC_ID);
 
-        statement = connection.prepareStatement(DormINSERT.insertPatronymic(), Statement.RETURN_GENERATED_KEYS);
+        statement = connection.prepareStatement(StatenentSQL.insert().insertPatronymic(), Statement.RETURN_GENERATED_KEYS);
         statement.setString(1, name);
 
         if (statement.executeUpdate() != 0) {
@@ -122,7 +121,7 @@ public class ControlWrite {
      */
     public static int getIdDormForRoom(String roomId) {
         try (Connection connection = DataBase.getDorm()) {
-            PreparedStatement statement = connection.prepareStatement(DormSELECT.selectRoomIdToDormId());
+            PreparedStatement statement = connection.prepareStatement(StatenentSQL.select().selectRoomIdToDormId());
             statement.setInt(1, Integer.parseInt(roomId));
             ResultSet result = statement.executeQuery();
 
@@ -198,7 +197,7 @@ public class ControlWrite {
      * Проверка на свободность комнаты и пол человека.
      */
     public static boolean isCheckRoom(Connection connection, int roomId, int genderId) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement(DormSELECT.selectCheckRoom());
+        PreparedStatement statement = connection.prepareStatement(StatenentSQL.select().selectCheckRoom());
         statement.setInt(1, roomId);
         statement.setInt(2, genderId);
 
@@ -209,7 +208,7 @@ public class ControlWrite {
      * Проверка на существование гендера.
      */
     public static boolean isCheckGender(Connection connection, int genderId) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement(DormSELECT.selectGenderId());
+        PreparedStatement statement = connection.prepareStatement(StatenentSQL.select().selectGenderId());
         statement.setInt(1, genderId);
 
         return statement.executeQuery().next();
@@ -219,7 +218,7 @@ public class ControlWrite {
      * Проверка на существование статуса.
      */
     public static boolean isCheckStatus(Connection connection, int statusId) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement(DormSELECT.selectStatusId());
+        PreparedStatement statement = connection.prepareStatement(StatenentSQL.select().selectStatusId());
         statement.setInt(1, statusId);
 
         return statement.executeQuery().next();
@@ -230,7 +229,7 @@ public class ControlWrite {
      */
     public static boolean isCheckUINRequest(Connection connection, long uin) throws SQLException {
         if (String.valueOf(uin).length() == 12) {
-            PreparedStatement statement = connection.prepareStatement(DormSELECT.selectActiveUINReport());
+            PreparedStatement statement = connection.prepareStatement(StatenentSQL.select().selectActiveUINReport());
             statement.setLong(1, uin);
 
             return !statement.executeQuery().next();
@@ -244,7 +243,7 @@ public class ControlWrite {
      */
     public static boolean isCheckUINReport(Connection connection, long uin) throws SQLException {
         if (String.valueOf(uin).length() == 12) {
-            PreparedStatement statement = connection.prepareStatement(DormSELECT.selectActiveUINReport());
+            PreparedStatement statement = connection.prepareStatement(StatenentSQL.select().selectActiveUINReport());
             statement.setLong(1, uin);
 
             return !statement.executeQuery().next();

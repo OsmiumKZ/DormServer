@@ -185,6 +185,7 @@ CREATE TABLE `accounts` (
 -- `parent_id_father` - ID таблицы `parents` - Папа
 -- `children` - Сколько в семье детей.
 -- `date_residence` - Дата начала проживания.
+-- `date_residence` - Дата создания.
 -- `active` - (0 - открыт) и (1 - закрыт). Или же (0 - не прочтен) и (1 - прочтен).
 --
 
@@ -203,6 +204,7 @@ CREATE TABLE `requests` (
 	`parent_id_father` INT NULL,
 	`children` INT NOT NULL,
 	`date_residence` DATE NOT NULL,
+	`date_create` DATETIME NOT NULL,
 	`active` INT NOT NULL,
 	PRIMARY KEY (`id`)) 
 	ENGINE = InnoDB

@@ -1,9 +1,9 @@
 package kz.dorm.api.dorm;
 
-import kz.dorm.api.dorm.crud.DormDELETE;
-import kz.dorm.api.dorm.crud.DormGET;
-import kz.dorm.api.dorm.crud.DormPOST;
-import kz.dorm.api.dorm.crud.DormPUT;
+import kz.dorm.api.dorm.crud.DormDelete;
+import kz.dorm.api.dorm.crud.DormGet;
+import kz.dorm.api.dorm.crud.DormPost;
+import kz.dorm.api.dorm.crud.DormPut;
 import kz.dorm.utils.DataConfig;
 import kz.dorm.utils.DomainHTTP;
 import kz.dorm.utils.token.Token;
@@ -36,7 +36,7 @@ public class DormAPI {
              */
             get("/db", (request, response) -> {
                 if (DomainHTTP.getDorm(request.host())) {
-                    return DormGET.getDB(response);
+                    return DormGet.getDB(response);
                 } else {
                     response.status(404);
                     return HttpStatus.getCode(404).getMessage();
@@ -52,7 +52,7 @@ public class DormAPI {
              */
             get("/auth", (request, response) -> {
                 if (DomainHTTP.getDorm(request.host())) {
-                    return DormGET.auth(request, response);
+                    return DormGet.auth(request, response);
                 } else {
                     response.status(404);
                     return HttpStatus.getCode(404).getMessage();
@@ -67,7 +67,7 @@ public class DormAPI {
              */
             get("/room", (request, response) -> {
                 if (DomainHTTP.getDorm(request.host())) {
-                    return DormGET.getRooms(request, response);
+                    return DormGet.getRooms(request, response);
                 } else {
                     response.status(404);
                     return HttpStatus.getCode(404).getMessage();
@@ -81,7 +81,7 @@ public class DormAPI {
              */
             get("/statistic", (request, response) -> {
                 if (DomainHTTP.getDorm(request.host())) {
-                    return DormGET.statistic(request, response);
+                    return DormGet.statistic(request, response);
                 } else {
                     response.status(404);
                     return HttpStatus.getCode(404).getMessage();
@@ -105,7 +105,7 @@ public class DormAPI {
              */
             get("/doc/request", (request, response) -> {
                 if (DomainHTTP.getDorm(request.host())) {
-                    return DormGET.createRequest(request, response);
+                    return DormGet.createRequest(request, response);
                 } else {
                     response.status(404);
                     return HttpStatus.getCode(404).getMessage();
@@ -126,7 +126,7 @@ public class DormAPI {
              */
             get("/doc/direction", (request, response) -> {
                 if (DomainHTTP.getDorm(request.host())) {
-                    return DormGET.createDirection(request, response);
+                    return DormGet.createDirection(request, response);
                 } else {
                     response.status(404);
                     return HttpStatus.getCode(404).getMessage();
@@ -144,7 +144,7 @@ public class DormAPI {
              */
             get("/search/name", (request, response) -> {
                 if (DomainHTTP.getDorm(request.host())) {
-                    return DormGET.searchName(request, response);
+                    return DormGet.searchName(request, response);
                 } else {
                     response.status(404);
                     return HttpStatus.getCode(404).getMessage();
@@ -167,7 +167,7 @@ public class DormAPI {
             get("/report", (request, response) -> {
                 if (DomainHTTP.getDorm(request.host())) {
                     if (Token.getInstance().checkToken(request.headers(DataConfig.GLOBAL_TOKEN))){
-                        return DormGET.getReport(request, response);
+                        return DormGet.getReport(request, response);
                     } else {
                         response.status(401);
                         return HttpStatus.getCode(401).getMessage();
@@ -193,7 +193,7 @@ public class DormAPI {
             get("/request", (request, response) -> {
                 if (DomainHTTP.getDorm(request.host())) {
                     if (Token.getInstance().checkToken(request.headers(DataConfig.GLOBAL_TOKEN))){
-                        return DormGET.getRequest(request, response);
+                        return DormGet.getRequest(request, response);
                     } else {
                         response.status(401);
                         return HttpStatus.getCode(401).getMessage();
@@ -213,7 +213,7 @@ public class DormAPI {
             get("/search/request", (request, response) -> {
                 if (DomainHTTP.getDorm(request.host())) {
                     if (Token.getInstance().checkToken(request.headers(DataConfig.GLOBAL_TOKEN))){
-                        return DormGET.getRequestId(request, response);
+                        return DormGet.getRequestId(request, response);
                     } else {
                         response.status(401);
                         return HttpStatus.getCode(401).getMessage();
@@ -251,7 +251,7 @@ public class DormAPI {
             post("/report", (request, response) -> {
                 if (DomainHTTP.getDorm(request.host())) {
                     if (Token.getInstance().checkToken(request.headers(DataConfig.GLOBAL_TOKEN))){
-                        return DormPOST.addReport(request, response);
+                        return DormPost.addReport(request, response);
                     } else {
                         response.status(401);
                         return HttpStatus.getCode(401).getMessage();
@@ -280,7 +280,7 @@ public class DormAPI {
              */
             post("/request", (request, response) -> {
                 if (DomainHTTP.getDorm(request.host())) {
-                    return DormPOST.addRequest(request, response);
+                    return DormPost.addRequest(request, response);
                 } else {
                     response.status(404);
                     return HttpStatus.getCode(404).getMessage();
@@ -305,7 +305,7 @@ public class DormAPI {
             put("/status", (request, response) -> {
                 if (DomainHTTP.getDorm(request.host())) {
                     if (Token.getInstance().checkToken(request.headers(DataConfig.GLOBAL_TOKEN))){
-                        return DormPUT.updateStatus(request, response);
+                        return DormPut.updateStatus(request, response);
                     } else {
                         response.status(401);
                         return HttpStatus.getCode(401).getMessage();
@@ -325,7 +325,7 @@ public class DormAPI {
             put("/active/request", (request, response) -> {
                 if (DomainHTTP.getDorm(request.host())) {
                     if (Token.getInstance().checkToken(request.headers(DataConfig.GLOBAL_TOKEN))){
-                        return DormPUT.updateRequestActive(request, response);
+                        return DormPut.updateRequestActive(request, response);
                     } else {
                         response.status(401);
                         return HttpStatus.getCode(401).getMessage();
@@ -353,7 +353,7 @@ public class DormAPI {
             delete("/request", (request, response) -> {
                 if (DomainHTTP.getDorm(request.host())) {
                     if (Token.getInstance().checkToken(request.headers(DataConfig.GLOBAL_TOKEN))){
-                        return DormDELETE.deleteRequest(request, response);
+                        return DormDelete.deleteRequest(request, response);
                     } else {
                         response.status(401);
                         return HttpStatus.getCode(401).getMessage();

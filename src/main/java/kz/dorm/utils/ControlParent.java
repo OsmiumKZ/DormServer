@@ -2,7 +2,7 @@ package kz.dorm.utils;
 
 import com.google.gson.Gson;
 import kz.dorm.api.dorm.util.gson.Parent;
-import kz.dorm.api.dorm.util.statement.DormINSERT;
+import kz.dorm.api.dorm.util.statement.providers.StatenentSQL;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -44,7 +44,7 @@ public class ControlParent {
         if (!ControlWrite.isCheckNames(parent.getNameF(), parent.getNameL()))
             return 0;
 
-        PreparedStatement statement = connection.prepareStatement(DormINSERT.insertParent(), Statement.RETURN_GENERATED_KEYS);
+        PreparedStatement statement = connection.prepareStatement(StatenentSQL.insert().insertParent(), Statement.RETURN_GENERATED_KEYS);
         statement.setInt(1, ControlWrite.writeNameF(connection, parent.getNameF()));
         statement.setInt(2, ControlWrite.writeNameL(connection, parent.getNameL()));
         statement.setInt(3, ControlWrite.writePatronymic(connection, parent.getPatronymic()));
