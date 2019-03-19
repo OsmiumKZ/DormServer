@@ -22,7 +22,8 @@ public class DormInsert implements Insert {
      */
     @Override
     public String insertReport() {
-        return "INSERT INTO [" + DataConfig.DB_DORM_REPORT + "] ([" + DataConfig.DB_DORM_REPORT + "].[" + DataConfig.DB_DORM_REPORT_UIN + "],\n" +
+        return "SET DATEFORMAT ymd;\n" +
+                "INSERT INTO [" + DataConfig.DB_DORM_REPORT + "] ([" + DataConfig.DB_DORM_REPORT + "].[" + DataConfig.DB_DORM_REPORT_UIN + "],\n" +
                 "\t[" + DataConfig.DB_DORM_REPORT + "].[" + DataConfig.DB_DORM_REPORT_GENDER_ID + "],\n" +
                 "\t[" + DataConfig.DB_DORM_REPORT + "].[" + DataConfig.DB_DORM_REPORT_ROOM_ID + "],\n" +
                 "\t[" + DataConfig.DB_DORM_REPORT + "].[" + DataConfig.DB_DORM_REPORT_STATUS_ID + "],\n" +
@@ -37,7 +38,7 @@ public class DormInsert implements Insert {
                 "\t[" + DataConfig.DB_DORM_REPORT + "].[" + DataConfig.DB_DORM_REPORT_DATE_RESIDENCE + "],\n" +
                 "\t[" + DataConfig.DB_DORM_REPORT + "].[" + DataConfig.DB_DORM_REPORT_PARENT_ID_MOTHER + "],\n" +
                 "\t[" + DataConfig.DB_DORM_REPORT + "].[" + DataConfig.DB_DORM_REPORT_PARENT_ID_FATHER + "])\n" +
-                "VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     }
 
     /**
@@ -45,7 +46,8 @@ public class DormInsert implements Insert {
      */
     @Override
     public String insertRequest() {
-        return "INSERT INTO [" + DataConfig.DB_DORM_REQUEST + "] ([" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_NAME_F_ID + "],\n" +
+        return "SET DATEFORMAT ymd;\n" +
+                "INSERT INTO [" + DataConfig.DB_DORM_REQUEST + "] ([" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_NAME_F_ID + "],\n" +
                 "\t[" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_NAME_L_ID + "],\n" +
                 "\t[" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_PATRONYMIC_ID + "],\n" +
                 "\t[" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_UIN + "],\n" +
@@ -60,7 +62,7 @@ public class DormInsert implements Insert {
                 "\t[" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_DATE_CREATE + "],\n" +
                 "\t[" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_DATE_RESIDENCE + "],\n" +
                 "\t[" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_ACTIVE + "])\n" +
-                "VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     }
 
     /**
@@ -69,7 +71,7 @@ public class DormInsert implements Insert {
     @Override
     public String insertNameF(){
         return "INSERT INTO ["+DataConfig.DB_DORM_NAME_F+"] (["+DataConfig.DB_DORM_NAME_F+"].["+DataConfig.DB_DORM_NAME_F_NAME+"])\n" +
-                "VALUE (?)";
+                "VALUES (?)";
     }
 
     /**
@@ -78,7 +80,7 @@ public class DormInsert implements Insert {
     @Override
     public String insertNameL(){
         return "INSERT INTO ["+DataConfig.DB_DORM_NAME_L+"] (["+DataConfig.DB_DORM_NAME_L+"].["+DataConfig.DB_DORM_NAME_L_NAME+"])\n" +
-                "VALUE (?)";
+                "VALUES (?)";
     }
 
     /**
@@ -87,7 +89,7 @@ public class DormInsert implements Insert {
     @Override
     public String insertPatronymic(){
         return "INSERT INTO ["+DataConfig.DB_DORM_PATRONYMIC+"] (["+DataConfig.DB_DORM_PATRONYMIC+"].["+DataConfig.DB_DORM_PATRONYMIC_NAME+"])\n" +
-                "VALUE (?)";
+                "VALUES (?)";
     }
 
     /**
@@ -99,6 +101,6 @@ public class DormInsert implements Insert {
                 "\t["+DataConfig.DB_DORM_PARENT+"].["+DataConfig.DB_DORM_PARENT_NAME_L_ID+"],\n" +
                 "\t["+DataConfig.DB_DORM_PARENT+"].["+DataConfig.DB_DORM_PARENT_PATRONYMIC_ID+"],\n" +
                 "\t["+DataConfig.DB_DORM_PARENT+"].["+DataConfig.DB_DORM_PARENT_PHONE+"])\n" +
-                "VALUE (?, ?, ?, ?)";
+                "VALUES (?, ?, ?, ?)";
     }
 }

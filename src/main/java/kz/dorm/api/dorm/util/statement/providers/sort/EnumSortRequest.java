@@ -12,11 +12,13 @@ public enum EnumSortRequest {
             if (DataConfig.DB_TYPE == EnumDBType.MYSQL) { // MySQL
                 return StatenentSQL.select().selectRequest() +
                         "WHERE `" + DataConfig.DB_DORM_REQUEST + "`.`" + DataConfig.DB_DORM_REQUEST_GENDER_ID + "`=?\n" +
+                        "ORDER BY `" + DataConfig.DB_DORM_REQUEST + "`.`" + DataConfig.DB_DORM_REQUEST_ID + "`\n" +
                         DataConfig.DB_MAX_ITEM_LIST_STRING_MYSQL;
             } else {                                      // MSSQL
-                return StatenentSQL.select().selectRequest() +
-                        "WHERE [" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_GENDER_ID + "]=?\n" +
-                        DataConfig.DB_MAX_ITEM_LIST_STRING_MSSQL;
+                return "SELECT *\nFROM\n\t(SELECT ROW_NUMBER() OVER (ORDER BY [" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_CHILDREN + "])\n\t\tAS [row_num], *\n\tFROM\n\t\t(" +
+                        StatenentSQL.select().selectRequest() +
+                        "WHERE [" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_GENDER_ID + "]=?" +
+                        ")\n\tAS [" + DataConfig.DB_DORM_REQUEST + "])\nAS [" + DataConfig.DB_DORM_REQUEST + "]\nWHERE [" + DataConfig.DB_DORM_REQUEST + "].[row_num] >=?\n\tAND [" + DataConfig.DB_DORM_REQUEST + "].[row_num] <?\nORDER BY [" + DataConfig.DB_DORM_REQUEST + "].[row_num]";
             }
         }
     },
@@ -29,9 +31,9 @@ public enum EnumSortRequest {
                         "ORDER BY `" + DataConfig.DB_DORM_REQUEST + "`.`" + DataConfig.DB_DORM_REQUEST_CHILDREN + "` DESC\n" +
                         DataConfig.DB_MAX_ITEM_LIST_STRING_MYSQL;
             } else {                                      // MSSQL
-                return StatenentSQL.select().selectRequest() +
-                        "ORDER BY [" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_CHILDREN + "] DESC\n" +
-                        DataConfig.DB_MAX_ITEM_LIST_STRING_MSSQL;
+                return "SELECT *\nFROM\n\t(SELECT ROW_NUMBER() OVER (ORDER BY [" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_CHILDREN + "] DESC) - 1\n\t\tAS [row_num], *\n\tFROM\n\t\t(" +
+                        StatenentSQL.select().selectRequest() +
+                        ")\n\tAS [" + DataConfig.DB_DORM_REQUEST + "])\nAS [" + DataConfig.DB_DORM_REQUEST + "]\nWHERE [" + DataConfig.DB_DORM_REQUEST + "].[row_num] >=?\n\tAND [" + DataConfig.DB_DORM_REQUEST + "].[row_num] <?\nORDER BY [" + DataConfig.DB_DORM_REQUEST + "].[row_num]";
             }
         }
     },
@@ -44,9 +46,9 @@ public enum EnumSortRequest {
                         "ORDER BY `" + DataConfig.DB_DORM_FLOOR + "`.`" + DataConfig.DB_DORM_FLOOR_DORM_ID + "`\n" +
                         DataConfig.DB_MAX_ITEM_LIST_STRING_MYSQL;
             } else {                                      // MSSQL
-                return StatenentSQL.select().selectRequest() +
-                        "ORDER BY [" + DataConfig.DB_DORM_FLOOR + "].[" + DataConfig.DB_DORM_FLOOR_DORM_ID + "]\n" +
-                        DataConfig.DB_MAX_ITEM_LIST_STRING_MSSQL;
+                return "SELECT *\nFROM\n\t(SELECT ROW_NUMBER() OVER (ORDER BY [" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_FLOOR_DORM_ID + "]) - 1\n\t\tAS [row_num], *\n\tFROM\n\t\t(" +
+                        StatenentSQL.select().selectRequest() +
+                        ")\n\tAS [" + DataConfig.DB_DORM_REQUEST + "])\nAS [" + DataConfig.DB_DORM_REQUEST + "]\nWHERE [" + DataConfig.DB_DORM_REQUEST + "].[row_num] >=?\n\tAND [" + DataConfig.DB_DORM_REQUEST + "].[row_num] <?\nORDER BY [" + DataConfig.DB_DORM_REQUEST + "].[row_num]";
             }
         }
     },
@@ -59,9 +61,9 @@ public enum EnumSortRequest {
                         "ORDER BY `" + DataConfig.DB_DORM_REQUEST + "`.`" + DataConfig.DB_DORM_REQUEST_DATE_CREATE + "` DESC\n" +
                         DataConfig.DB_MAX_ITEM_LIST_STRING_MYSQL;
             } else {                                      // MSSQL
-                return StatenentSQL.select().selectRequest() +
-                        "ORDER BY [" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_DATE_CREATE + "] DESC\n" +
-                        DataConfig.DB_MAX_ITEM_LIST_STRING_MSSQL;
+                return "SELECT *\nFROM\n\t(SELECT ROW_NUMBER() OVER (ORDER BY [" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_DATE_CREATE + "] DESC) - 1\n\t\tAS [row_num], *\n\tFROM\n\t\t(" +
+                        StatenentSQL.select().selectRequest() +
+                        ")\n\tAS [" + DataConfig.DB_DORM_REQUEST + "])\nAS [" + DataConfig.DB_DORM_REQUEST + "]\nWHERE [" + DataConfig.DB_DORM_REQUEST + "].[row_num] >=?\n\tAND [" + DataConfig.DB_DORM_REQUEST + "].[row_num] <?\nORDER BY [" + DataConfig.DB_DORM_REQUEST + "].[row_num]";
             }
         }
     },
@@ -74,9 +76,10 @@ public enum EnumSortRequest {
                         "WHERE `" + DataConfig.DB_DORM_REQUEST + "`.`" + DataConfig.DB_DORM_REQUEST_ACTIVE + "`=0\n" +
                         DataConfig.DB_MAX_ITEM_LIST_STRING_MYSQL;
             } else {                                      // MSSQL
-                return StatenentSQL.select().selectRequest() +
+                return "SELECT *\nFROM\n\t(SELECT ROW_NUMBER() OVER (ORDER BY [" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_ID + "]) - 1\n\t\tAS [row_num], *\n\tFROM\n\t\t(" +
+                        StatenentSQL.select().selectRequest() +
                         "WHERE [" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_ACTIVE + "]=0\n" +
-                        DataConfig.DB_MAX_ITEM_LIST_STRING_MSSQL;
+                        ")\n\tAS [" + DataConfig.DB_DORM_REQUEST + "])\nAS [" + DataConfig.DB_DORM_REQUEST + "]\nWHERE [" + DataConfig.DB_DORM_REQUEST + "].[row_num] >=?\n\tAND [" + DataConfig.DB_DORM_REQUEST + "].[row_num] <?\nORDER BY [" + DataConfig.DB_DORM_REQUEST + "].[row_num]";
             }
         }
     };

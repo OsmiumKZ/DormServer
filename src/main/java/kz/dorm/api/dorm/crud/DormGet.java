@@ -6,10 +6,7 @@ import kz.dorm.api.dorm.util.statement.providers.StatenentSQL;
 import kz.dorm.api.dorm.util.statement.providers.sort.EnumSortReport;
 import kz.dorm.api.dorm.util.statement.providers.sort.EnumSortRequest;
 import kz.dorm.docx.DocxConstructor;
-import kz.dorm.utils.ControlParent;
-import kz.dorm.utils.ControlWrite;
-import kz.dorm.utils.DataBase;
-import kz.dorm.utils.DataConfig;
+import kz.dorm.utils.*;
 import kz.dorm.utils.token.Token;
 import org.eclipse.jetty.http.HttpStatus;
 import spark.Request;
@@ -104,7 +101,7 @@ public class DormGet {
             return new Gson().toJson(dormDB);
         } catch (Exception e) {
             response.status(400);
-            return HttpStatus.getCode(400).getMessage();
+            return e.getMessage();
         }
     }
 
@@ -163,7 +160,7 @@ public class DormGet {
                 return new Gson().toJson(list);
             } catch (Exception e) {
                 response.status(409);
-                return HttpStatus.getCode(409).getMessage();
+                return e.getMessage();
             }
         } else {
             response.status(400);
@@ -227,8 +224,14 @@ public class DormGet {
                         Integer.parseInt(request.queryParams(DataConfig.GLOBAL_SORT_GENDER_ID)) : 1;
                 statement.setInt(1, genderId);
                 statement.setInt(2, page);
+
+                if (DataConfig.DB_TYPE == EnumDBType.MSSQL)
+                    statement.setInt(3, DataConfig.DB_MAX_ITEM_LIST_INT * (page + 1));
             } else {
                 statement.setInt(1, page);
+
+                if (DataConfig.DB_TYPE == EnumDBType.MSSQL)
+                    statement.setInt(2, DataConfig.DB_MAX_ITEM_LIST_INT * (page + 1));
             }
 
             List<Report> reports = new ArrayList<>();
@@ -267,7 +270,6 @@ public class DormGet {
         }
     }
 
-
     /**
      * Получить заявления
      */
@@ -290,8 +292,14 @@ public class DormGet {
                         Integer.parseInt(request.queryParams(DataConfig.GLOBAL_SORT_GENDER_ID)) : 1;
                 statement.setInt(1, genderId);
                 statement.setInt(2, page);
+
+                if (DataConfig.DB_TYPE == EnumDBType.MSSQL)
+                    statement.setInt(3, DataConfig.DB_MAX_ITEM_LIST_INT * (page + 1));
             } else {
                 statement.setInt(1, page);
+
+                if (DataConfig.DB_TYPE == EnumDBType.MSSQL)
+                    statement.setInt(2, DataConfig.DB_MAX_ITEM_LIST_INT * (page + 1));
             }
 
             List<kz.dorm.api.dorm.util.gson.Request> reports = new ArrayList<>();
@@ -327,7 +335,7 @@ public class DormGet {
             return new Gson().toJson(reports);
         } catch (Exception e) {
             response.status(409);
-            return HttpStatus.getCode(409).getMessage();
+            return e.getMessage();
         }
     }
 

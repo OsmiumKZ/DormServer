@@ -22,7 +22,8 @@ public class DormUpdate implements Update {
      */
     @Override
     public String updateStatus() {
-        return "UPDATE [" + DataConfig.DB_DORM_REPORT + "]\n" +
+        return "SET DATEFORMAT ymd;\n" +
+                "UPDATE [" + DataConfig.DB_DORM_REPORT + "]\n" +
                 "SET [" + DataConfig.DB_DORM_REPORT + "].[" + DataConfig.DB_DORM_REPORT_STATUS_ID + "]=?,\n" +
                 "\t[" + DataConfig.DB_DORM_REPORT + "].[" + DataConfig.DB_DORM_REPORT_DATE_UPDATE + "]=?\n" +
                 "WHERE [" + DataConfig.DB_DORM_REPORT + "].[" + DataConfig.DB_DORM_REPORT_ID + "]=?";
@@ -43,7 +44,8 @@ public class DormUpdate implements Update {
      */
     @Override
     public String updateRequest() {
-        return "UPDATE [" + DataConfig.DB_DORM_REQUEST + "]\n" +
+        return "SET DATEFORMAT ymd;\n" +
+                "UPDATE [" + DataConfig.DB_DORM_REQUEST + "]\n" +
                 "SET [" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_NAME_F_ID + "]=? ,\n" +
                 "\t[" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_NAME_L_ID + "]=? ,\n" +
                 "\t[" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_PATRONYMIC_ID + "]=? ,\n" +

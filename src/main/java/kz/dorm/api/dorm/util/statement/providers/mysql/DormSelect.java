@@ -292,7 +292,9 @@ public class DormSelect implements Select {
      */
     @Override
     public String selectStatusId() {
-        return "SELECT * FROM `" + DataConfig.DB_DORM_STATUS + "` WHERE `" + DataConfig.DB_DORM_STATUS + "`.`" + DataConfig.DB_DORM_STATUS_ID + "`=?";
+        return "SELECT *\n" +
+                "FROM `" + DataConfig.DB_DORM_STATUS + "`\n" +
+                "WHERE `" + DataConfig.DB_DORM_STATUS + "`.`" + DataConfig.DB_DORM_STATUS_ID + "`=?";
     }
 
     /**
@@ -300,7 +302,9 @@ public class DormSelect implements Select {
      */
     @Override
     public String selectGenderId() {
-        return "SELECT * FROM `" + DataConfig.DB_DORM_GENDER + "` WHERE `" + DataConfig.DB_DORM_GENDER + "`.`" + DataConfig.DB_DORM_GENDER_ID + "`=?";
+        return "SELECT *\n" +
+                "FROM `" + DataConfig.DB_DORM_GENDER + "`\n" +
+                "WHERE `" + DataConfig.DB_DORM_GENDER + "`.`" + DataConfig.DB_DORM_GENDER_ID + "`=?";
     }
 
     /**
@@ -308,7 +312,10 @@ public class DormSelect implements Select {
      */
     @Override
     public String selectAccount() {
-        return "SELECT * FROM `" + DataConfig.DB_DORM_ACCOUNT + "` WHERE `" + DataConfig.DB_DORM_ACCOUNT + "`.`" + DataConfig.DB_DORM_ACCOUNT_LOGIN + "`=? AND `" + DataConfig.DB_DORM_ACCOUNT + "`.`" + DataConfig.DB_DORM_ACCOUNT_PASSWORD + "`=?";
+        return "SELECT *\n" +
+                "FROM `" + DataConfig.DB_DORM_ACCOUNT + "`\n" +
+                "WHERE `" + DataConfig.DB_DORM_ACCOUNT + "`.`" + DataConfig.DB_DORM_ACCOUNT_LOGIN + "`=?\n" +
+                "\tAND `" + DataConfig.DB_DORM_ACCOUNT + "`.`" + DataConfig.DB_DORM_ACCOUNT_PASSWORD + "`=?";
     }
 
     /**
@@ -316,10 +323,19 @@ public class DormSelect implements Select {
      */
     @Override
     public String selectRooms() {
-        return "SELECT `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_ID + "`, `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_NUMBER + "`, `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_MAX + "`, `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_FLOOR_ID + "`, `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_AS_AMOUNT + "`, `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_REPORT_GENDER_ID + "`\n" +
+        return "SELECT `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_ID + "`,\n" +
+                "\t`" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_NUMBER + "`,\n" +
+                "\t`" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_MAX + "`,\n" +
+                "\t`" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_FLOOR_ID + "`,\n" +
+                "\t`" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_AS_AMOUNT + "`,\n" +
+                "\t`" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_REPORT_GENDER_ID + "`\n" +
                 "FROM `" + DataConfig.DB_DORM_FLOOR + "`\n" +
                 "INNER JOIN\n" +
-                "\t(SELECT `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_ID + "`, `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_NUMBER + "`, `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_MAX + "`, `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_FLOOR_ID + "`, `" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_REPORT_GENDER_ID + "`,\n" +
+                "\t(SELECT `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_ID + "`,\n" +
+                "\t\t`" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_NUMBER + "`,\n" +
+                "\t\t`" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_MAX + "`,\n" +
+                "\t\t`" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_FLOOR_ID + "`,\n" +
+                "\t\t`" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_REPORT_GENDER_ID + "`,\n" +
                 "\t\tIF(`" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_ROOM_AS_AMOUNT + "` IS NULL, 0, `" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_ROOM_AS_AMOUNT + "`)\n" +
                 "\t\t\tAS `" + DataConfig.DB_DORM_ROOM_AS_AMOUNT + "`\n" +
                 "\tFROM `" + DataConfig.DB_DORM_ROOM + "`\n" +
@@ -330,7 +346,8 @@ public class DormSelect implements Select {
                 "\t\t\t\tAS `" + DataConfig.DB_DORM_ROOM_AS_AMOUNT + "`\n" +
                 "\t\tFROM `" + DataConfig.DB_DORM_REPORT + "`\n" +
                 "\t\tLEFT JOIN\n" +
-                "\t\t\t(SELECT `" + DataConfig.DB_DORM_STATUS + "`.`" + DataConfig.DB_DORM_STATUS_ID + "`, `" + DataConfig.DB_DORM_STATUS + "`.`" + DataConfig.DB_DORM_STATUS_ACTIVE + "`\n" +
+                "\t\t\t(SELECT `" + DataConfig.DB_DORM_STATUS + "`.`" + DataConfig.DB_DORM_STATUS_ID + "`,\n" +
+                "\t\t\t\t`" + DataConfig.DB_DORM_STATUS + "`.`" + DataConfig.DB_DORM_STATUS_ACTIVE + "`\n" +
                 "\t\t\tFROM `" + DataConfig.DB_DORM_STATUS + "`\n" +
                 "\t\t\tWHERE `" + DataConfig.DB_DORM_STATUS + "`.`" + DataConfig.DB_DORM_STATUS_ACTIVE + "`=1)\n" +
                 "\t\tAS `" + DataConfig.DB_DORM_STATUS + "`\n" +
@@ -366,19 +383,22 @@ public class DormSelect implements Select {
     public String selectCheckRoom() {
         return "SELECT * \n" +
                 "FROM \n" +
-                "\t(SELECT `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_ID + "`, `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_MAX + "`,\n" +
+                "\t(SELECT `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_ID + "`,\n" +
+                "\t\t`" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_MAX + "`,\n" +
                 "\t\tIF(`" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_REPORT_GENDER_ID + "` IS NULL, 0, `" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_REPORT_GENDER_ID + "`)\n" +
                 "\t\t\tAS `" + DataConfig.DB_DORM_REPORT_GENDER_ID + "`,\n" +
                 "\t\tIF(`" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_ROOM_AS_AMOUNT + "` IS NULL, 0, `" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_ROOM_AS_AMOUNT + "`)\n" +
                 "\t\t\tAS `" + DataConfig.DB_DORM_ROOM_AS_AMOUNT + "`\n" +
                 "\tFROM `" + DataConfig.DB_DORM_ROOM + "`\n" +
                 "\tLEFT JOIN\n" +
-                "\t\t(SELECT `" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_REPORT_ROOM_ID + "`, `" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_REPORT_GENDER_ID + "`,\n" +
+                "\t\t(SELECT `" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_REPORT_ROOM_ID + "`,\n" +
+                "\t\t\t`" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_REPORT_GENDER_ID + "`,\n" +
                 "\t\t\tCOUNT(`" + DataConfig.DB_DORM_STATUS + "`.`" + DataConfig.DB_DORM_STATUS_ACTIVE + "`)\n" +
                 "\t\t\t\tAS `" + DataConfig.DB_DORM_ROOM_AS_AMOUNT + "`\n" +
                 "\t\tFROM `" + DataConfig.DB_DORM_REPORT + "`\n" +
                 "\t\tLEFT JOIN\n" +
-                "\t\t\t(SELECT `" + DataConfig.DB_DORM_STATUS + "`.`" + DataConfig.DB_DORM_STATUS_ID + "`, `" + DataConfig.DB_DORM_STATUS + "`.`" + DataConfig.DB_DORM_STATUS_ACTIVE + "`\n" +
+                "\t\t\t(SELECT `" + DataConfig.DB_DORM_STATUS + "`.`" + DataConfig.DB_DORM_STATUS_ID + "`,\n" +
+                "\t\t\t\t`" + DataConfig.DB_DORM_STATUS + "`.`" + DataConfig.DB_DORM_STATUS_ACTIVE + "`\n" +
                 "\t\t\tFROM `" + DataConfig.DB_DORM_STATUS + "`\n" +
                 "\t\t\tWHERE `" + DataConfig.DB_DORM_STATUS + "`.`" + DataConfig.DB_DORM_STATUS_ACTIVE + "`=1)\n" +
                 "\t\t\tAS `" + DataConfig.DB_DORM_STATUS + "`\n" +
@@ -388,7 +408,8 @@ public class DormSelect implements Select {
                 "\tON `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_ID + "`=`" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_REPORT_ROOM_ID + "`)\n" +
                 "\tAS `" + DataConfig.DB_DORM_ROOM + "`\n" +
                 "WHERE `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_ID + "`=?\n" +
-                "\tAND (`" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_REPORT_GENDER_ID + "`=? OR `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_REPORT_GENDER_ID + "`=0)\n" +
+                "\tAND (`" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_REPORT_GENDER_ID + "`=?\n" +
+                "\t\tOR `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_REPORT_GENDER_ID + "`=0)\n" +
                 "\tAND `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_MAX + "`>`" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_AS_AMOUNT + "`";
     }
 
@@ -429,7 +450,8 @@ public class DormSelect implements Select {
     public String selectSearchName(String type, String name) {
         return "SELECT `" + type + "`.`" + name + "`\n" +
                 "FROM `" + type + "`\n" +
-                "WHERE `" + type + "`.`" + name + "` LIKE ?";
+                "WHERE `" + type + "`.`" + name + "`\n" +
+                "LIKE ?";
     }
 
     /**
