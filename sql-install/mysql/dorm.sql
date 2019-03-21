@@ -81,6 +81,7 @@ CREATE TABLE `genders` (
 -- `uin` - ИИН
 -- `date_create` - Дата создания отчета
 -- `date_update` - Дата обновление отчета
+-- `email` - Электронная почта
 -- `address` - Место проживания
 -- `phone` - Телефон
 -- `children` - Сколько в семье детей.
@@ -99,6 +100,7 @@ CREATE TABLE `reports` (
 	`uin` BIGINT NOT NULL,
 	`date_create` DATETIME NOT NULL,
 	`date_update` DATETIME NOT NULL,
+	`email` VARCHAR(254) NULL,
 	`address` VARCHAR(60) NOT NULL,
 	`phone` VARCHAR(15) NOT NULL,
 	`children` INT NOT NULL,
@@ -175,6 +177,7 @@ CREATE TABLE `accounts` (
 -- `name_f` - Имя
 -- `name_l` - Фамилия
 -- `patronymic` - Отчество
+-- `email` - Электронная почта
 -- `address` - Место проживания
 -- `phone` - Телефон
 -- `group` - Группа
@@ -194,6 +197,7 @@ CREATE TABLE `requests` (
 	`name_f_id` VARCHAR(40) NOT NULL,
 	`name_l_id` VARCHAR(40) NOT NULL,
 	`patronymic_id` VARCHAR(40) NULL,
+	`email` VARCHAR(254) NULL,
 	`address` VARCHAR(60) NOT NULL,
 	`phone` VARCHAR(15) NOT NULL,
 	`group` VARCHAR(10) NOT NULL,

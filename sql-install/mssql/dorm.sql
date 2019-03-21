@@ -73,6 +73,7 @@ GO
 -- [uin] - ИИН
 -- [date_create] - Дата создания отчета
 -- [date_update] - Дата обновление отчета
+-- [email] - Электронная почта
 -- [address] - Место проживания
 -- [phone] - Телефон
 -- [children] - Сколько в семье детей.
@@ -91,6 +92,7 @@ CREATE TABLE [reports]
      [uin] BIGINT NOT NULL,
      [date_create] DATETIME NOT NULL,
      [date_update] DATETIME NOT NULL,
+     [email] NVARCHAR(254) NULL,
      [address] NVARCHAR(60) NOT NULL,
      [phone] NVARCHAR(15) NOT NULL,
      [children] INT NOT NULL,
@@ -159,6 +161,7 @@ GO
 -- [name_f] - Имя
 -- [name_l] - Фамилия
 -- [patronymic] - Отчество
+-- [email] - Электронная почта
 -- [address] - Место проживания
 -- [phone] - Телефон
 -- [group] - Группа
@@ -178,6 +181,7 @@ CREATE TABLE [requests]
      [name_f_id] NVARCHAR(40) NOT NULL,
      [name_l_id] NVARCHAR(40) NOT NULL,
      [patronymic_id] NVARCHAR(40) NULL,
+     [email] NVARCHAR(254) NULL,
      [address] NVARCHAR(60) NOT NULL,
      [phone] NVARCHAR(15) NOT NULL,
      [group] NVARCHAR(10) NOT NULL,
