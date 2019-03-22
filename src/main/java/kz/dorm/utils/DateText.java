@@ -48,7 +48,7 @@ public class DateText {
     /**
      * Получить дату создания документа.
      */
-    public static String getDocCreate(){
+    public static String getDocCreate() {
         return new SimpleDateFormat(DateConfig.GLOBAL_FORMAT_DATE_DOC_CREATE)
                 .format(new Date(System.currentTimeMillis()));
     }

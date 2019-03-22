@@ -32,7 +32,10 @@ public class HandlerRequest {
         File fileOut = new File(outFileName);
         File file = new File("docs/patterns/request.docx");
 
-        Student student = new Student(name_f, name_l, patronymic, Integer.parseInt(genderId) == 1);
+        Student student = new Student(name_f,
+                name_l,
+                patronymic,
+                Integer.parseInt(genderId) == 1);
 
         try {
             Map<String, String> map = new HashMap<>();
@@ -52,8 +55,6 @@ public class HandlerRequest {
             documentPart.variableReplace(map);
             Docx4J.save(wpMLP, fileOut);
         } catch (Docx4JException | JAXBException e) {
-            final Logger LOGGER = Logger.getLogger(HandlerRequest.class.getName());
-            LOGGER.info(e.getMessage());
             return "docs/null";
         } catch (Exception e) {
             e.printStackTrace();
@@ -102,23 +103,34 @@ public class HandlerRequest {
     /**
      * Заполнение родительской информации.
      */
-    private static void parent(Map<String, String> map, MainDocumentPart documentPart, Parent father, Parent mother) throws Docx4JException {
+    private static void parent(Map<String, String> map, MainDocumentPart documentPart,
+                               Parent father, Parent mother) {
         if (father != null ||
                 mother != null) {
             map.put(DataConfigRequest.DOC_KEY_PARENT, DataConfigRequest.DOC_PARENT);
 
             if (father != null) {
-                map.put(DataConfigRequest.DOC_KEY_PARENT_FATHER, DataConfigRequest.DOC_PARENT_FATHER);
-                map.put(DataConfigRequest.DOC_KEY_PARENT_FATHER_FULL_NAME_WRITE, ControlWrite.getFullName(father));
-                map.put(DataConfigRequest.DOC_KEY_PARENT_FATHER_PHONE_WRITE, father.getPhone());
+                map.put(DataConfigRequest.DOC_KEY_PARENT_FATHER,
+                        DataConfigRequest.DOC_PARENT_FATHER);
+
+                map.put(DataConfigRequest.DOC_KEY_PARENT_FATHER_FULL_NAME_WRITE,
+                        ControlWrite.getFullName(father));
+
+                map.put(DataConfigRequest.DOC_KEY_PARENT_FATHER_PHONE_WRITE,
+                        father.getPhone());
             } else {
                 remove(documentPart, P.class, 13);
             }
 
             if (mother != null) {
-                map.put(DataConfigRequest.DOC_KEY_PARENT_MOTHER, DataConfigRequest.DOC_PARENT_MOTHER);
-                map.put(DataConfigRequest.DOC_KEY_PARENT_MOTHER_FULL_NAME_WRITE, ControlWrite.getFullName(mother));
-                map.put(DataConfigRequest.DOC_KEY_PARENT_MOTHER_PHONE_WRITE, mother.getPhone());
+                map.put(DataConfigRequest.DOC_KEY_PARENT_MOTHER,
+                        DataConfigRequest.DOC_PARENT_MOTHER);
+
+                map.put(DataConfigRequest.DOC_KEY_PARENT_MOTHER_FULL_NAME_WRITE,
+                        ControlWrite.getFullName(mother));
+
+                map.put(DataConfigRequest.DOC_KEY_PARENT_MOTHER_PHONE_WRITE,
+                        mother.getPhone());
             } else {
                 remove(documentPart, P.class, 14);
             }
@@ -141,9 +153,11 @@ public class HandlerRequest {
      */
     private static void rule(Map<String, String> map, int genderId) {
         if (genderId == 1) // ID 1 - Мужской
-            map.put(DataConfigRequest.DOC_KEY_RULE, DataConfigRequest.DOC_RULE_MALE);
+            map.put(DataConfigRequest.DOC_KEY_RULE,
+                    DataConfigRequest.DOC_RULE_MALE);
         else
-            map.put(DataConfigRequest.DOC_KEY_RULE, DataConfigRequest.DOC_RULE_FEMALE);
+            map.put(DataConfigRequest.DOC_KEY_RULE,
+                    DataConfigRequest.DOC_RULE_FEMALE);
     }
 
     /**
@@ -160,7 +174,8 @@ public class HandlerRequest {
      * Заполнение номера документа.
      */
     private static void number(Map<String, String> map, String number) {
-        map.put(DataConfigRequest.DOC_KEY_REQUEST_NUMBER_WRITE, DataConfigRequest.DOC_REQUEST_NUMBER + number);
+        map.put(DataConfigRequest.DOC_KEY_REQUEST_NUMBER_WRITE,
+                DataConfigRequest.DOC_REQUEST_NUMBER + number);
     }
 
     /**
@@ -232,9 +247,9 @@ public class HandlerRequest {
             result.add(obj);
         } else if (obj instanceof ContentAccessor) {
             List<?> children = ((ContentAccessor) obj).getContent();
-            for (Object child : children) {
+
+            for (Object child : children)
                 result.addAll(getAllElementFromObject(child, toSearch));
-            }
         }
 
         return result;

@@ -6,13 +6,13 @@ import kz.dorm.api.dorm.util.statement.providers.interfaces.Select;
 import kz.dorm.api.dorm.util.statement.providers.interfaces.Update;
 import kz.dorm.utils.DataConfig;
 
-public class StatenentSQL {
+public class StatementSQL {
 
     /**
      * SQL запросы для удаления.
      */
-    public static Delete delete(){
-        switch (DataConfig.DB_TYPE){
+    public static Delete delete() {
+        switch (DataConfig.DB_TYPE) {
             case MYSQL:
                 return kz.dorm.api.dorm.util.statement.providers.mysql.DormDelete.getInstance();
             case MSSQL:
@@ -25,8 +25,8 @@ public class StatenentSQL {
     /**
      * SQL запросы для создания.
      */
-    public static Insert insert(){
-        switch (DataConfig.DB_TYPE){
+    public static Insert insert() {
+        switch (DataConfig.DB_TYPE) {
             case MYSQL:
                 return kz.dorm.api.dorm.util.statement.providers.mysql.DormInsert.getInstance();
             case MSSQL:
@@ -39,8 +39,8 @@ public class StatenentSQL {
     /**
      * SQL запросы для прочтения.
      */
-    public static Select select(){
-        switch (DataConfig.DB_TYPE){
+    public static Select select() {
+        switch (DataConfig.DB_TYPE) {
             case MYSQL:
                 return kz.dorm.api.dorm.util.statement.providers.mysql.DormSelect.getInstance();
             case MSSQL:
@@ -53,8 +53,8 @@ public class StatenentSQL {
     /**
      * SQL запросы для обновления.
      */
-    public static Update update(){
-        switch (DataConfig.DB_TYPE){
+    public static Update update() {
+        switch (DataConfig.DB_TYPE) {
             case MYSQL:
                 return kz.dorm.api.dorm.util.statement.providers.mysql.DormUpdate.getInstance();
             case MSSQL:

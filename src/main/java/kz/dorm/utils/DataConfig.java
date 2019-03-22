@@ -1,7 +1,34 @@
 package kz.dorm.utils;
 
 public class DataConfig {
-    public static final EnumDBType DB_TYPE = EnumDBType.MYSQL;
+    public static final String EMAIL_MESSAGE_CLOSE = "С уважением,\nКарагандинский экономический " +
+            "университет Казпотребсоюза.";
+    public static final String EMAIL_MESSAGE_INFO = "Вы получили письмо, потому что данная " +
+            "электронная почта была указана при подаче заявления общежитие.";
+    public static final String EMAIL_MESSAGE_PHONE = "Телефоны автодозвона: 44-16-24, 44-16-34, 44-15-68.";
+    public static final String EMAIL_MESSAGE_TEXT_CREATE_REQUEST = "Создание заявления POST /api/request";
+    public static final String EMAIL_MESSAGE_TEXT_DELETE_REQUEST = "Удаление заявления DELETE /api/request";
+    public static final String EMAIL_MESSAGE_TEXT_ACCEPT_REQUEST = "Принятие заявления PUT /api/active/request";
+    public static final String EMAIL_MESSAGE_TEXT_ACCEPT_REPORT = "Заселился PUT /api/status 1";
+    public static final String EMAIL_MESSAGE_TEXT_DENIED_REPORT = "Послан PUT /api/status -1";
+
+    public static final String PROPERTY_DB_TYPE = "db.type";
+    public static final String PROPERTY_DB_LOCAL_MYSQL_LOGIN = "db.local.mysql.login";
+    public static final String PROPERTY_DB_LOCAL_MYSQL_PASSWORD = "db.local.mysql.password";
+    public static final String PROPERTY_DB_LOCAL_MYSQL_HOST = "db.local.mysql.host";
+    public static final String PROPERTY_DB_LOCAL_MSSQL_LOGIN = "db.local.mssql.login";
+    public static final String PROPERTY_DB_LOCAL_MSSQL_PASSWORD = "db.local.mssql.password";
+    public static final String PROPERTY_DB_LOCAL_MSSQL_HOST = "db.local.mssql.host";
+    public static final String PROPERTY_MAIL_LOGIN = "mail.login";
+    public static final String PROPERTY_MAIL_PASSWORD = "mail.password";
+    public static final String PROPERTY_MAIL_TITLE = "mail.title";
+    public static final String PROPERTY_MAIL_NAME = "mail.name";
+
+    public static EnumDBType DB_TYPE = EnumDBType.MYSQL;
+    public static final String GLOBAL_NAME = "Dorm";
+    public static final String LINK_CONGIG_PROPERTIES = "config.properties";
+    public static final String DB_MYSQL = "mysql";
+    public static final String DB_MSSQL = "mssql";
     public static final String GLOBAL_TOKEN = "token";
     public static final int DB_MAX_ITEM_LIST_INT = 30;
     public static final String DB_MAX_ITEM_LIST_STRING_MYSQL = "LIMIT ?, " + DB_MAX_ITEM_LIST_INT;
@@ -65,6 +92,7 @@ public class DataConfig {
     public static final String DB_DORM_REQUEST_UIN = "uin";
     public static final String DB_DORM_REQUEST_ROOM_ID = "room_id";
     public static final String DB_DORM_REQUEST_GENDER_ID = "gender_id";
+    public static final String DB_DORM_REQUEST_EMAIL = "email";
     public static final String DB_DORM_REQUEST_ADDRESS = "address";
     public static final String DB_DORM_REQUEST_PHONE = "phone";
     public static final String DB_DORM_REQUEST_GROUP = "group";
@@ -74,8 +102,8 @@ public class DataConfig {
     public static final String DB_DORM_REQUEST_DATE_RESIDENCE = "date_residence";
     public static final String DB_DORM_REQUEST_ACTIVE = "active";
     public static final String DB_DORM_REQUEST_DATE_CREATE = "date_create";
-    public static final String DB_DORM_REQUEST_AS_MOTHER= "mother";
-    public static final String DB_DORM_REQUEST_AS_FATHER= "father";
+    public static final String DB_DORM_REQUEST_AS_MOTHER = "mother";
+    public static final String DB_DORM_REQUEST_AS_FATHER = "father";
 
     public static final String DB_DORM_NAME_F = "name_f";
     public static final String DB_DORM_NAME_F_ID = "id";
@@ -100,14 +128,15 @@ public class DataConfig {
     public static final String DB_DORM_REPORT_UIN = "uin";
     public static final String DB_DORM_REPORT_DATE_CREATE = "date_create";
     public static final String DB_DORM_REPORT_DATE_UPDATE = "date_update";
+    public static final String DB_DORM_REPORT_EMAIL = "email";
     public static final String DB_DORM_REPORT_ADDRESS = "address";
     public static final String DB_DORM_REPORT_PHONE = "phone";
     public static final String DB_DORM_REPORT_CHILDREN = "children";
     public static final String DB_DORM_REPORT_DATE_RESIDENCE = "date_residence";
     public static final String DB_DORM_REPORT_PARENT_ID_MOTHER = "parent_id_mother";
     public static final String DB_DORM_REPORT_PARENT_ID_FATHER = "parent_id_father";
-    public static final String DB_DORM_REPORT_AS_MOTHER= "mother";
-    public static final String DB_DORM_REPORT_AS_FATHER= "father";
+    public static final String DB_DORM_REPORT_AS_MOTHER = "mother";
+    public static final String DB_DORM_REPORT_AS_FATHER = "father";
 
     public static final String DB_DORM_PARENT = "parents";
     public static final String DB_DORM_PARENT_ID = "id";

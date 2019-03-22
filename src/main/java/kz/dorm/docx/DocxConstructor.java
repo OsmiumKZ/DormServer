@@ -32,9 +32,9 @@ public class DocxConstructor {
      * Создание документа "Заявление".
      */
     public static String createRequest(String name_f, String name_l, String patronymic,
-                                        String group, String date_residence, String children,
-                                        String phone, Parent father, Parent mother,
-                                        String address, String genderId, String roomId,
+                                       String group, String date_residence, String children,
+                                       String phone, Parent father, Parent mother,
+                                       String address, String genderId, String roomId,
                                        String number) {
         return HandlerRequest
                 .create(name_f, name_l, patronymic,
@@ -61,8 +61,8 @@ public class DocxConstructor {
      * Создание документа "Направления".
      */
     public static String createDirection(String name_f, String name_l, String patronymic,
-                                          String genderId, String roomId, String address,
-                                          String phone) {
+                                         String genderId, String roomId, String address,
+                                         String phone) {
         return HandlerDirection
                 .create(name_f, name_l, patronymic,
                         genderId, ControlWrite.getIdDormForRoom(roomId), address,

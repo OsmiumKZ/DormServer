@@ -16,6 +16,7 @@ public class DormDelete implements Delete {
     private DormDelete() {
 
     }
+
     /**
      * Удаление заявки
      */

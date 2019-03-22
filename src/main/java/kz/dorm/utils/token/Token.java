@@ -30,7 +30,7 @@ public class Token {
     /**
      * Возвращает экземпляр класса {@link Token}.
      */
-    public static Token getInstance(){
+    public static Token getInstance() {
         if (instance == null)
             instance = new Token();
 
@@ -40,7 +40,7 @@ public class Token {
     /**
      * Обновление токена.
      */
-    public void updateToken(){
+    public void updateToken() {
 
         if (checkDate())
             token = TokenGen.generate(MAX_AMOUNT);
@@ -59,7 +59,7 @@ public class Token {
     /**
      * Проверка токена.
      */
-    public boolean checkToken(String token){
+    public boolean checkToken(String token) {
 
         if (token != null)
             return token.equals(this.token);
@@ -70,13 +70,14 @@ public class Token {
     /**
      * Проверяет срок годности токена.
      */
-    private boolean checkDate(){
+    private boolean checkDate() {
         DateTime dateTime = new DateTime(System.currentTimeMillis());
 
-        if (dateTime.getMillis() <= date){
+        if (dateTime.getMillis() <= date) {
             return false;
         } else {
             date = dateTime.plusDays(1).getMillis();
+
             return true;
         }
     }

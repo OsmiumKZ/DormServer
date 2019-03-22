@@ -8,7 +8,7 @@ public class Heroku extends HerokuBase {
         return HerokuDB.getDB(DORM_URL);
     }
 
-    public static boolean isConnection(){
+    public static boolean isConnection() {
         return System.getenv(DORM_URL) != null;
     }
 

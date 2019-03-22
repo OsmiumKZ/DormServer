@@ -53,9 +53,14 @@ public interface Select {
     String selectRequestUIN();
 
     /**
-     * Получить заявления по ID
+     * Получить заявление по ID
      */
     String selectRequestId();
+
+    /**
+     * Получить отчет по ID
+     */
+    String selectReportId();
 
     /**
      * Получить статус по ID.
@@ -111,4 +116,19 @@ public interface Select {
      * Получить общую статистику.
      */
     String selectStatistic();
+
+    /**
+     * Получить имя по ID.
+     */
+    String selectNameFId();
+
+    /**
+     * Получить электроную почту, если есть в активных.
+     */
+    String selectActiveEmailReport();
+
+    /**
+     * Получить электронную почту, если есть в активных.
+     */
+    String selectActiveEmailRequest();
 }

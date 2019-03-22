@@ -11,7 +11,8 @@ class HerokuDB {
         URI dbUri = new URI(System.getenv(url));
 
         return connection(
-                "jdbc:mysql://" + dbUri.getHost() + ":" + dbUri.getPort() + dbUri.getPath() + "?" + dbUri.getQuery(),
+                "jdbc:mysql://" + dbUri.getHost() + ":" +
+                        dbUri.getPort() + dbUri.getPath() + "?" + dbUri.getQuery(),
                 dbUri.getUserInfo().split(":")[0],
                 dbUri.getUserInfo().split(":")[1]
         );

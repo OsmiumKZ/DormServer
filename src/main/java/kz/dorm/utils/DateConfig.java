@@ -1,7 +1,6 @@
 package kz.dorm.utils;
 
 public class DateConfig {
-
     public static final String GLOBAL_FORMAT_DATE = "yyyy-MM-dd";
     public static final String GLOBAL_FORMAT_DATE_TIME = "yyyy-MM-dd HH:mm:ss";
     public static final String GLOBAL_FORMAT_DATE_DOC_CREATE = "dd-MM-yyyy";

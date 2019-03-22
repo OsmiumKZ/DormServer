@@ -1,17 +1,17 @@
 package kz.dorm.api.dorm.crud;
 
 import com.google.gson.Gson;
-import kz.dorm.api.dorm.util.statement.providers.StatenentSQL;
+import kz.dorm.api.dorm.util.statement.providers.StatementSQL;
 import kz.dorm.utils.DataBase;
 import kz.dorm.utils.DataConfig;
 import kz.dorm.utils.DateText;
+import kz.dorm.utils.email.Email;
+import kz.dorm.utils.email.EmailMessage;
 import org.eclipse.jetty.http.HttpStatus;
 import spark.Request;
 import spark.Response;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
+import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,17 +26,27 @@ public class DormPut {
             String date = DateText.getDateText(new Date(System.currentTimeMillis()));
 
             try (Connection connection = DataBase.getDorm()) {
-                PreparedStatement statement = connection.prepareStatement(StatenentSQL.select().selectStatusId());
-                statement.setInt(1, Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REPORT_STATUS_ID)));
+                PreparedStatement statement = connection
+                        .prepareStatement(StatementSQL.select().selectStatusId());
 
-                if (!statement.executeQuery().next()) {
+                statement.setInt(1,
+                        Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REPORT_STATUS_ID)));
+
+                ResultSet result = statement.executeQuery();
+
+                if (!result.next()) {
                     response.status(400);
 
                     return HttpStatus.getCode(400).getMessage();
                 }
 
-                statement = connection.prepareStatement(StatenentSQL.update().updateStatus());
-                statement.setInt(1, Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REPORT_STATUS_ID)));
+                int status = result.getInt(DataConfig.DB_DORM_STATUS_ACTIVE);
+
+                statement = connection.prepareStatement(StatementSQL.update().updateStatus());
+
+                statement.setInt(1,
+                        Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REPORT_STATUS_ID)));
+
                 statement.setString(2, date);
                 statement.setInt(3, Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REPORT_ID)));
 
@@ -44,6 +54,22 @@ public class DormPut {
                     Map<String, String> answer = new HashMap<>();
                     answer.put(DataConfig.DB_DORM_REPORT_DATE_UPDATE, date);
                     response.status(200);
+
+                    if (status == 1) {
+                        sendEmail(connection,
+                                StatementSQL.select().selectReportId(),
+                                DataConfig.DB_DORM_REPORT_NAME_F_ID,
+                                DataConfig.DB_DORM_REPORT_EMAIL,
+                                EmailMessage.ACCEPT_REPORT,
+                                Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REPORT_ID)));
+                    } else if (status == -1) {
+                        sendEmail(connection,
+                                StatementSQL.select().selectReportId(),
+                                DataConfig.DB_DORM_REPORT_NAME_F_ID,
+                                DataConfig.DB_DORM_REPORT_EMAIL,
+                                EmailMessage.DENIED_REPORT,
+                                Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REPORT_ID)));
+                    }
 
                     return new Gson().toJson(answer);
                 } else {
@@ -69,11 +95,20 @@ public class DormPut {
     public static String updateRequestActive(Request request, Response response) {
         if (request.queryParams(DataConfig.DB_DORM_REQUEST_ID) != null) {
             try (Connection connection = DataBase.getDorm()) {
-                PreparedStatement statement = connection.prepareStatement(StatenentSQL.update().updateRequestActive());
-                statement.setInt(1, Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REQUEST_ID)));
+                PreparedStatement statement = connection
+                        .prepareStatement(StatementSQL.update().updateRequestActive());
+
+                statement.setInt(1,
+                        Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REQUEST_ID)));
 
                 if (statement.executeUpdate() > 0) {
                     response.status(200);
+                    sendEmail(connection,
+                            StatementSQL.select().selectRequestId(),
+                            DataConfig.DB_DORM_REQUEST_NAME_F_ID,
+                            DataConfig.DB_DORM_REQUEST_EMAIL,
+                            EmailMessage.ACCEPT_REQUEST,
+                            Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REQUEST_ID)));
 
                     return HttpStatus.getCode(200).getMessage();
                 } else {
@@ -90,6 +125,25 @@ public class DormPut {
             response.status(400);
 
             return HttpStatus.getCode(400).getMessage();
+        }
+    }
+
+    /**
+     * Отправить сообщение на электронную почту.
+     */
+    private static void sendEmail(Connection connection, String sql, String columnNameF,
+                                  String columnEmail, EmailMessage emailMessage, int id) {
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, id);
+            ResultSet result = statement.executeQuery();
+
+            if (result.next())
+                Email.sendMessage(result.getString(columnEmail),
+                        emailMessage,
+                        DataBase.getNameF(connection, result.getInt(columnNameF)));
+        } catch (SQLException ignored) {
+
         }
     }
 }

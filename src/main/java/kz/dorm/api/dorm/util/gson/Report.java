@@ -13,6 +13,10 @@ public class Report {
     @SerializedName(DataConfig.DB_DORM_REPORT_UIN)
     private final long uin;
 
+    /* Электронная почта */
+    @SerializedName(DataConfig.DB_DORM_REPORT_EMAIL)
+    private final String email;
+
     /* Место проживания */
     @SerializedName(DataConfig.DB_DORM_REPORT_ADDRESS)
     private final String address;
@@ -73,9 +77,10 @@ public class Report {
     @SerializedName(DataConfig.DB_DORM_REPORT_STATUS_ID)
     private final int statusId;
 
-    public Report(int id, long uin, String address, String phone, int genderId, int number, int dormId, String dateCreate, String dateUpdate, int children, String dateResidence, String nameF, String nameL, String patronymic, Parent mother, Parent father, int statusId) {
+    public Report(int id, long uin, String email, String address, String phone, int genderId, int number, int dormId, String dateCreate, String dateUpdate, int children, String dateResidence, String nameF, String nameL, String patronymic, Parent mother, Parent father, int statusId) {
         this.id = id;
         this.uin = uin;
+        this.email = email;
         this.address = address;
         this.phone = phone;
         this.genderId = genderId;

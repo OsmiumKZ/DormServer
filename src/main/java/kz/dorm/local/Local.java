@@ -1,22 +1,45 @@
 package kz.dorm.local;
 
 import kz.dorm.utils.DataConfig;
+import kz.dorm.utils.EnumDBType;
 
+import java.io.InputStream;
 import java.sql.Connection;
+import java.util.Properties;
 
-public class Local extends LocalBase {
+public class Local {
 
     /**
      * Ввести логи, пароль и URL конкретной БД.
      */
     public static Connection getDorm() throws Exception {
-        switch (DataConfig.DB_TYPE) {
-            case MYSQL:
-                return LocalDB.getDB(MYSQL_DORM_URL, MYSQL_DB_LOGIN, MYSQL_DB_PASSWORD);
-            case MSSQL:
-                return LocalDB.getDB(MSSQL_DORM_URL, MSSQL_DB_LOGIN, MSSQL_DB_PASSWORD);
-            default:
-                return LocalDB.getDB(MYSQL_DORM_URL, MYSQL_DB_LOGIN, MYSQL_DB_PASSWORD);
+        try (InputStream inputStream = ClassLoader
+                .getSystemClassLoader()
+                .getResourceAsStream(DataConfig.LINK_CONGIG_PROPERTIES)) {
+            Properties properties = new Properties();
+            properties.load(inputStream);
+
+            DataConfig.DB_TYPE = EnumDBType
+                    .fromString(properties.getProperty(DataConfig.PROPERTY_DB_TYPE));
+
+            switch (DataConfig.DB_TYPE) {
+                case MYSQL:
+                    return LocalDB.getDB(properties.getProperty(DataConfig.PROPERTY_DB_LOCAL_MYSQL_HOST),
+                            properties.getProperty(DataConfig.PROPERTY_DB_LOCAL_MYSQL_LOGIN),
+                            properties.getProperty(DataConfig.PROPERTY_DB_LOCAL_MYSQL_PASSWORD));
+                case MSSQL:
+                    return LocalDB.getDB(properties.getProperty(DataConfig.PROPERTY_DB_LOCAL_MSSQL_HOST),
+                            properties.getProperty(DataConfig.PROPERTY_DB_LOCAL_MSSQL_LOGIN),
+                            properties.getProperty(DataConfig.PROPERTY_DB_LOCAL_MSSQL_PASSWORD));
+                default:
+                    return LocalDB.getDB(properties.getProperty(DataConfig.PROPERTY_DB_LOCAL_MYSQL_HOST),
+                            properties.getProperty(DataConfig.PROPERTY_DB_LOCAL_MYSQL_LOGIN),
+                            properties.getProperty(DataConfig.PROPERTY_DB_LOCAL_MYSQL_PASSWORD));
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+
+            throw e;
         }
     }
 }

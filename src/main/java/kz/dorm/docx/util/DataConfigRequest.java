@@ -24,8 +24,10 @@ public class DataConfigRequest {
 
     public static final String DOC_ADDRESS = "Адрес проживания";
 
-    public static final String DOC_RULE_MALE = "Своевременную оплату за проживание в общежитии и соблюдения порядка гарантирую. С «Правилами проживания в общежитии КЭУК» ознакомлен и согласен.";
-    public static final String DOC_RULE_FEMALE = "Своевременную оплату за проживание в общежитии и соблюдения порядка гарантирую. С «Правилами проживания в общежитии КЭУК» ознакомлена и согласена.";
+    public static final String DOC_RULE_MALE = "Своевременную оплату за проживание в общежитии " +
+            "и соблюдения порядка гарантирую. С «Правилами проживания в общежитии КЭУК» ознакомлен и согласен.";
+    public static final String DOC_RULE_FEMALE = "Своевременную оплату за проживание в общежитии " +
+            "и соблюдения порядка гарантирую. С «Правилами проживания в общежитии КЭУК» ознакомлена и согласена.";
 
     public static final String DOC_DATE = "Дата";
     public static final String DOC_VERIFICATION = "ФИО и подпись";

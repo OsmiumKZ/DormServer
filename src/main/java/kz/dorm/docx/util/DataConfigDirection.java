@@ -4,7 +4,8 @@ public class DataConfigDirection {
     public static final String DOC_NAME = "НАПРАВЛЕНИЕ";
 
     public static final String DOC_TYPE = "о предоставлении общежития обучающемуся в ";
-    public static final String DOC_UNIVERSITY = "Карагандинском экономическом университете Казпотребсоюза, по адресу г.Караганда, ул.Академическая, 9";
+    public static final String DOC_UNIVERSITY = "Карагандинском экономическом университете " +
+            "Казпотребсоюза, по адресу г.Караганда, ул.Академическая, 9";
 
     public static final String DOC_CITIZEN_MALE = "Гражданину";
     public static final String DOC_CITIZEN_FEMALE = "Гражданке";

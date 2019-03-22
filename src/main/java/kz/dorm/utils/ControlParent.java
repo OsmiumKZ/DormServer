@@ -2,7 +2,7 @@ package kz.dorm.utils;
 
 import com.google.gson.Gson;
 import kz.dorm.api.dorm.util.gson.Parent;
-import kz.dorm.api.dorm.util.statement.providers.StatenentSQL;
+import kz.dorm.api.dorm.util.statement.providers.StatementSQL;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -26,7 +26,7 @@ public class ControlParent {
     /**
      * Распарсить Parent.
      */
-    public static Parent parseParent(String json){
+    public static Parent parseParent(String json) {
         if (json == null)
             return null;
 
@@ -44,7 +44,9 @@ public class ControlParent {
         if (!ControlWrite.isCheckNames(parent.getNameF(), parent.getNameL()))
             return 0;
 
-        PreparedStatement statement = connection.prepareStatement(StatenentSQL.insert().insertParent(), Statement.RETURN_GENERATED_KEYS);
+        PreparedStatement statement = connection
+                .prepareStatement(StatementSQL.insert().insertParent(), Statement.RETURN_GENERATED_KEYS);
+
         statement.setInt(1, ControlWrite.writeNameF(connection, parent.getNameF()));
         statement.setInt(2, ControlWrite.writeNameL(connection, parent.getNameL()));
         statement.setInt(3, ControlWrite.writePatronymic(connection, parent.getPatronymic()));
@@ -54,9 +56,9 @@ public class ControlParent {
         else
             return 0;
 
-        if (statement.executeUpdate() != 0){
-            try (ResultSet generatedKeys = statement.getGeneratedKeys()){
-                if (generatedKeys.next()){
+        if (statement.executeUpdate() != 0) {
+            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
                     return Math.toIntExact(generatedKeys.getLong(1));
                 } else {
                     return 0;

@@ -278,13 +278,23 @@ public class DormSelect implements Select {
     }
 
     /**
-     * Получить заявления по ID
+     * Получить заявление по ID
      */
     @Override
     public String selectRequestId() {
         return "SELECT *\n" +
                 "FROM `" + DataConfig.DB_DORM_REQUEST + "`\n" +
                 "WHERE `" + DataConfig.DB_DORM_REQUEST + "`.`" + DataConfig.DB_DORM_REQUEST_ID + "`=?";
+    }
+
+    /**
+     * Получить отчет по ID
+     */
+    @Override
+    public String selectReportId() {
+        return "SELECT *\n" +
+                "FROM `" + DataConfig.DB_DORM_REPORT + "`\n" +
+                "WHERE `" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_REPORT_ID + "`=?";
     }
 
     /**
@@ -522,5 +532,58 @@ public class DormSelect implements Select {
                 "\t\tWHERE `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_MAX + "`>`" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_ROOM_AS_AMOUNT + "`\n" +
                 "\t\tOR `" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_ROOM_AS_AMOUNT + "` IS NULL))\n" +
                 "\t\tAS `" + DataConfig.DB_DORM_STATISTIC + "`";
+    }
+
+    /**
+     * Получить имя по ID.
+     */
+    @Override
+    public String selectNameFId() {
+        return "SELECT *\n" +
+                "FROM `" + DataConfig.DB_DORM_NAME_F + "`\n" +
+                "WHERE `" + DataConfig.DB_DORM_NAME_F + "`.`" + DataConfig.DB_DORM_NAME_F_ID + "`=?";
+    }
+
+    /**
+     * Возвращает совпадение, если есть уже такая электронная почта в отчетах.
+     */
+    @Override
+    public String selectActiveEmailReport() {
+        return "SELECT `" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_REPORT_EMAIL + "`\n" +
+                "FROM `" + DataConfig.DB_DORM_REPORT + "`\n" +
+                "INNER JOIN\n" +
+                "\t(SELECT `" + DataConfig.DB_DORM_STATUS + "`.`" + DataConfig.DB_DORM_STATUS_ID + "`\n" +
+                "\tFROM `" + DataConfig.DB_DORM_STATUS + "`\n" +
+                "\tWHERE `" + DataConfig.DB_DORM_STATUS + "`.`" + DataConfig.DB_DORM_STATUS_ACTIVE + "`=1)\n" +
+                "AS `" + DataConfig.DB_DORM_STATUS + "`\n" +
+                "ON `" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_REPORT_STATUS_ID + "`=`" + DataConfig.DB_DORM_STATUS + "`.`" + DataConfig.DB_DORM_STATUS_ID + "`\n" +
+                "WHERE `" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_REPORT_EMAIL + "`=?";
+    }
+
+    /**
+     * Возвращает совпадения, если есть такая электронная почта в активных отчетах или
+     * активных заявлениях, не подходящего ИИНа.
+     */
+    @Override
+    public String selectActiveEmailRequest() {
+        return "(SELECT `" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_REPORT_ID + "`\n" +
+                "\tAS `" + DataConfig.DB_DORM_REPORT_ID + "`\n" +
+                "FROM `" + DataConfig.DB_DORM_REPORT + "`\n" +
+                "INNER JOIN \n" +
+                "\t(SELECT *\n" +
+                "\tFROM `" + DataConfig.DB_DORM_STATUS + "`\n" +
+                "\tWHERE `" + DataConfig.DB_DORM_STATUS + "`.`" + DataConfig.DB_DORM_STATUS_ACTIVE + "`=1)\n" +
+                "\tAS `" + DataConfig.DB_DORM_STATUS + "`\n" +
+                "\tON `" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_REPORT_STATUS_ID + "`=`" + DataConfig.DB_DORM_STATUS + "`.`" + DataConfig.DB_DORM_STATUS_ID + "`\n" +
+                "WHERE `" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_REPORT_EMAIL + "`=?)\n" +
+                "\n" +
+                "UNION ALL\n" +
+                "\n" +
+                "(SELECT `" + DataConfig.DB_DORM_REQUEST + "`.`" + DataConfig.DB_DORM_REQUEST_ID + "`\n" +
+                "\tAS `" + DataConfig.DB_DORM_REQUEST_ID + "`\n" +
+                "FROM `" + DataConfig.DB_DORM_REQUEST + "`\n" +
+                "WHERE `" + DataConfig.DB_DORM_REQUEST + "`.`" + DataConfig.DB_DORM_REQUEST_ACTIVE + "`=0\n" +
+                "\tAND `" + DataConfig.DB_DORM_REQUEST + "`.`" + DataConfig.DB_DORM_REQUEST_UIN + "`!=?\n" +
+                "\tAND `" + DataConfig.DB_DORM_REQUEST + "`.`" + DataConfig.DB_DORM_REQUEST_EMAIL + "`=?)";
     }
 }

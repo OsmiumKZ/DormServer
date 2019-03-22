@@ -13,6 +13,10 @@ public class Request {
     @SerializedName(DataConfig.DB_DORM_REQUEST_UIN)
     private final long uin;
 
+    /* Электронная почта */
+    @SerializedName(DataConfig.DB_DORM_REQUEST_EMAIL)
+    private final String email;
+
     /* Место проживания */
     @SerializedName(DataConfig.DB_DORM_REQUEST_ADDRESS)
     private final String address;
@@ -69,9 +73,10 @@ public class Request {
     @SerializedName(DataConfig.DB_DORM_REQUEST_ACTIVE)
     private final int active;
 
-    public Request(int id, long uin, String address, String phone, String group, int genderId, int number, int dormId, int children, String dateResidence, String nameF, String nameL, String patronymic, Parent mother, Parent father, int active) {
+    public Request(int id, long uin, String email, String address, String phone, String group, int genderId, int number, int dormId, int children, String dateResidence, String nameF, String nameL, String patronymic, Parent mother, Parent father, int active) {
         this.id = id;
         this.uin = uin;
+        this.email = email;
         this.address = address;
         this.phone = phone;
         this.group = group;

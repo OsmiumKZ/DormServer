@@ -18,8 +18,8 @@ public class HandlerDirection {
      * Создать документ на основе данных.
      */
     public static String create(String name_f, String name_l, String patronymic,
-                                 String genderId, int dormId, String address,
-                                 String phone) {
+                                String genderId, int dormId, String address,
+                                String phone) {
         String outFileName = "docs/direction_" + phone.substring(1) + ".docx";
         File fileOut = new File(outFileName);
         File file = new File("docs/patterns/direction.docx");
@@ -62,13 +62,18 @@ public class HandlerDirection {
     /**
      * Заполнить поле с ФИО гражданина.
      */
-    private static void citizen(Map<String, String> map, String name_f, String name_l, String patronymic, int genderId) {
+    private static void citizen(Map<String, String> map, String name_f,
+                                String name_l, String patronymic, int genderId) {
         if (genderId == 1) { // ID 1 - Мужской
             map.put(DataConfigDirection.DOC_KEY_CITIZEN, DataConfigDirection.DOC_CITIZEN_MALE);
-            map.put(DataConfigDirection.DOC_KEY_CITIZEN_WRITE, Padeg.getFIOPadeg(name_l, name_f, patronymic, true, 3));
-        }else {
+
+            map.put(DataConfigDirection.DOC_KEY_CITIZEN_WRITE,
+                    Padeg.getFIOPadeg(name_l, name_f, patronymic, true, 3));
+        } else {
             map.put(DataConfigDirection.DOC_KEY_CITIZEN, DataConfigDirection.DOC_CITIZEN_FEMALE);
-            map.put(DataConfigDirection.DOC_KEY_CITIZEN_WRITE, Padeg.getFIOPadeg(name_l, name_f, patronymic, false, 3));
+
+            map.put(DataConfigDirection.DOC_KEY_CITIZEN_WRITE,
+                    Padeg.getFIOPadeg(name_l, name_f, patronymic, false, 3));
         }
     }
 

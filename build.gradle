@@ -15,11 +15,11 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
-
     compile 'com.sparkjava:spark-core:2.8.0'
     compile 'com.google.code.gson:gson:2.8.2'
     compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.13'
     compile group: 'net.sourceforge.jtds', name: 'jtds', version: '1.3.1'
+    compile 'com.sun.mail:javax.mail:1.6.1'
     compile 'joda-time:joda-time:2.10.1'
     compile files('libs/padeg-3.3.0.24.jar')
     compile group: 'org.docx4j', name: 'docx4j', version: '6.0.0'

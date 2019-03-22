@@ -2,6 +2,7 @@ package kz.dorm.utils;
 
 import kz.dorm.heroku.Heroku;
 import kz.dorm.utils.token.Token;
+import org.eclipse.jetty.http.HttpStatus;
 import spark.Spark;
 
 import static spark.Spark.*;
@@ -11,7 +12,7 @@ public class Configuration {
     /**
      * Настройка вебсокета.
      */
-    public static void config(){
+    public static void config() {
         port();
         control();
         updateToken();
@@ -21,7 +22,7 @@ public class Configuration {
     /**
      * Настройка порта.
      */
-    private static void port(){
+    private static void port() {
         Spark.port(Heroku.getHerokuPort());
     }
 
@@ -29,26 +30,27 @@ public class Configuration {
      * Настройка сервера "Access-Control-Allow-Origin"
      */
     private static void control() {
+        options("/*", (request, response) -> {
+            String accessControlRequestHeaders = request
+                    .headers("Access-Control-Request-Headers");
 
-        options("/*",
-                (request, response) -> {
+            if (accessControlRequestHeaders != null) {
+                response.header("Access-Control-Allow-Headers",
+                        accessControlRequestHeaders);
+            }
 
-                    String accessControlRequestHeaders = request
-                            .headers("Access-Control-Request-Headers");
-                    if (accessControlRequestHeaders != null) {
-                        response.header("Access-Control-Allow-Headers",
-                                accessControlRequestHeaders);
-                    }
+            String accessControlRequestMethod = request
+                    .headers("Access-Control-Request-Method");
 
-                    String accessControlRequestMethod = request
-                            .headers("Access-Control-Request-Method");
-                    if (accessControlRequestMethod != null) {
-                        response.header("Access-Control-Allow-Methods",
-                                accessControlRequestMethod);
-                    }
+            if (accessControlRequestMethod != null) {
+                response.header("Access-Control-Allow-Methods",
+                        accessControlRequestMethod);
+            }
 
-                    return "OK";
-                });
+            response.status(200);
+
+            return HttpStatus.getMessage(200);
+        });
 
         before((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
     }
@@ -56,14 +58,14 @@ public class Configuration {
     /**
      * Обновление токена.
      */
-    private static void updateToken(){
+    private static void updateToken() {
         before("/api/*", (request, response) -> Token.getInstance().updateToken());
     }
 
     /**
      * Установка application/json, в Content-Type, для ссылок /api/*
      */
-    private static void typeJson(){
+    private static void typeJson() {
         after("/api/*", (req, res) -> res.type("application/json"));
     }
 }
