@@ -4,8 +4,13 @@ import kz.dorm.api.dorm.util.statement.providers.interfaces.Update;
 import kz.dorm.utils.DataConfig;
 
 public class DormUpdate implements Update {
+
+    /* Экземпляр данного класса. */
     private static DormUpdate ourInstance;
 
+    /**
+     * Создание экземпляр класса {@link DormUpdate}.
+     */
     public static DormUpdate getInstance() {
         if (ourInstance == null)
             ourInstance = new DormUpdate();
@@ -13,6 +18,10 @@ public class DormUpdate implements Update {
         return ourInstance;
     }
 
+    /**
+     * Используется паттерн проектирования "Singleton".
+     * Именно по этому, конструктор приватный.
+     */
     private DormUpdate() {
 
     }

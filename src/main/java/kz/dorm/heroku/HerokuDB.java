@@ -7,8 +7,11 @@ import java.sql.SQLException;
 
 class HerokuDB {
 
-    static Connection getDB(String url) throws Exception {
-        URI dbUri = new URI(System.getenv(url));
+    /**
+     * Получить подключение к БД.
+     */
+    static Connection getDB(String link) throws Exception {
+        URI dbUri = new URI(System.getenv(link));
 
         return connection(
                 "jdbc:mysql://" + dbUri.getHost() + ":" +
@@ -18,8 +21,11 @@ class HerokuDB {
         );
     }
 
-    private static Connection connection(String url, String login, String password) throws Exception {
+    /**
+     * Произвести подключение к БД.
+     */
+    private static Connection connection(String link, String login, String password) throws Exception {
         Class.forName("com.mysql.jdbc.Driver").newInstance();
-        return DriverManager.getConnection(url, login, password);
+        return DriverManager.getConnection(link, login, password);
     }
 }

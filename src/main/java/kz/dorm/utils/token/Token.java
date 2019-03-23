@@ -9,26 +9,27 @@ import java.util.Map;
 
 public class Token {
 
-    /* Токен для авторизированных пользователей */
+    /* Токен для авторизированных пользователей. */
     private String token;
 
-    /* Дата последнего обновления токена */
+    /* Дата последнего обновления токена. */
     private long date = 0L;
 
-    /* Количество символов в токене */
+    /* Количество символов в токене. */
     private static final int MAX_AMOUNT = 40;
 
-    /* Экземпляр класса */
+    /* Экземпляр данного класса. */
     private static Token instance;
 
     /**
-     * Убираем публичные конструкторы для паттерна Singleton.
+     * Используется паттерн проектирования "Singleton".
+     * Именно по этому, конструктор приватный.
      */
     private Token() {
     }
 
     /**
-     * Возвращает экземпляр класса {@link Token}.
+     * Создание экземпляр класса {@link Token}.
      */
     public static Token getInstance() {
         if (instance == null)

@@ -1,11 +1,8 @@
 package kz.dorm.util;
 
-import com.google.gson.Gson;
-import kz.dorm.api.dorm.util.gson.Parent;
 import kz.dorm.utils.ControlWrite;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class TestControlWrite {

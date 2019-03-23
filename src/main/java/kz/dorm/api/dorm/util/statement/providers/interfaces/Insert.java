@@ -3,32 +3,32 @@ package kz.dorm.api.dorm.util.statement.providers.interfaces;
 public interface Insert {
 
     /**
-     * Добавить отчет
+     * Добавить отчет.
      */
     String insertReport();
 
     /**
-     * Добавить заявление
+     * Добавить заявление.
      */
     String insertRequest();
 
     /**
-     * Добавить имя
+     * Добавить имя.
      */
     String insertNameF();
 
     /**
-     * Добавить фамилию
+     * Добавить фамилию.
      */
     String insertNameL();
 
     /**
-     * Добавить отчество
+     * Добавить отчество.
      */
     String insertPatronymic();
 
     /**
-     * Добавить родителя
+     * Добавить родителя.
      */
     String insertParent();
 }

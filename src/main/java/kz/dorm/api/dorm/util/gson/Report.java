@@ -5,75 +5,75 @@ import kz.dorm.utils.DataConfig;
 
 public class Report {
 
-    /* ID отчета */
+    /* ID отчета. */
     @SerializedName(DataConfig.DB_DORM_REPORT_ID)
     private final int id;
 
-    /* ИИН */
+    /* ИИН. */
     @SerializedName(DataConfig.DB_DORM_REPORT_UIN)
     private final long uin;
 
-    /* Электронная почта */
+    /* Электронная почта. */
     @SerializedName(DataConfig.DB_DORM_REPORT_EMAIL)
     private final String email;
 
-    /* Место проживания */
+    /* Место проживания. */
     @SerializedName(DataConfig.DB_DORM_REPORT_ADDRESS)
     private final String address;
 
-    /* Телефон */
+    /* Телефон. */
     @SerializedName(DataConfig.DB_DORM_REPORT_PHONE)
     private final String phone;
 
-    /* ID пола */
+    /* ID пола. */
     @SerializedName(DataConfig.DB_DORM_REPORT_GENDER_ID)
     private final int genderId;
 
-    /* Номер комнаты */
+    /* Номер комнаты. */
     @SerializedName(DataConfig.DB_DORM_ROOM_NUMBER)
     private final int number;
 
-    /* ID общежития */
+    /* ID общежития. */
     @SerializedName(DataConfig.DB_DORM_FLOOR_DORM_ID)
     private final int dormId;
 
-    /* Дата создания */
+    /* Дата создания. */
     @SerializedName(DataConfig.DB_DORM_REPORT_DATE_CREATE)
     private final String dateCreate;
 
-    /* Дата обновления */
+    /* Дата обновления. */
     @SerializedName(DataConfig.DB_DORM_REPORT_DATE_UPDATE)
     private final String dateUpdate;
 
-    /* Сколько в семье детей */
+    /* Сколько в семье детей. */
     @SerializedName(DataConfig.DB_DORM_REPORT_CHILDREN)
     private final int children;
 
-    /* Дата начала проживания */
+    /* Дата начала проживания. */
     @SerializedName(DataConfig.DB_DORM_REPORT_DATE_RESIDENCE)
     private final String dateResidence;
 
-    /* Имя */
+    /* Имя. */
     @SerializedName(DataConfig.DB_DORM_NAME_F)
     private final String nameF;
 
-    /* Фамилия */
+    /* Фамилия. */
     @SerializedName(DataConfig.DB_DORM_NAME_L)
     private final String nameL;
 
-    /* Отчество */
+    /* Отчество. */
     @SerializedName(DataConfig.DB_DORM_PATRONYMIC)
     private final String patronymic;
 
-    /* Мама */
+    /* Мама. */
     @SerializedName(DataConfig.DB_DORM_REPORT_AS_MOTHER)
     private final Parent mother;
 
-    /* Папа */
+    /* Папа. */
     @SerializedName(DataConfig.DB_DORM_REPORT_AS_FATHER)
     private final Parent father;
 
-    /* Статус */
+    /* Статус. */
     @SerializedName(DataConfig.DB_DORM_REPORT_STATUS_ID)
     private final int statusId;
 

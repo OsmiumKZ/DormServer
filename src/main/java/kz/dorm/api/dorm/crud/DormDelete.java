@@ -17,7 +17,7 @@ import java.sql.SQLException;
 public class DormDelete {
 
     /**
-     * Удаление заявления
+     * Удаление заявления.
      */
     public static String deleteRequest(Request request, Response response) {
         if (request.queryParams(DataConfig.DB_DORM_REQUEST_ID) != null) {
@@ -61,7 +61,7 @@ public class DormDelete {
     }
 
     /**
-     * Удалить родителей
+     * Удалить родителей.
      */
     private static void deleteParents(Connection connection, int mother, int father) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(StatementSQL.delete().deleteParentId());

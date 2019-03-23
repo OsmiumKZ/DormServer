@@ -4,8 +4,13 @@ import kz.dorm.api.dorm.util.statement.providers.interfaces.Insert;
 import kz.dorm.utils.DataConfig;
 
 public class DormInsert implements Insert {
+
+    /* Экземпляр данного класса. */
     private static DormInsert ourInstance;
 
+    /**
+     * Создание экземпляр класса {@link DormInsert}.
+     */
     public static DormInsert getInstance() {
         if (ourInstance == null)
             ourInstance = new DormInsert();
@@ -13,12 +18,16 @@ public class DormInsert implements Insert {
         return ourInstance;
     }
 
+    /**
+     * Используется паттерн проектирования "Singleton".
+     * Именно по этому, конструктор приватный.
+     */
     private DormInsert() {
 
     }
 
     /**
-     * Добавить отчет
+     * Добавить отчет.
      */
     @Override
     public String insertReport() {
@@ -42,7 +51,7 @@ public class DormInsert implements Insert {
     }
 
     /**
-     * Добавить заявление
+     * Добавить заявление.
      */
     @Override
     public String insertRequest() {
@@ -66,7 +75,7 @@ public class DormInsert implements Insert {
     }
 
     /**
-     * Добавить имя
+     * Добавить имя.
      */
     @Override
     public String insertNameF() {
@@ -75,7 +84,7 @@ public class DormInsert implements Insert {
     }
 
     /**
-     * Добавить фамилию
+     * Добавить фамилию.
      */
     @Override
     public String insertNameL() {
@@ -84,7 +93,7 @@ public class DormInsert implements Insert {
     }
 
     /**
-     * Добавить отчество
+     * Добавить отчество.
      */
     @Override
     public String insertPatronymic() {
@@ -93,7 +102,7 @@ public class DormInsert implements Insert {
     }
 
     /**
-     * Добавить родителя
+     * Добавить родителя.
      */
     @Override
     public String insertParent() {

@@ -4,8 +4,13 @@ import kz.dorm.api.dorm.util.statement.providers.interfaces.Delete;
 import kz.dorm.utils.DataConfig;
 
 public class DormDelete implements Delete {
+
+    /* Экземпляр данного класса. */
     private static DormDelete ourInstance;
 
+    /**
+     * Создание экземпляр класса {@link DormDelete}.
+     */
     public static DormDelete getInstance() {
         if (ourInstance == null)
             ourInstance = new DormDelete();
@@ -13,12 +18,16 @@ public class DormDelete implements Delete {
         return ourInstance;
     }
 
+    /**
+     * Используется паттерн проектирования "Singleton".
+     * Именно по этому, конструктор приватный.
+     */
     private DormDelete() {
 
     }
 
     /**
-     * Удаление заявки
+     * Удаление заявки.
      */
     @Override
     public String deleteRequestsId() {
@@ -27,7 +36,7 @@ public class DormDelete implements Delete {
     }
 
     /**
-     * Удаление родителя
+     * Удаление родителя.
      */
     @Override
     public String deleteParentId() {

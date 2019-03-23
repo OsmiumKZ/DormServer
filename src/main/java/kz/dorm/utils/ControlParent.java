@@ -11,7 +11,7 @@ import java.sql.*;
 public class ControlParent {
 
     /**
-     * Добавить родителя
+     * Добавить родителя.
      */
     static int writeParent(Connection connection, String json) throws SQLException {
         Parent parent = parseParent(json);
@@ -38,7 +38,7 @@ public class ControlParent {
     }
 
     /**
-     * Сделать запись в БД
+     * Сделать запись в БД.
      */
     private static int insertParent(Connection connection, Parent parent) throws SQLException {
         if (!ControlWrite.isCheckNames(parent.getNameF(), parent.getNameL()))
@@ -70,7 +70,7 @@ public class ControlParent {
     }
 
     /**
-     * Проверка данных на существование
+     * Проверка данных на существование.
      */
     private static boolean isCheckInfo(Parent parent) {
         return parent.getNameF() != null &&

@@ -12,6 +12,9 @@ import java.util.Properties;
 
 public class Email {
 
+    /**
+     * Отправить электронное сообщение.
+     */
     public static void sendMessage(String to, EmailMessage message, String name) {
         try {
             sendAsHTML(to, message.getMessage(name));

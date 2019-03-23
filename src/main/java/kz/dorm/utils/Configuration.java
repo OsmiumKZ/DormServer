@@ -27,7 +27,7 @@ public class Configuration {
     }
 
     /**
-     * Настройка сервера "Access-Control-Allow-Origin"
+     * Настройка сервера "Access-Control-Allow-Origin".
      */
     private static void control() {
         options("/*", (request, response) -> {
@@ -63,7 +63,7 @@ public class Configuration {
     }
 
     /**
-     * Установка application/json, в Content-Type, для ссылок /api/*
+     * Установка application/json, в Content-Type, для ссылок /api/*.
      */
     private static void typeJson() {
         after("/api/*", (req, res) -> res.type("application/json"));

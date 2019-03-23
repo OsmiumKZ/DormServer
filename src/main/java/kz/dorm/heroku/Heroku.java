@@ -4,19 +4,25 @@ import java.sql.Connection;
 
 public class Heroku extends HerokuBase {
 
+    /**
+     * Выдать подключение к БД Heroku.
+     */
     public static Connection getDorm() throws Exception {
         return HerokuDB.getDB(DORM_URL);
     }
 
+    /**
+     * Проверка ссылки на БД в environment.
+     */
     public static boolean isConnection() {
         return System.getenv(DORM_URL) != null;
     }
 
     /**
-     * Настройка port'а
-     * С heroku.com приходит ответ зарег. порта для WebSocket'а
+     * Настройка порта.
+     * С heroku.com приходит ответ зарегистрированного порта для REST-приложения.
      *
-     * @return если сервер запущен на стороне heroku.com, то будет использован port от heroku.com.
+     * @return если сервер запущен на стороне heroku.com, то будет использован порт от heroku.com.
      */
     public static int getHerokuPort() {
         ProcessBuilder processBuilder = new ProcessBuilder();

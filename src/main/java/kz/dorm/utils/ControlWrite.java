@@ -104,7 +104,7 @@ public class ControlWrite {
     }
 
     /**
-     * Добавить родителя
+     * Добавить родителя.
      */
     public static int writeParent(Connection connection, String json) throws SQLException {
         return ControlParent.writeParent(connection, json);
@@ -199,7 +199,7 @@ public class ControlWrite {
      * Проверка символов через регулярные выражения.
      * Первая буква всегда заглавная, все остальные строчные.
      * Только русские буквы.
-     * Минимум 2 буквы, максимум 40. (Одна заглавная и строчная)
+     * Минимум 2 буквы, максимум 40. (Одна заглавная и строчная).
      */
     public static boolean isCheckText(String text) {
         String regex = "[А-ЯЁ][а-яё]{1,39}$";

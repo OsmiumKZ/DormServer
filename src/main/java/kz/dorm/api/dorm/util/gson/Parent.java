@@ -5,19 +5,19 @@ import kz.dorm.utils.DataConfig;
 
 public class Parent {
 
-    /* Имя */
+    /* Имя. */
     @SerializedName(DataConfig.DB_DORM_NAME_F)
     private final String nameF;
 
-    /* Фамилия */
+    /* Фамилия. */
     @SerializedName(DataConfig.DB_DORM_NAME_L)
     private final String nameL;
 
-    /* Отчество */
+    /* Отчество. */
     @SerializedName(DataConfig.DB_DORM_PATRONYMIC)
     private final String patronymic;
 
-    /* Телефон */
+    /* Телефон. */
     @SerializedName(DataConfig.DB_DORM_PARENT_PHONE)
     private final String phone;
 

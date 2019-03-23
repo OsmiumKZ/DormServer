@@ -14,7 +14,7 @@ import static spark.Spark.*;
 public class DormAPI {
 
     /**
-     * Настройка маршрута CRUB
+     * Настройка маршрута CRUB.
      */
     public static void config() {
         getAPI();
@@ -30,7 +30,7 @@ public class DormAPI {
         path("/api", () -> {
 
             /** {Not Javadoc}
-             * Получить данные: "Общаги", "Этажи", "Названия", "Гендеры" и "Статусы отчетов"
+             * Получить данные: "Общаги", "Этажи", "Названия", "Гендеры" и "Статусы отчетов".
              *
              * http://localhost/api/db
              */
@@ -48,8 +48,8 @@ public class DormAPI {
              * Авторизация и получение токена.
              *
              * http://localhost/api/auth ?
-             * & {@link DataConfig#DB_DORM_ACCOUNT_LOGIN} = Логин администратора
-             * & {@link DataConfig#DB_DORM_ACCOUNT_PASSWORD} - Пароль администратора
+             * & {@link DataConfig#DB_DORM_ACCOUNT_LOGIN} = Логин администратора.
+             * & {@link DataConfig#DB_DORM_ACCOUNT_PASSWORD} - Пароль администратора.
              */
             get("/auth", (request, response) -> {
                 if (DomainHTTP.getDorm(request.host())) {
@@ -65,7 +65,7 @@ public class DormAPI {
              * Получить комнаты (этажа).
              *
              * http://localhost/api/room ?
-             * & {@link DataConfig#DB_DORM_FLOOR_ID} = ID этажа
+             * & {@link DataConfig#DB_DORM_FLOOR_ID} = ID этажа.
              */
             get("/room", (request, response) -> {
                 if (DomainHTTP.getDorm(request.host())) {
@@ -96,16 +96,16 @@ public class DormAPI {
              * Получить документ "Заявление".
              *
              * http://localhost/api/doc/request ?
-             * & {@link DataConfig#DB_DORM_NAME_F} = Имя
-             * & {@link DataConfig#DB_DORM_NAME_L} = Фамилия
-             * & {@link DataConfig#DB_DORM_REQUEST_GROUP} = Группа
-             * & {@link DataConfig#DB_DORM_REQUEST_DATE_RESIDENCE} = Дата заселения
-             * & {@link DataConfig#DB_DORM_REQUEST_CHILDREN} = Сколько детей в семье
-             * & {@link DataConfig#DB_DORM_REQUEST_PHONE} = Телефонный номер
-             * & {@link DataConfig#DB_DORM_REQUEST_ADDRESS} = Адрес проживания
-             * & {@link DataConfig#DB_DORM_REQUEST_GENDER_ID} = ID гендера
-             * & {@link DataConfig#DB_DORM_REQUEST_ROOM_ID} = ID этажа
-             * [&] {@link DataConfig#DB_DORM_PATRONYMIC} = Отчество
+             * & {@link DataConfig#DB_DORM_NAME_F} = Имя.
+             * & {@link DataConfig#DB_DORM_NAME_L} = Фамилия.
+             * & {@link DataConfig#DB_DORM_REQUEST_GROUP} = Группа.
+             * & {@link DataConfig#DB_DORM_REQUEST_DATE_RESIDENCE} = Дата заселения.
+             * & {@link DataConfig#DB_DORM_REQUEST_CHILDREN} = Сколько детей в семье.
+             * & {@link DataConfig#DB_DORM_REQUEST_PHONE} = Телефонный номер.
+             * & {@link DataConfig#DB_DORM_REQUEST_ADDRESS} = Адрес проживания.
+             * & {@link DataConfig#DB_DORM_REQUEST_GENDER_ID} = ID гендера.
+             * & {@link DataConfig#DB_DORM_REQUEST_ROOM_ID} = ID этажа.
+             * [&] {@link DataConfig#DB_DORM_PATRONYMIC} = Отчество.
              */
             get("/doc/request", (request, response) -> {
                 if (DomainHTTP.getDorm(request.host())) {
@@ -121,13 +121,13 @@ public class DormAPI {
              * Получить документ "Направление".
              *
              * http://localhost/api/doc/direction ?
-             * & {@link DataConfig#DB_DORM_NAME_F} = Имя
-             * & {@link DataConfig#DB_DORM_NAME_L} = Фамилия
-             * & {@link DataConfig#DB_DORM_REPORT_GENDER_ID} = ID гендера
-             * & {@link DataConfig#DB_DORM_REPORT_ADDRESS} = Адрес проживания
-             * & {@link DataConfig#DB_DORM_REPORT_PHONE} = Телефонный номер
-             * & {@link DataConfig#DB_DORM_REQUEST_ROOM_ID} = ID комнаты
-             * [&] {@link DataConfig#DB_DORM_PATRONYMIC} = Отчество
+             * & {@link DataConfig#DB_DORM_NAME_F} = Имя.
+             * & {@link DataConfig#DB_DORM_NAME_L} = Фамилия.
+             * & {@link DataConfig#DB_DORM_REPORT_GENDER_ID} = ID гендера.
+             * & {@link DataConfig#DB_DORM_REPORT_ADDRESS} = Адрес проживания.
+             * & {@link DataConfig#DB_DORM_REPORT_PHONE} = Телефонный номер.
+             * & {@link DataConfig#DB_DORM_REQUEST_ROOM_ID} = ID комнаты.
+             * [&] {@link DataConfig#DB_DORM_PATRONYMIC} = Отчество.
              */
             get("/doc/direction", (request, response) -> {
                 if (DomainHTTP.getDorm(request.host())) {
@@ -159,7 +159,7 @@ public class DormAPI {
             });
 
             /** {Not Javadoc}
-             * Получить отчеты
+             * Получить отчеты.
              *
              * http://localhost/api/report ?
              * & {@link DataConfig#GLOBAL_SORT} = Критерий сортирования данных ({@link DataConfig#SORT_GENDER},
@@ -188,7 +188,7 @@ public class DormAPI {
             });
 
             /** {Not Javadoc}
-             * Получить заявления
+             * Получить заявления.
              *
              * http://localhost/api/request ?
              * & {@link DataConfig#GLOBAL_SORT} = Критерий сортирования данных ({@link DataConfig#SORT_GENDER},
@@ -249,15 +249,16 @@ public class DormAPI {
              * Создать отчет.
              *
              * http://localhost/api/report ?
-             * & {@link DataConfig#DB_DORM_REPORT_UIN} = ИИН
-             * & {@link DataConfig#DB_DORM_REPORT_GENDER_ID} = ID гендера
-             * & {@link DataConfig#DB_DORM_REPORT_ROOM_ID} = ID комнаты
-             * & {@link DataConfig#DB_DORM_NAME_F} = Имя
-             * & {@link DataConfig#DB_DORM_NAME_L} = Фамилия
-             * [&] {@link DataConfig#DB_DORM_PATRONYMIC} = Отчество
-             * & {@link DataConfig#DB_DORM_REPORT_ADDRESS} = Адрес проживания
-             * & {@link DataConfig#DB_DORM_REPORT_PHONE} = Телефон
-             * & {@link DataConfig#DB_DORM_REPORT_STATUS_ID} = ID статуса
+             * & {@link DataConfig#DB_DORM_REPORT_UIN} = ИИН.
+             * & {@link DataConfig#DB_DORM_REPORT_GENDER_ID} = ID гендера.
+             * & {@link DataConfig#DB_DORM_REPORT_ROOM_ID} = ID комнаты.
+             * & {@link DataConfig#DB_DORM_NAME_F} = Имя.
+             * & {@link DataConfig#DB_DORM_NAME_L} = Фамилия.
+             * [&] {@link DataConfig#DB_DORM_PATRONYMIC} = Отчество.
+             * [&] {@link DataConfig#DB_DORM_REPORT_EMAIL} = Электронная почта.
+             * & {@link DataConfig#DB_DORM_REPORT_ADDRESS} = Адрес проживания.
+             * & {@link DataConfig#DB_DORM_REPORT_PHONE} = Телефон.
+             * & {@link DataConfig#DB_DORM_REPORT_STATUS_ID} = ID статуса.
              * & {@link DataConfig#DB_DORM_REPORT_CHILDREN} = Сколько в семье детей.
              * & {@link DataConfig#DB_DORM_REPORT_DATE_RESIDENCE} = Дата начала проживания.
              */
@@ -281,15 +282,16 @@ public class DormAPI {
              * Создать заявление.
              *
              * http://localhost/api/request ?
-             * & {@link DataConfig#DB_DORM_NAME_F} = Имя
-             * & {@link DataConfig#DB_DORM_NAME_L} = Фамилия
-             * [&] {@link DataConfig#DB_DORM_PATRONYMIC} = ID статуса
-             * & {@link DataConfig#DB_DORM_REQUEST_UIN} = ИИН
-             * & {@link DataConfig#DB_DORM_REQUEST_ROOM_ID} = ID комнаты
-             * & {@link DataConfig#DB_DORM_REQUEST_ADDRESS} = Адрес проживания
-             * & {@link DataConfig#DB_DORM_REQUEST_PHONE} = Телефон
-             * & {@link DataConfig#DB_DORM_REQUEST_GROUP} = Группа
-             * & {@link DataConfig#DB_DORM_REQUEST_GENDER_ID} = ID гендера
+             * & {@link DataConfig#DB_DORM_NAME_F} = Имя.
+             * & {@link DataConfig#DB_DORM_NAME_L} = Фамилия.
+             * [&] {@link DataConfig#DB_DORM_PATRONYMIC} = ID статуса.
+             * & {@link DataConfig#DB_DORM_REQUEST_UIN} = ИИН.
+             * & {@link DataConfig#DB_DORM_REQUEST_ROOM_ID} = ID комнаты.
+             * [&] {@link DataConfig#DB_DORM_REQUEST_EMAIL} = Электронная почта.
+             * & {@link DataConfig#DB_DORM_REQUEST_ADDRESS} = Адрес проживания.
+             * & {@link DataConfig#DB_DORM_REQUEST_PHONE} = Телефон.
+             * & {@link DataConfig#DB_DORM_REQUEST_GROUP} = Группа.
+             * & {@link DataConfig#DB_DORM_REQUEST_GENDER_ID} = ID гендера.
              * & {@link DataConfig#DB_DORM_REQUEST_CHILDREN} = Сколько в семье детей.
              * & {@link DataConfig#DB_DORM_REQUEST_DATE_RESIDENCE} = Дата начала проживания.
              */
@@ -315,8 +317,8 @@ public class DormAPI {
              * Удалить заявление.
              *
              * http://localhost/api/status ?
-             * & {@link DataConfig#DB_DORM_REPORT_ID} = ID отчета
-             * & {@link DataConfig#DB_DORM_REPORT_STATUS_ID} = ID статуса
+             * & {@link DataConfig#DB_DORM_REPORT_ID} = ID отчета.
+             * & {@link DataConfig#DB_DORM_REPORT_STATUS_ID} = ID статуса.
              */
             put("/status", (request, response) -> {
                 if (DomainHTTP.getDorm(request.host())) {

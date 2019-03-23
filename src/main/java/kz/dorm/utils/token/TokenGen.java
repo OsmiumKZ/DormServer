@@ -2,13 +2,13 @@ package kz.dorm.utils.token;
 
 class TokenGen {
 
-    /* Цифры */
+    /* Цифры. */
     private static final char[] digit = "0123456789".toCharArray();
 
-    /* Латинские буквы, нижнего регистра */
+    /* Латинские буквы, нижнего регистра. */
     private static final char[] lower = "abcdefghijklmnopqrstuvwxyz".toCharArray();
 
-    /* Латинские буквы, верхнего регистра */
+    /* Латинские буквы, верхнего регистра. */
     private static final char[] upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
 
     /**

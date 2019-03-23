@@ -5,15 +5,15 @@ import kz.dorm.utils.DataConfig;
 
 public class Status {
 
-    /* Индивидуальный номер */
+    /* Индивидуальный номер. */
     @SerializedName(DataConfig.DB_DORM_STATUS_ID)
     private final int id;
 
-    /* Название по ID */
+    /* Название по ID. */
     @SerializedName(DataConfig.DB_DORM_STATUS_NAME_ID)
     private final int nameId;
 
-    /* Название по ID */
+    /* Название по ID. */
     @SerializedName(DataConfig.DB_DORM_STATUS_ACTIVE)
     private final int active;
 

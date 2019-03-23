@@ -88,7 +88,7 @@ public class HandlerDirection {
     }
 
     /**
-     * Заполнение ректора
+     * Заполнение ректора.
      */
     private static void rector(Map<String, String> map) {
         map.put(DataConfigDirection.DOC_KEY_RECTOR, DataConfigDirection.DOC_RECTOR);

@@ -8,23 +8,23 @@ import java.util.List;
 
 public class DormDB {
 
-    /* Объект общежитий */
+    /* Объект общежитий. */
     @SerializedName(DataConfig.DB_DORM_DORM)
     private List<Dorm> dorms = new ArrayList<>();
 
-    /* Объект этажей */
+    /* Объект этажей. */
     @SerializedName(DataConfig.DB_DORM_FLOOR)
     private List<Floor> floors = new ArrayList<>();
 
-    /* Объект названий */
+    /* Объект названий. */
     @SerializedName(DataConfig.DB_DORM_NAME)
     private List<Name> names = new ArrayList<>();
 
-    /* Объект гендеров */
+    /* Объект гендеров. */
     @SerializedName(DataConfig.DB_DORM_GENDER)
     private List<Gender> genders = new ArrayList<>();
 
-    /* Объект статусов */
+    /* Объект статусов. */
     @SerializedName(DataConfig.DB_DORM_STATUS)
     private List<Status> status = new ArrayList<>();
 

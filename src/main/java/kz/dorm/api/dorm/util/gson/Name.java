@@ -5,19 +5,19 @@ import kz.dorm.utils.DataConfig;
 
 public class Name {
 
-    /* Индивидуальный номер */
+    /* Индивидуальный номер. */
     @SerializedName(DataConfig.DB_DORM_NAME_ID)
     private final int id;
 
-    /* Слова на русском */
+    /* Слова на русском. */
     @SerializedName(DataConfig.DB_DORM_NAME_RU)
     private final String name_ru;
 
-    /* Слова на казахском */
+    /* Слова на казахском. */
     @SerializedName(DataConfig.DB_DORM_NAME_KZ)
     private final String name_kz;
 
-    /* Слова на английском */
+    /* Слова на английском. */
     @SerializedName(DataConfig.DB_DORM_NAME_EN)
     private final String name_en;
 

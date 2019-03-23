@@ -5,11 +5,11 @@ import kz.dorm.utils.DataConfig;
 
 public class Gender {
 
-    /* Индивидуальный номер */
+    /* Индивидуальный номер. */
     @SerializedName(DataConfig.DB_DORM_GENDER_ID)
     private final int id;
 
-    /* Название по ID */
+    /* Название по ID. */
     @SerializedName(DataConfig.DB_DORM_GENDER_NAME_ID)
     private final int nameId;
 

@@ -9,12 +9,12 @@ public enum EnumSortRequest {
 
         @Override
         public String selectSortedRequest() {
-            if (DataConfig.DB_TYPE == EnumDBType.MYSQL) { // MySQL
+            if (DataConfig.DB_TYPE == EnumDBType.MYSQL) { // MySQL.
                 return StatementSQL.select().selectRequest() +
                         "WHERE `" + DataConfig.DB_DORM_REQUEST + "`.`" + DataConfig.DB_DORM_REQUEST_GENDER_ID + "`=?\n" +
                         "ORDER BY `" + DataConfig.DB_DORM_REQUEST + "`.`" + DataConfig.DB_DORM_REQUEST_ID + "`\n" +
                         DataConfig.DB_MAX_ITEM_LIST_STRING_MYSQL;
-            } else {                                      // MSSQL
+            } else {                                      // MSSQL.
                 return "SELECT *\nFROM\n\t(SELECT ROW_NUMBER() OVER (ORDER BY [" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_CHILDREN + "])\n\t\tAS [row_num], *\n\tFROM\n\t\t(" +
                         StatementSQL.select().selectRequest() +
                         "WHERE [" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_GENDER_ID + "]=?" +
@@ -26,11 +26,11 @@ public enum EnumSortRequest {
 
         @Override
         public String selectSortedRequest() {
-            if (DataConfig.DB_TYPE == EnumDBType.MYSQL) { // MySQL
+            if (DataConfig.DB_TYPE == EnumDBType.MYSQL) { // MySQL.
                 return StatementSQL.select().selectRequest() +
                         "ORDER BY `" + DataConfig.DB_DORM_REQUEST + "`.`" + DataConfig.DB_DORM_REQUEST_CHILDREN + "` DESC\n" +
                         DataConfig.DB_MAX_ITEM_LIST_STRING_MYSQL;
-            } else {                                      // MSSQL
+            } else {                                      // MSSQL.
                 return "SELECT *\nFROM\n\t(SELECT ROW_NUMBER() OVER (ORDER BY [" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_CHILDREN + "] DESC) - 1\n\t\tAS [row_num], *\n\tFROM\n\t\t(" +
                         StatementSQL.select().selectRequest() +
                         ")\n\tAS [" + DataConfig.DB_DORM_REQUEST + "])\nAS [" + DataConfig.DB_DORM_REQUEST + "]\nWHERE [" + DataConfig.DB_DORM_REQUEST + "].[row_num] >=?\n\tAND [" + DataConfig.DB_DORM_REQUEST + "].[row_num] <?\nORDER BY [" + DataConfig.DB_DORM_REQUEST + "].[row_num]";
@@ -41,11 +41,11 @@ public enum EnumSortRequest {
 
         @Override
         public String selectSortedRequest() {
-            if (DataConfig.DB_TYPE == EnumDBType.MYSQL) { // MySQL
+            if (DataConfig.DB_TYPE == EnumDBType.MYSQL) { // MySQL.
                 return StatementSQL.select().selectRequest() +
                         "ORDER BY `" + DataConfig.DB_DORM_FLOOR + "`.`" + DataConfig.DB_DORM_FLOOR_DORM_ID + "`\n" +
                         DataConfig.DB_MAX_ITEM_LIST_STRING_MYSQL;
-            } else {                                      // MSSQL
+            } else {                                      // MSSQL.
                 return "SELECT *\nFROM\n\t(SELECT ROW_NUMBER() OVER (ORDER BY [" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_FLOOR_DORM_ID + "]) - 1\n\t\tAS [row_num], *\n\tFROM\n\t\t(" +
                         StatementSQL.select().selectRequest() +
                         ")\n\tAS [" + DataConfig.DB_DORM_REQUEST + "])\nAS [" + DataConfig.DB_DORM_REQUEST + "]\nWHERE [" + DataConfig.DB_DORM_REQUEST + "].[row_num] >=?\n\tAND [" + DataConfig.DB_DORM_REQUEST + "].[row_num] <?\nORDER BY [" + DataConfig.DB_DORM_REQUEST + "].[row_num]";
@@ -56,11 +56,11 @@ public enum EnumSortRequest {
 
         @Override
         public String selectSortedRequest() {
-            if (DataConfig.DB_TYPE == EnumDBType.MYSQL) { // MySQL
+            if (DataConfig.DB_TYPE == EnumDBType.MYSQL) { // MySQL.
                 return StatementSQL.select().selectRequest() +
                         "ORDER BY `" + DataConfig.DB_DORM_REQUEST + "`.`" + DataConfig.DB_DORM_REQUEST_DATE_CREATE + "` DESC\n" +
                         DataConfig.DB_MAX_ITEM_LIST_STRING_MYSQL;
-            } else {                                      // MSSQL
+            } else {                                      // MSSQL.
                 return "SELECT *\nFROM\n\t(SELECT ROW_NUMBER() OVER (ORDER BY [" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_DATE_CREATE + "] DESC) - 1\n\t\tAS [row_num], *\n\tFROM\n\t\t(" +
                         StatementSQL.select().selectRequest() +
                         ")\n\tAS [" + DataConfig.DB_DORM_REQUEST + "])\nAS [" + DataConfig.DB_DORM_REQUEST + "]\nWHERE [" + DataConfig.DB_DORM_REQUEST + "].[row_num] >=?\n\tAND [" + DataConfig.DB_DORM_REQUEST + "].[row_num] <?\nORDER BY [" + DataConfig.DB_DORM_REQUEST + "].[row_num]";
@@ -71,11 +71,11 @@ public enum EnumSortRequest {
 
         @Override
         public String selectSortedRequest() {
-            if (DataConfig.DB_TYPE == EnumDBType.MYSQL) { // MySQL
+            if (DataConfig.DB_TYPE == EnumDBType.MYSQL) { // MySQL.
                 return StatementSQL.select().selectRequest() +
                         "WHERE `" + DataConfig.DB_DORM_REQUEST + "`.`" + DataConfig.DB_DORM_REQUEST_ACTIVE + "`=0\n" +
                         DataConfig.DB_MAX_ITEM_LIST_STRING_MYSQL;
-            } else {                                      // MSSQL
+            } else {                                      // MSSQL.
                 return "SELECT *\nFROM\n\t(SELECT ROW_NUMBER() OVER (ORDER BY [" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_ID + "]) - 1\n\t\tAS [row_num], *\n\tFROM\n\t\t(" +
                         StatementSQL.select().selectRequest() +
                         "WHERE [" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_ACTIVE + "]=0\n" +
@@ -84,7 +84,7 @@ public enum EnumSortRequest {
         }
     };
 
-    /* Название параметра */
+    /* Название параметра. */
     private String parameter;
 
     EnumSortRequest(String parameter) {
@@ -92,7 +92,7 @@ public enum EnumSortRequest {
     }
 
     /**
-     * Получить тип
+     * Получить тип.
      */
     public static EnumSortRequest fromString(String text) {
         for (EnumSortRequest b : EnumSortRequest.values())
@@ -103,7 +103,7 @@ public enum EnumSortRequest {
     }
 
     /**
-     * Отсортерованный данные заявлений
+     * Отсортерованный данные заявлений.
      */
     public abstract String selectSortedRequest();
 }

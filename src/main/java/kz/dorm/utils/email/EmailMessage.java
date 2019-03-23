@@ -3,39 +3,45 @@ package kz.dorm.utils.email;
 import kz.dorm.utils.DataConfig;
 
 public enum EmailMessage {
-    CREATE_REQUEST {
+    CREATE_REQUEST { // Создание заявления.
         @Override
         public String getMessage(String name) {
             return EmailMessage.bodyMessage(name, DataConfig.EMAIL_MESSAGE_TEXT_CREATE_REQUEST);
         }
     },
-    DELETE_REQUEST {
+    DELETE_REQUEST { // Удаление заявления.
         @Override
         public String getMessage(String name) {
             return EmailMessage.bodyMessage(name, DataConfig.EMAIL_MESSAGE_TEXT_DELETE_REQUEST);
         }
     },
-    ACCEPT_REQUEST {
+    ACCEPT_REQUEST { // Подтверждение заявления.
         @Override
         public String getMessage(String name) {
             return EmailMessage.bodyMessage(name, DataConfig.EMAIL_MESSAGE_TEXT_ACCEPT_REQUEST);
         }
     },
-    ACCEPT_REPORT {
+    ACCEPT_REPORT { // Подтверждение отчета.
         @Override
         public String getMessage(String name) {
             return EmailMessage.bodyMessage(name, DataConfig.EMAIL_MESSAGE_TEXT_ACCEPT_REPORT);
         }
     },
-    DENIED_REPORT {
+    DENIED_REPORT { // Отказать отчету.
         @Override
         public String getMessage(String name) {
             return EmailMessage.bodyMessage(name, DataConfig.EMAIL_MESSAGE_TEXT_DENIED_REPORT);
         }
     };
 
+    /**
+     * Абстракция отправки сообщения.
+     */
     public abstract String getMessage(String name);
 
+    /**
+     * Тело электронного сообщения в HTML.
+     */
     private static String bodyMessage(String name, String text) {
         return "<table style=\"background:#1e88e5\"\n" +
                 "       width=\"770px\" cellspacing=\"0\" cellpadding=\"0\" align=\"center\">\n" +

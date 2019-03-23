@@ -5,15 +5,15 @@ import kz.dorm.utils.DataConfig;
 
 public class Floor {
 
-    /* Индивидуальный номер */
+    /* Индивидуальный номер. */
     @SerializedName(DataConfig.DB_DORM_FLOOR_ID)
     private final int id;
 
-    /* Номер этажа */
+    /* Номер этажа. */
     @SerializedName(DataConfig.DB_DORM_FLOOR_NUMBER)
     private final int number;
 
-    /* ID общежития */
+    /* ID общежития. */
     @SerializedName(DataConfig.DB_DORM_FLOOR_DORM_ID)
     private final int dorm_id;
 

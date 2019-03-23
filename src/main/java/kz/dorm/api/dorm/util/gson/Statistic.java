@@ -5,21 +5,15 @@ import kz.dorm.utils.DataConfig;
 
 public class Statistic {
 
-    /**
-     * Количество одобренных заявок.
-     */
+    /* Количество одобренных заявок. */
     @SerializedName(DataConfig.DB_DORM_STATISTIC_ACCEPTED_REQUESTS)
     private final int acceptedRequests;
 
-    /**
-     * Сколько сейчас проживает студентов.
-     */
+    /* Сколько сейчас проживает студентов. */
     @SerializedName(DataConfig.DB_DORM_STATISTIC_CURR_LIVE)
     private final int currLive;
 
-    /**
-     * Свободные комнаты.
-     */
+    /* Свободные комнаты. */
     @SerializedName(DataConfig.DB_DORM_STATISTIC_FREE_ROOMS)
     private final int freeRooms;
 

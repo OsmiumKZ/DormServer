@@ -5,27 +5,27 @@ import kz.dorm.utils.DataConfig;
 
 public class Room {
 
-    /* Индивидуальный номер */
+    /* Индивидуальный номер. */
     @SerializedName(DataConfig.DB_DORM_ROOM_ID)
     private final int id;
 
-    /* Нумерация комнаты */
+    /* Нумерация комнаты. */
     @SerializedName(DataConfig.DB_DORM_ROOM_NUMBER)
     private final int number;
 
-    /* Максимальное количество мест для студентов */
+    /* Максимальное количество мест для студентов. */
     @SerializedName(DataConfig.DB_DORM_ROOM_MAX)
     private final int max;
 
-    /* ID этажа */
+    /* ID этажа. */
     @SerializedName(DataConfig.DB_DORM_ROOM_FLOOR_ID)
     private final int floorId;
 
-    /* Количество проживающих в комнате */
+    /* Количество проживающих в комнате. */
     @SerializedName(DataConfig.DB_DORM_ROOM_AS_AMOUNT)
     private final int amount;
 
-    /* ID гендер комнаты */
+    /* ID гендер комнаты. */
     @SerializedName(DataConfig.DB_DORM_REPORT_GENDER_ID)
     private final int genderId;
 

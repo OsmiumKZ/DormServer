@@ -4,8 +4,13 @@ import kz.dorm.api.dorm.util.statement.providers.interfaces.Select;
 import kz.dorm.utils.DataConfig;
 
 public class DormSelect implements Select {
+
+    /* Экземпляр данного класса. */
     private static DormSelect ourInstance;
 
+    /**
+     * Создание экземпляр класса {@link DormSelect}.
+     */
     public static DormSelect getInstance() {
         if (ourInstance == null)
             ourInstance = new DormSelect();
@@ -13,12 +18,16 @@ public class DormSelect implements Select {
         return ourInstance;
     }
 
+    /**
+     * Используется паттерн проектирования "Singleton".
+     * Именно по этому, конструктор приватный.
+     */
     private DormSelect() {
 
     }
 
     /**
-     * Получить все общежития
+     * Получить все общежития.
      */
     @Override
     public String selectDorms() {
@@ -26,7 +35,7 @@ public class DormSelect implements Select {
     }
 
     /**
-     * Получить все этажи
+     * Получить все этажи.
      */
     @Override
     public String selectFloors() {
@@ -34,7 +43,7 @@ public class DormSelect implements Select {
     }
 
     /**
-     * Получить все названия
+     * Получить все названия.
      */
     @Override
     public String selectNames() {
@@ -42,7 +51,7 @@ public class DormSelect implements Select {
     }
 
     /**
-     * Получить все гендеры
+     * Получить все гендеры.
      */
     @Override
     public String selectGenders() {
@@ -50,7 +59,7 @@ public class DormSelect implements Select {
     }
 
     /**
-     * Получить все статусы
+     * Получить все статусы.
      */
     @Override
     public String selectStatus() {
@@ -88,7 +97,7 @@ public class DormSelect implements Select {
     }
 
     /**
-     * Получить отчеты
+     * Получить отчеты.
      */
     @Override
     public String selectReport() {
@@ -178,7 +187,7 @@ public class DormSelect implements Select {
     }
 
     /**
-     * Получить заявления
+     * Получить заявления.
      */
     @Override
     public String selectRequest() {
@@ -270,7 +279,7 @@ public class DormSelect implements Select {
     }
 
     /**
-     * Получить заявление по UIN.
+     * Получить заявление по ИИНу.
      */
     @Override
     public String selectRequestUIN() {
@@ -281,7 +290,7 @@ public class DormSelect implements Select {
     }
 
     /**
-     * Получить заявление по ID
+     * Получить заявление по ID.
      */
     @Override
     public String selectRequestId() {
@@ -291,7 +300,7 @@ public class DormSelect implements Select {
     }
 
     /**
-     * Получить отчет по ID
+     * Получить отчет по ID.
      */
     @Override
     public String selectReportId() {
@@ -332,7 +341,8 @@ public class DormSelect implements Select {
     }
 
     /**
-     * Получить список комнат, конкретного этажа, конкретной общаги, с количеством занятых мест
+     * Получить список комнат, конкретного этажа,
+     * конкретной общаги, с количеством занятых мест.
      */
     @Override
     public String selectRooms() {
@@ -379,7 +389,7 @@ public class DormSelect implements Select {
     }
 
     /**
-     * Возвращает совпадение, если есть уже такой UIN в отчетах.
+     * Возвращает совпадение, если есть уже такой ИИН в отчетах.
      */
     @Override
     public String selectActiveUINReport() {

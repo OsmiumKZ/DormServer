@@ -10,14 +10,14 @@ import java.util.Date;
 public class DateText {
 
     /**
-     * Из {@link Date} получить {@link String} по формату {@link DateConfig#GLOBAL_FORMAT_DATE_TIME}
+     * Из {@link Date} получить {@link String} по формату {@link DateConfig#GLOBAL_FORMAT_DATE_TIME}.
      */
     public static String getDateText(Date date) {
         return new SimpleDateFormat(DateConfig.GLOBAL_FORMAT_DATE_TIME).format(date);
     }
 
     /**
-     * Из {@link DateTime} получить {@link String} по формату {@link DateConfig#GLOBAL_FORMAT_DATE_TIME}
+     * Из {@link DateTime} получить {@link String} по формату {@link DateConfig#GLOBAL_FORMAT_DATE_TIME}.
      */
     public static String getDateTimeText(DateTime dateTime) {
         return new SimpleDateFormat(DateConfig.GLOBAL_FORMAT_DATE_TIME).format(dateTime.toDate());

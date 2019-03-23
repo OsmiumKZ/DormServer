@@ -7,6 +7,7 @@ import java.util.List;
 
 public class SearchName {
 
+    /* Названия. */
     @SerializedName(DataConfig.GLOBAL_SEARCH_NAME)
     private final List<String> names;
 

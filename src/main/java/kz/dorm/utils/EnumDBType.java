@@ -3,7 +3,7 @@ package kz.dorm.utils;
 public enum EnumDBType {
     MYSQL(DataConfig.DB_MYSQL), MSSQL(DataConfig.DB_MSSQL);
 
-    /* Название параметра */
+    /* Название параметра. */
     private String parameter;
 
     EnumDBType(String parameter) {
@@ -11,7 +11,7 @@ public enum EnumDBType {
     }
 
     /**
-     * Получить тип
+     * Получить тип.
      */
     public static EnumDBType fromString(String text) {
         for (EnumDBType b : EnumDBType.values()) {

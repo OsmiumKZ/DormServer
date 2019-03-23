@@ -205,16 +205,16 @@ public class HandlerRequest {
      */
     static class Student {
 
-        /* Имя */
+        /* Имя. */
         private String name_f;
 
-        /* Фамилия */
+        /* Фамилия. */
         private String name_l;
 
-        /* Отчество */
+        /* Отчество. */
         private String patronymic;
 
-        /* Гендер */
+        /* Гендер. */
         private boolean gender;
 
         Student(String name_f, String name_l, String patronymic, boolean gender) {
@@ -240,6 +240,9 @@ public class HandlerRequest {
         }
     }
 
+    /**
+     * Поиск элемента в документе.
+     */
     private static List<Object> getAllElementFromObject(Object obj, Class<?> toSearch) {
         List<Object> result = new ArrayList<>();
 
@@ -255,9 +258,11 @@ public class HandlerRequest {
         return result;
     }
 
+    /**
+     * Удаление строки в документе.
+     */
     private static void remove(MainDocumentPart documentPart, Class<?> classType, int index) {
-        documentPart
-                .getContent()
+        documentPart.getContent()
                 .remove((getAllElementFromObject(documentPart, classType).get(index)));
     }
 }

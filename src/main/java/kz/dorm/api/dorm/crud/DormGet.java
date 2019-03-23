@@ -189,7 +189,7 @@ public class DormGet {
     }
 
     /**
-     * Получить отчеты
+     * Получить отчеты.
      */
     public static String getReport(Request request, Response response) {
         String sort = request.queryParams(DataConfig.GLOBAL_SORT) != null ?
@@ -260,7 +260,7 @@ public class DormGet {
     }
 
     /**
-     * Получить заявления
+     * Получить заявления.
      */
     public static String getRequest(Request request, Response response) {
         String sort = request.queryParams(DataConfig.GLOBAL_SORT) != null ?
