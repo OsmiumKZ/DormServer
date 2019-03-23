@@ -24,14 +24,17 @@ public class Local {
 
             switch (DataConfig.DB_TYPE) {
                 case MYSQL:
+                    Class.forName("net.sourceforge.jtds.jdbc.Driver");
                     return LocalDB.getDB(properties.getProperty(DataConfig.PROPERTY_DB_LOCAL_MYSQL_HOST),
                             properties.getProperty(DataConfig.PROPERTY_DB_LOCAL_MYSQL_LOGIN),
                             properties.getProperty(DataConfig.PROPERTY_DB_LOCAL_MYSQL_PASSWORD));
                 case MSSQL:
+                    Class.forName("com.mysql.jdbc.Driver");
                     return LocalDB.getDB(properties.getProperty(DataConfig.PROPERTY_DB_LOCAL_MSSQL_HOST),
                             properties.getProperty(DataConfig.PROPERTY_DB_LOCAL_MSSQL_LOGIN),
                             properties.getProperty(DataConfig.PROPERTY_DB_LOCAL_MSSQL_PASSWORD));
                 default:
+                    Class.forName("com.mysql.jdbc.Driver");
                     return LocalDB.getDB(properties.getProperty(DataConfig.PROPERTY_DB_LOCAL_MYSQL_HOST),
                             properties.getProperty(DataConfig.PROPERTY_DB_LOCAL_MYSQL_LOGIN),
                             properties.getProperty(DataConfig.PROPERTY_DB_LOCAL_MYSQL_PASSWORD));

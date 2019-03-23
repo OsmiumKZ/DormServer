@@ -2,7 +2,7 @@ apply plugin: 'java'
 apply plugin: 'application'
 
 group 'dorm-keu'
-version '1.0-SNAPSHOT'
+version '1.0'
 
 applicationName = "dorm-keu"
 mainClassName = "kz.dorm.Main"
@@ -28,3 +28,14 @@ dependencies {
 defaultTasks = ['clean']
 
 task stage(dependsOn: ['clean', 'installDist'])
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Gradle Jar File Dorm',
+                'Implementation-Version': version,
+                'Main-Class': 'kz.dorm.Main'
+    }
+    baseName = project.name
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
