@@ -42,6 +42,7 @@ CREATE TABLE `dorms` (
 -- `id` - ID комнаты
 -- `number` - Нумерация комнаты
 -- `max` - Максимальное количество людей в комнате
+-- `symbol` - Символ(-ы) комнаты
 -- `floor_id` - ID этажа
 --
 
@@ -49,6 +50,7 @@ CREATE TABLE `rooms` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`number` INT NOT NULL,
 	`max` INT NOT NULL,
+	`symbol` VARCHAR(5) NULL,
 	`floor_id` INT NOT NULL,
 	PRIMARY KEY (`id`)) 
 	ENGINE = InnoDB
