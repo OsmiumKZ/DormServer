@@ -90,8 +90,7 @@ public class DormPost {
                     else
                         statement.setNull(9, Types.INTEGER);
 
-                    if (request.queryParams(DataConfig.DB_DORM_REPORT_EMAIL) != null &&
-                            ControlWrite.isCheckEmailReport(connection,
+                    if (ControlWrite.isCheckEmailReport(connection,
                                     request.queryParams(DataConfig.DB_DORM_REPORT_EMAIL))) {
                         statement.setString(16, request.queryParams(DataConfig.DB_DORM_REPORT_EMAIL));
                     } else {

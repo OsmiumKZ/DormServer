@@ -33,9 +33,9 @@ public class Request {
     @SerializedName(DataConfig.DB_DORM_REQUEST_GENDER_ID)
     private final int genderId;
 
-    /* Номер комнаты. */
-    @SerializedName(DataConfig.DB_DORM_ROOM_NUMBER)
-    private final int number;
+    /* Комната. */
+    @SerializedName(DataConfig.DB_DORM_ROOM)
+    private final RoomOne room;
 
     /* ID общежития. */
     @SerializedName(DataConfig.DB_DORM_FLOOR_DORM_ID)
@@ -73,7 +73,7 @@ public class Request {
     @SerializedName(DataConfig.DB_DORM_REQUEST_ACTIVE)
     private final int active;
 
-    public Request(int id, long uin, String email, String address, String phone, String group, int genderId, int number, int dormId, int children, String dateResidence, String nameF, String nameL, String patronymic, Parent mother, Parent father, int active) {
+    public Request(int id, long uin, String email, String address, String phone, String group, int genderId, RoomOne room, int dormId, int children, String dateResidence, String nameF, String nameL, String patronymic, Parent mother, Parent father, int active) {
         this.id = id;
         this.uin = uin;
         this.email = email;
@@ -81,7 +81,7 @@ public class Request {
         this.phone = phone;
         this.group = group;
         this.genderId = genderId;
-        this.number = number;
+        this.room = room;
         this.dormId = dormId;
         this.children = children;
         this.dateResidence = dateResidence;

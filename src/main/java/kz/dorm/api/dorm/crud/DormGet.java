@@ -124,15 +124,16 @@ public class DormGet {
     public static String getRooms(Request request, Response response) {
         if (request.queryParams(DataConfig.DB_DORM_FLOOR_ID) != null) {
             try (Connection connection = DataBase.getDorm()) {
-                List<Room> list = new ArrayList<>();
+                List<RoomTwo> list = new ArrayList<>();
                 PreparedStatement statement = connection.prepareStatement(StatementSQL.select().selectRooms());
                 statement.setInt(1, Integer.parseInt(request.queryParams(DataConfig.DB_DORM_FLOOR_ID)));
                 ResultSet result = statement.executeQuery();
 
                 while (result.next())
-                    list.add(new Room(result.getInt(DataConfig.DB_DORM_ROOM_ID),
+                    list.add(new RoomTwo(result.getInt(DataConfig.DB_DORM_ROOM_ID),
                             result.getInt(DataConfig.DB_DORM_ROOM_NUMBER),
                             result.getInt(DataConfig.DB_DORM_ROOM_MAX),
+                            result.getString(DataConfig.DB_DORM_ROOM_SYMBOL),
                             result.getInt(DataConfig.DB_DORM_ROOM_FLOOR_ID),
                             result.getInt(DataConfig.DB_DORM_ROOM_AS_AMOUNT),
                             result.getInt(DataConfig.DB_DORM_REPORT_GENDER_ID)));
@@ -230,7 +231,11 @@ public class DormGet {
                         result.getString(DataConfig.DB_DORM_REPORT_ADDRESS),
                         result.getString(DataConfig.DB_DORM_REPORT_PHONE),
                         result.getInt(DataConfig.DB_DORM_REPORT_GENDER_ID),
-                        result.getInt(DataConfig.DB_DORM_ROOM_NUMBER),
+                        new RoomOne(result.getInt(DataConfig.DB_DORM_ROOM_AS_ROOM_ID),
+                                result.getInt(DataConfig.DB_DORM_ROOM_NUMBER),
+                                result.getInt(DataConfig.DB_DORM_ROOM_MAX),
+                                result.getString(DataConfig.DB_DORM_ROOM_SYMBOL),
+                                result.getInt(DataConfig.DB_DORM_ROOM_FLOOR_ID)),
                         result.getInt(DataConfig.DB_DORM_FLOOR_DORM_ID),
                         result.getString(DataConfig.DB_DORM_REPORT_DATE_CREATE),
                         result.getString(DataConfig.DB_DORM_REPORT_DATE_UPDATE),
@@ -304,7 +309,11 @@ public class DormGet {
                         result.getString(DataConfig.DB_DORM_REQUEST_PHONE),
                         result.getString(DataConfig.DB_DORM_REQUEST_GROUP),
                         result.getInt(DataConfig.DB_DORM_REQUEST_GENDER_ID),
-                        result.getInt(DataConfig.DB_DORM_ROOM_NUMBER),
+                        new RoomOne(result.getInt(DataConfig.DB_DORM_ROOM_AS_ROOM_ID),
+                                result.getInt(DataConfig.DB_DORM_ROOM_NUMBER),
+                                result.getInt(DataConfig.DB_DORM_ROOM_MAX),
+                                result.getString(DataConfig.DB_DORM_ROOM_SYMBOL),
+                                result.getInt(DataConfig.DB_DORM_ROOM_FLOOR_ID)),
                         result.getInt(DataConfig.DB_DORM_FLOOR_DORM_ID),
                         result.getInt(DataConfig.DB_DORM_REQUEST_CHILDREN),
                         result.getString(DataConfig.DB_DORM_REQUEST_DATE_RESIDENCE),
@@ -354,7 +363,11 @@ public class DormGet {
                                     result.getString(DataConfig.DB_DORM_REQUEST_PHONE),
                                     result.getString(DataConfig.DB_DORM_REQUEST_GROUP),
                                     result.getInt(DataConfig.DB_DORM_REQUEST_GENDER_ID),
-                                    result.getInt(DataConfig.DB_DORM_ROOM_NUMBER),
+                                    new RoomOne(result.getInt(DataConfig.DB_DORM_ROOM_AS_ROOM_ID),
+                                            result.getInt(DataConfig.DB_DORM_ROOM_NUMBER),
+                                            result.getInt(DataConfig.DB_DORM_ROOM_MAX),
+                                            result.getString(DataConfig.DB_DORM_ROOM_SYMBOL),
+                                            result.getInt(DataConfig.DB_DORM_ROOM_FLOOR_ID)),
                                     result.getInt(DataConfig.DB_DORM_FLOOR_DORM_ID),
                                     result.getInt(DataConfig.DB_DORM_REQUEST_CHILDREN),
                                     result.getString(DataConfig.DB_DORM_REQUEST_DATE_RESIDENCE),

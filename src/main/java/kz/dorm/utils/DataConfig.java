@@ -76,8 +76,10 @@ public class DataConfig {
     public static final String DB_DORM_ROOM_ID = "id";
     public static final String DB_DORM_ROOM_NUMBER = "number";
     public static final String DB_DORM_ROOM_MAX = "max";
+    public static final String DB_DORM_ROOM_SYMBOL = "symbol";
     public static final String DB_DORM_ROOM_FLOOR_ID = "floor_id";
     public static final String DB_DORM_ROOM_AS_AMOUNT = "amount";
+    public static final String DB_DORM_ROOM_AS_ROOM_ID = "room_id";
 
     public static final String DB_DORM_STATUS = "status";
     public static final String DB_DORM_STATUS_ID = "id";

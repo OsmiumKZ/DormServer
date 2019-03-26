@@ -3,7 +3,7 @@ package kz.dorm.api.dorm.util.gson;
 import com.google.gson.annotations.SerializedName;
 import kz.dorm.utils.DataConfig;
 
-public class Room {
+public class RoomTwo {
 
     /* Индивидуальный номер. */
     @SerializedName(DataConfig.DB_DORM_ROOM_ID)
@@ -17,6 +17,10 @@ public class Room {
     @SerializedName(DataConfig.DB_DORM_ROOM_MAX)
     private final int max;
 
+    /* Символ(-ы) комнаты. */
+    @SerializedName(DataConfig.DB_DORM_ROOM_SYMBOL)
+    private final String symbol;
+
     /* ID этажа. */
     @SerializedName(DataConfig.DB_DORM_ROOM_FLOOR_ID)
     private final int floorId;
@@ -29,10 +33,11 @@ public class Room {
     @SerializedName(DataConfig.DB_DORM_REPORT_GENDER_ID)
     private final int genderId;
 
-    public Room(int id, int number, int max, int floorId, int amount, int genderId) {
+    public RoomTwo(int id, int number, int max, String symbol, int floorId, int amount, int genderId) {
         this.id = id;
         this.number = number;
         this.max = max;
+        this.symbol = symbol;
         this.floorId = floorId;
         this.amount = amount;
         this.genderId = genderId;
