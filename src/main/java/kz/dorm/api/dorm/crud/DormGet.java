@@ -76,6 +76,18 @@ public class DormGet {
                                 result.getInt(DataConfig.DB_DORM_STATUS_NAME_ID),
                                 result.getInt(DataConfig.DB_DORM_STATUS_ACTIVE)));
 
+            statement = connection.prepareStatement(StatementSQL.select().selectRooms());
+            result = statement.executeQuery();
+
+            while (result.next())
+                dormDB.getRooms()
+                        .add(new RoomThree(result.getInt(DataConfig.DB_DORM_ROOM_ID),
+                                result.getInt(DataConfig.DB_DORM_ROOM_NUMBER),
+                                result.getInt(DataConfig.DB_DORM_ROOM_MAX),
+                                result.getString(DataConfig.DB_DORM_ROOM_SYMBOL),
+                                result.getInt(DataConfig.DB_DORM_ROOM_FLOOR_ID),
+                                result.getInt(DataConfig.DB_DORM_FLOOR_DORM_ID)));
+
             response.status(200);
 
             return new Gson().toJson(dormDB);
@@ -125,7 +137,7 @@ public class DormGet {
         if (request.queryParams(DataConfig.DB_DORM_FLOOR_ID) != null) {
             try (Connection connection = DataBase.getDorm()) {
                 List<RoomTwo> list = new ArrayList<>();
-                PreparedStatement statement = connection.prepareStatement(StatementSQL.select().selectRooms());
+                PreparedStatement statement = connection.prepareStatement(StatementSQL.select().selectRoomsFloorId());
                 statement.setInt(1, Integer.parseInt(request.queryParams(DataConfig.DB_DORM_FLOOR_ID)));
                 ResultSet result = statement.executeQuery();
 

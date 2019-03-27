@@ -362,7 +362,7 @@ public class DormSelect implements Select {
      * конкретной общаги, с количеством занятых мест.
      */
     @Override
-    public String selectRooms() {
+    public String selectRoomsFloorId() {
         return "SELECT `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_ID + "`,\n" +
                 "\t`" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_NUMBER + "`,\n" +
                 "\t`" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_MAX + "`,\n" +
@@ -400,6 +400,22 @@ public class DormSelect implements Select {
                 "AS `" + DataConfig.DB_DORM_ROOM + "`\n" +
                 "ON `" + DataConfig.DB_DORM_FLOOR + "`.`" + DataConfig.DB_DORM_FLOOR_ID + "`=`" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_FLOOR_ID + "`\n" +
                 "WHERE `" + DataConfig.DB_DORM_FLOOR + "`.`" + DataConfig.DB_DORM_FLOOR_ID + "`=?";
+    }
+
+    /**
+     * Получить все комнаты с ID общежитием.
+     */
+    @Override
+    public String selectRooms() {
+        return "SELECT `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_ID + "`,\n" +
+                "\t`" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_NUMBER + "`,\n" +
+                "\t`" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_MAX + "`,\n" +
+                "\t`" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_SYMBOL + "`,\n" +
+                "\t`" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_FLOOR_ID + "`,\n" +
+                "\t`" + DataConfig.DB_DORM_FLOOR + "`.`" + DataConfig.DB_DORM_FLOOR_DORM_ID + "`\n" +
+                "FROM `" + DataConfig.DB_DORM_ROOM + "`\n" +
+                "INNER JOIN `" + DataConfig.DB_DORM_FLOOR + "`\n" +
+                "ON `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_FLOOR_ID + "`=`" + DataConfig.DB_DORM_FLOOR + "`.`" + DataConfig.DB_DORM_FLOOR_ID + "`";
     }
 
     /**

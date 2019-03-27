@@ -28,6 +28,10 @@ public class DormDB {
     @SerializedName(DataConfig.DB_DORM_STATUS)
     private List<Status> status = new ArrayList<>();
 
+    /* Объект комнат. */
+    @SerializedName(DataConfig.DB_DORM_ROOM)
+    private List<RoomThree> rooms = new ArrayList<>();
+
     public List<Dorm> getDorms() {
         return dorms;
     }
@@ -46,5 +50,9 @@ public class DormDB {
 
     public List<Status> getStatus() {
         return status;
+    }
+
+    public List<RoomThree> getRooms() {
+        return rooms;
     }
 }

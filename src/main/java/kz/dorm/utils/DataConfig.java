@@ -4,13 +4,13 @@ public class DataConfig {
     public static final String EMAIL_MESSAGE_CLOSE = "С уважением,\nКарагандинский экономический " +
             "университет Казпотребсоюза.";
     public static final String EMAIL_MESSAGE_INFO = "Вы получили письмо, потому что данная " +
-            "электронная почта была указана при подаче заявления общежитие.";
+            "электронная почта была указана при подаче заявления в общежитие.";
     public static final String EMAIL_MESSAGE_PHONE = "Телефоны автодозвона: 44-16-24, 44-16-34, 44-15-68.";
-    public static final String EMAIL_MESSAGE_TEXT_CREATE_REQUEST = "Создание заявления POST /api/request";
-    public static final String EMAIL_MESSAGE_TEXT_DELETE_REQUEST = "Удаление заявления DELETE /api/request";
-    public static final String EMAIL_MESSAGE_TEXT_ACCEPT_REQUEST = "Принятие заявления PUT /api/active/request";
-    public static final String EMAIL_MESSAGE_TEXT_ACCEPT_REPORT = "Заселился PUT /api/status 1";
-    public static final String EMAIL_MESSAGE_TEXT_DENIED_REPORT = "Послан PUT /api/status -1";
+    public static final String EMAIL_MESSAGE_TEXT_CREATE_REQUEST = "Вы успешно создали заявление! Проверьте вложенный документ (заявление) на орфографические ошибки, распечатайте и отнесите в КЭУК, 127 кабинет.";
+    public static final String EMAIL_MESSAGE_TEXT_DELETE_REQUEST = "Ваше заявление было удалено администрацией.";
+    public static final String EMAIL_MESSAGE_TEXT_ACCEPT_REQUEST = "Ваше заявление успешно прошло модерацию!";
+    public static final String EMAIL_MESSAGE_TEXT_ACCEPT_REPORT = "Поздравляем, Ваша заявка и Ваши документы были одобренны. Вы успешно заселены в общежитие.";
+    public static final String EMAIL_MESSAGE_TEXT_DENIED_REPORT = "К сожалению, Ваши документы были не одобренны. Ваша заявка отменена.";
 
     public static final String PROPERTY_DB_TYPE = "db.type";
     public static final String PROPERTY_DB_LOCAL_MYSQL_LOGIN = "db.local.mysql.login";
