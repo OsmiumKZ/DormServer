@@ -106,8 +106,8 @@ public class ControlWrite {
     /**
      * Добавить родителя.
      */
-    public static int writeParent(Connection connection, String json) throws SQLException {
-        return ControlParent.writeParent(connection, json);
+    public static int writeParent(Connection connection, String jsonOne, String jsonTwo) throws SQLException {
+        return ControlParent.writeParent(connection, jsonOne, jsonTwo);
     }
 
     /**

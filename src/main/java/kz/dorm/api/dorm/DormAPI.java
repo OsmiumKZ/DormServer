@@ -106,6 +106,8 @@ public class DormAPI {
              * & {@link DataConfig#DB_DORM_REQUEST_GENDER_ID} = ID гендера.
              * & {@link DataConfig#DB_DORM_REQUEST_ROOM_ID} = ID этажа.
              * [&] {@link DataConfig#DB_DORM_PATRONYMIC} = Отчество.
+             * [&] {@link DataConfig#DB_DORM_REQUEST_AS_FATHER} = Папа json.
+             * [&] {@link DataConfig#DB_DORM_REQUEST_AS_MOTHER} = Мама json.
              */
             get("/doc/request", (request, response) -> {
                 if (DomainHTTP.getDorm(request.host())) {
@@ -256,6 +258,8 @@ public class DormAPI {
              * & {@link DataConfig#DB_DORM_NAME_L} = Фамилия.
              * [&] {@link DataConfig#DB_DORM_PATRONYMIC} = Отчество.
              * [&] {@link DataConfig#DB_DORM_REPORT_EMAIL} = Электронная почта.
+             * [&] {@link DataConfig#DB_DORM_REPORT_AS_FATHER} = Папа json.
+             * [&] {@link DataConfig#DB_DORM_REPORT_AS_MOTHER} = Мама json.
              * & {@link DataConfig#DB_DORM_REPORT_ADDRESS} = Адрес проживания.
              * & {@link DataConfig#DB_DORM_REPORT_PHONE} = Телефон.
              * & {@link DataConfig#DB_DORM_REPORT_STATUS_ID} = ID статуса.
@@ -288,6 +292,8 @@ public class DormAPI {
              * & {@link DataConfig#DB_DORM_REQUEST_UIN} = ИИН.
              * & {@link DataConfig#DB_DORM_REQUEST_ROOM_ID} = ID комнаты.
              * [&] {@link DataConfig#DB_DORM_REQUEST_EMAIL} = Электронная почта.
+             * [&] {@link DataConfig#DB_DORM_REQUEST_AS_FATHER} = Папа json.
+             * [&] {@link DataConfig#DB_DORM_REQUEST_AS_MOTHER} = Мама json.
              * & {@link DataConfig#DB_DORM_REQUEST_ADDRESS} = Адрес проживания.
              * & {@link DataConfig#DB_DORM_REQUEST_PHONE} = Телефон.
              * & {@link DataConfig#DB_DORM_REQUEST_GROUP} = Группа.

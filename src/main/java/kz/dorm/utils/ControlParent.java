@@ -13,8 +13,8 @@ public class ControlParent {
     /**
      * Добавить родителя.
      */
-    static int writeParent(Connection connection, String json) throws SQLException {
-        Parent parent = parseParent(json);
+    static int writeParent(Connection connection, String jsonOne, String jsonTwo) throws SQLException {
+        Parent parent = parseParent(jsonOne, jsonTwo);
 
         if (parent != null &&
                 isCheckInfo(parent))
@@ -26,8 +26,14 @@ public class ControlParent {
     /**
      * Распарсить Parent.
      */
-    public static Parent parseParent(String json) {
-        if (json == null)
+    public static Parent parseParent(String jsonOne, String jsonTwo) {
+        String json;
+
+        if (jsonOne != null)
+            json = jsonOne;
+        else if (jsonTwo != null)
+            json = jsonTwo;
+        else
             return null;
 
         try {

@@ -77,11 +77,13 @@ public class DormPost {
 
                     statement.setInt(14,
                             ControlWrite.writeParent(connection,
-                                    request.headers(DataConfig.DB_DORM_REPORT_AS_MOTHER)));
+                                    request.headers(DataConfig.DB_DORM_REPORT_AS_MOTHER),
+                                    request.queryParams(DataConfig.DB_DORM_REPORT_AS_MOTHER)));
 
                     statement.setInt(15,
                             ControlWrite.writeParent(connection,
-                                    request.headers(DataConfig.DB_DORM_REPORT_AS_FATHER)));
+                                    request.headers(DataConfig.DB_DORM_REPORT_AS_FATHER),
+                                    request.queryParams(DataConfig.DB_DORM_REPORT_AS_FATHER)));
 
                     if (request.queryParams(DataConfig.DB_DORM_PATRONYMIC) != null)
                         statement.setInt(9,
@@ -186,11 +188,13 @@ public class DormPost {
                     statement.setString(9, request.queryParams(DataConfig.DB_DORM_REQUEST_GROUP));
                     statement.setInt(10,
                             ControlWrite.writeParent(connection,
-                                    request.headers(DataConfig.DB_DORM_REQUEST_AS_MOTHER)));
+                                    request.headers(DataConfig.DB_DORM_REQUEST_AS_MOTHER),
+                                    request.queryParams(DataConfig.DB_DORM_REQUEST_AS_MOTHER)));
 
                     statement.setInt(11,
                             ControlWrite.writeParent(connection,
-                                    request.headers(DataConfig.DB_DORM_REQUEST_AS_FATHER)));
+                                    request.headers(DataConfig.DB_DORM_REQUEST_AS_FATHER),
+                                    request.queryParams(DataConfig.DB_DORM_REQUEST_AS_FATHER)));
 
                     statement.setInt(12,
                             Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REQUEST_CHILDREN)));

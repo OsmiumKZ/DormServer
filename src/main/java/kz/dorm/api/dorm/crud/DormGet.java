@@ -451,8 +451,12 @@ public class DormGet {
                     ControlWrite.isCheckNames(request.queryParams(DataConfig.DB_DORM_NAME_F),
                             request.queryParams(DataConfig.DB_DORM_NAME_L))) {
                 String patronymic = null;
-                Parent father = ControlParent.parseParent(request.headers(DataConfig.DB_DORM_REQUEST_AS_FATHER));
-                Parent mother = ControlParent.parseParent(request.headers(DataConfig.DB_DORM_REQUEST_AS_MOTHER));
+
+                Parent father = ControlParent.parseParent(request.headers(DataConfig.DB_DORM_REQUEST_AS_FATHER),
+                        request.queryParams(DataConfig.DB_DORM_REQUEST_AS_FATHER));
+
+                Parent mother = ControlParent.parseParent(request.headers(DataConfig.DB_DORM_REQUEST_AS_MOTHER),
+                        request.queryParams(DataConfig.DB_DORM_REQUEST_AS_MOTHER));
 
                 if (request.queryParams(DataConfig.DB_DORM_PATRONYMIC) != null &&
                         ControlWrite.isCheckText(request.queryParams(DataConfig.DB_DORM_PATRONYMIC)))
