@@ -4,6 +4,7 @@ import kz.dorm.utils.DataConfig;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
 import java.io.IOException;
@@ -24,11 +25,31 @@ public class Email {
     }
 
     /**
+     * Отправить электронное сообщение.
+     */
+    public static void sendMessage(String to, EmailMessage message, String name, Multipart multipart) {
+        try {
+            sendAsHTML(to, message.getMessage(name), multipart);
+        } catch (MessagingException | IOException ignored) {
+
+        }
+    }
+
+    /**
      * Отправить сообщение как HTML.
      */
     private static void sendAsHTML(String to, String html)
             throws MessagingException, IOException {
         MimeMessage message = createMessage(to, html, "text/html; charset=utf-8");
+        Transport.send(message);
+    }
+
+    /**
+     * Отправить сообщение как HTML.
+     */
+    private static void sendAsHTML(String to, String html, Multipart multipart)
+            throws MessagingException, IOException {
+        MimeMessage message = createMessage(to, html, "text/html; charset=utf-8", multipart);
         Transport.send(message);
     }
 
@@ -39,6 +60,37 @@ public class Email {
             throws MessagingException, IOException {
         MimeMessage message = new MimeMessage(createSession());
         message.setContent(html, type);
+        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+
+        try (InputStream inputStream = ClassLoader
+                .getSystemClassLoader()
+                .getResourceAsStream(DataConfig.LINK_CONGIG_PROPERTIES)) {
+            Properties properties = new Properties();
+            properties.load(inputStream);
+            message.setFrom(new InternetAddress(properties.getProperty(DataConfig.PROPERTY_MAIL_LOGIN),
+                    properties.getProperty(DataConfig.PROPERTY_MAIL_NAME),
+                    MimeUtility.mimeCharset("utf-8")));
+            message.setSubject(properties.getProperty(DataConfig.PROPERTY_MAIL_TITLE),
+                    MimeUtility.mimeCharset("utf-8"));
+        } catch (IOException e) {
+            throw e;
+        }
+
+        return message;
+    }
+
+    /**
+     * Создание сообщения.
+     */
+    private static MimeMessage createMessage(String to, String html, String type, Multipart multipart)
+            throws MessagingException, IOException {
+        MimeMessage message = new MimeMessage(createSession());
+
+        MimeBodyPart messageBody = new MimeBodyPart();
+        messageBody.setContent(html, type);
+
+        multipart.addBodyPart(messageBody);
+        message.setContent(multipart);
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
 
         try (InputStream inputStream = ClassLoader

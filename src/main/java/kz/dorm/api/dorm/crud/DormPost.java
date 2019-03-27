@@ -1,6 +1,8 @@
 package kz.dorm.api.dorm.crud;
 
+import kz.dorm.api.dorm.util.gson.Parent;
 import kz.dorm.api.dorm.util.statement.providers.StatementSQL;
+import kz.dorm.docx.DocxConstructor;
 import kz.dorm.utils.*;
 import kz.dorm.utils.email.Email;
 import kz.dorm.utils.email.EmailMessage;
@@ -8,6 +10,12 @@ import org.eclipse.jetty.http.HttpStatus;
 import spark.Request;
 import spark.Response;
 
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
+import javax.mail.Multipart;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMultipart;
+import java.io.File;
 import java.sql.*;
 
 public class DormPost {
@@ -93,7 +101,7 @@ public class DormPost {
                         statement.setNull(9, Types.INTEGER);
 
                     if (ControlWrite.isCheckEmailReport(connection,
-                                    request.queryParams(DataConfig.DB_DORM_REPORT_EMAIL))) {
+                            request.queryParams(DataConfig.DB_DORM_REPORT_EMAIL))) {
                         statement.setString(16, request.queryParams(DataConfig.DB_DORM_REPORT_EMAIL));
                     } else {
                         if (DataConfig.DB_TYPE == EnumDBType.MYSQL)
@@ -186,6 +194,7 @@ public class DormPost {
                     statement.setString(7, request.queryParams(DataConfig.DB_DORM_REQUEST_ADDRESS));
                     statement.setString(8, request.queryParams(DataConfig.DB_DORM_REQUEST_PHONE));
                     statement.setString(9, request.queryParams(DataConfig.DB_DORM_REQUEST_GROUP));
+
                     statement.setInt(10,
                             ControlWrite.writeParent(connection,
                                     request.headers(DataConfig.DB_DORM_REQUEST_AS_MOTHER),
@@ -234,10 +243,45 @@ public class DormPost {
                         try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                             if (generatedKeys.next()) {
                                 response.status(201);
-                                if (request.queryParams(DataConfig.DB_DORM_REQUEST_EMAIL) != null)
+
+                                if (request.queryParams(DataConfig.DB_DORM_REQUEST_EMAIL) != null) {
+                                    String patronymic = null;
+
+                                    if (request.queryParams(DataConfig.DB_DORM_PATRONYMIC) != null &&
+                                            ControlWrite.isCheckText(request.queryParams(DataConfig.DB_DORM_PATRONYMIC)))
+                                        patronymic = request.queryParams(DataConfig.DB_DORM_PATRONYMIC);
+
+                                    Parent father = ControlParent
+                                            .parseParent(request.headers(DataConfig.DB_DORM_REQUEST_AS_FATHER),
+                                                    request.queryParams(DataConfig.DB_DORM_REQUEST_AS_FATHER));
+
+                                    Parent mother = ControlParent
+                                            .parseParent(request.headers(DataConfig.DB_DORM_REQUEST_AS_MOTHER),
+                                                    request.queryParams(DataConfig.DB_DORM_REQUEST_AS_MOTHER));
+
+                                    File file = new File(DocxConstructor
+                                            .createRequest(request,
+                                                    patronymic,
+                                                    father,
+                                                    mother,
+                                                    Math.toIntExact(generatedKeys.getLong(1))));
+
+                                    FileDataSource fileDataSource = new FileDataSource(file);
+
+                                    MimeBodyPart attachmentPart = new MimeBodyPart();
+                                    attachmentPart.setDataHandler(new DataHandler(fileDataSource));
+                                    attachmentPart.setFileName(fileDataSource.getName());
+
+                                    Multipart multipart = new MimeMultipart();
+                                    multipart.addBodyPart(attachmentPart);
+
                                     Email.sendMessage(request.queryParams(DataConfig.DB_DORM_REQUEST_EMAIL),
                                             EmailMessage.CREATE_REQUEST,
-                                            request.queryParams(DataConfig.DB_DORM_NAME_F));
+                                            request.queryParams(DataConfig.DB_DORM_NAME_F),
+                                            multipart);
+
+                                    file.delete();
+                                }
 
                                 return "{\"" + DataConfig.DB_DORM_REQUEST_ID + "\": " +
                                         Math.toIntExact(generatedKeys.getLong(1)) + "}";
