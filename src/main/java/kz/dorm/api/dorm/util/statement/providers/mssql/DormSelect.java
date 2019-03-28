@@ -421,7 +421,8 @@ public class DormSelect implements Select {
                 "\t[" + DataConfig.DB_DORM_FLOOR + "].[" + DataConfig.DB_DORM_FLOOR_DORM_ID + "]\n" +
                 "FROM [" + DataConfig.DB_DORM_ROOM + "]\n" +
                 "INNER JOIN [" + DataConfig.DB_DORM_FLOOR + "]\n" +
-                "ON [" + DataConfig.DB_DORM_ROOM + "].[" + DataConfig.DB_DORM_ROOM_FLOOR_ID + "]=[" + DataConfig.DB_DORM_FLOOR + "].[" + DataConfig.DB_DORM_FLOOR_ID + "]";
+                "ON [" + DataConfig.DB_DORM_ROOM + "].[" + DataConfig.DB_DORM_ROOM_FLOOR_ID + "]=[" + DataConfig.DB_DORM_FLOOR + "].[" + DataConfig.DB_DORM_FLOOR_ID + "]\n" +
+                "ORDER BY [" + DataConfig.DB_DORM_ROOM + "].[" + DataConfig.DB_DORM_ROOM_ID + "] DESC";
     }
 
     /**
