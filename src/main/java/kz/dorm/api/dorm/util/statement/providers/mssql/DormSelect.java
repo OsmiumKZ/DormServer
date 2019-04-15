@@ -649,4 +649,23 @@ public class DormSelect implements Select {
                 "\tAND [" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_UIN + "]!=?\n" +
                 "\tAND [" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_EMAIL + "]=?)";
     }
+
+    /**
+     * Возвращает формы обучения.
+     */
+    @Override
+    public String selectEducationalForms() {
+        return "SELECT *\n" +
+                "FROM [" + DataConfig.DB_DORM_EDUCATIONAL_FORM + "]";
+    }
+
+    /**
+     * Получить форму обучения по ID.
+     */
+    @Override
+    public String selectEducationalFormId() {
+        return "SELECT *\n" +
+                "FROM [" + DataConfig.DB_DORM_EDUCATIONAL_FORM + "]\n" +
+                "WHERE [" + DataConfig.DB_DORM_EDUCATIONAL_FORM + "].[" + DataConfig.DB_DORM_EDUCATIONAL_FORM_ID + "]=?";
+    }
 }

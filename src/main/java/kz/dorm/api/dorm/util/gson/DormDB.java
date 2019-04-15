@@ -32,6 +32,10 @@ public class DormDB {
     @SerializedName(DataConfig.DB_DORM_ROOM)
     private List<RoomThree> rooms = new ArrayList<>();
 
+    /* Объект форм обучений. */
+    @SerializedName(DataConfig.DB_DORM_EDUCATIONAL_FORM)
+    private List<EducationalForm> educationalForms = new ArrayList<>();
+
     public List<Dorm> getDorms() {
         return dorms;
     }
@@ -54,5 +58,9 @@ public class DormDB {
 
     public List<RoomThree> getRooms() {
         return rooms;
+    }
+
+    public List<EducationalForm> getEducationalForms() {
+        return educationalForms;
     }
 }

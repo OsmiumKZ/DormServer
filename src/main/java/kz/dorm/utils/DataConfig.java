@@ -86,6 +86,10 @@ public class DataConfig {
     public static final String DB_DORM_STATUS_NAME_ID = "name_id";
     public static final String DB_DORM_STATUS_ACTIVE = "active";
 
+    public static final String DB_DORM_EDUCATIONAL_FORM = "educational_form";
+    public static final String DB_DORM_EDUCATIONAL_FORM_ID = "id";
+    public static final String DB_DORM_EDUCATIONAL_FORM_NAME_ID = "name_id";
+
     public static final String DB_DORM_REQUEST = "requests";
     public static final String DB_DORM_REQUEST_ID = "id";
     public static final String DB_DORM_REQUEST_NAME_F_ID = "name_f_id";
@@ -106,6 +110,7 @@ public class DataConfig {
     public static final String DB_DORM_REQUEST_DATE_CREATE = "date_create";
     public static final String DB_DORM_REQUEST_AS_MOTHER = "mother";
     public static final String DB_DORM_REQUEST_AS_FATHER = "father";
+    public static final String DB_DORM_REQUEST_EDUCATIONAL_FORM_ID = "educational_form_id";
 
     public static final String DB_DORM_NAME_F = "name_f";
     public static final String DB_DORM_NAME_F_ID = "id";
@@ -139,6 +144,7 @@ public class DataConfig {
     public static final String DB_DORM_REPORT_PARENT_ID_FATHER = "parent_id_father";
     public static final String DB_DORM_REPORT_AS_MOTHER = "mother";
     public static final String DB_DORM_REPORT_AS_FATHER = "father";
+    public static final String DB_DORM_REPORT_EDUCATIONAL_FORM_ID = "educational_form_id";
 
     public static final String DB_DORM_PARENT = "parents";
     public static final String DB_DORM_PARENT_ID = "id";

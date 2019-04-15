@@ -14,6 +14,8 @@ INSERT INTO [names] ([names].[id], [names].[name_ru], [names].[name_kz], [names]
 INSERT INTO [names] ([names].[id], [names].[name_ru], [names].[name_kz], [names].[name_en]) VALUES (7, 'Академическая, 5/1', '', '');
 INSERT INTO [names] ([names].[id], [names].[name_ru], [names].[name_kz], [names].[name_en]) VALUES (8, 'Академическая, 5', '', '');
 INSERT INTO [names] ([names].[id], [names].[name_ru], [names].[name_kz], [names].[name_en]) VALUES (9, 'Комиссарова, 32', '', '');
+INSERT INTO [names] ([names].[id], [names].[name_ru], [names].[name_kz], [names].[name_en]) VALUES (10, 'Грант МОН РК', '', '');
+INSERT INTO [names] ([names].[id], [names].[name_ru], [names].[name_kz], [names].[name_en]) VALUES (11, 'Платное', '', '');
 SET IDENTITY_INSERT [names] OFF
 
 -- Genders
@@ -21,6 +23,12 @@ SET IDENTITY_INSERT [genders] ON
 INSERT INTO [genders] ([genders].[id], [genders].[name_id]) VALUES (1, 1);
 INSERT INTO [genders] ([genders].[id], [genders].[name_id]) VALUES (2, 2);
 SET IDENTITY_INSERT [genders] OFF
+
+-- Educational Form
+SET IDENTITY_INSERT [educational_form] ON
+INSERT INTO [educational_form] ([educational_form].[id], [educational_form].[name_id]) VALUES (1, 10);
+INSERT INTO [educational_form] ([educational_form].[id], [educational_form].[name_id]) VALUES (2, 11);
+SET IDENTITY_INSERT [educational_form] OFF
 
 -- Status
 SET IDENTITY_INSERT [status] ON

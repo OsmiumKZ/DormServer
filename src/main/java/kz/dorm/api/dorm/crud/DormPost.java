@@ -33,7 +33,8 @@ public class DormPost {
                 request.queryParams(DataConfig.DB_DORM_REPORT_CHILDREN) != null &&
                 request.queryParams(DataConfig.DB_DORM_REPORT_DATE_RESIDENCE) != null &&
                 request.queryParams(DataConfig.DB_DORM_REPORT_PHONE) != null &&
-                request.queryParams(DataConfig.DB_DORM_REPORT_STATUS_ID) != null) {
+                request.queryParams(DataConfig.DB_DORM_REPORT_STATUS_ID) != null &&
+                request.queryParams(DataConfig.DB_DORM_REPORT_EDUCATIONAL_FORM_ID) != null) {
             String date = DateText.getDateText(new Date(System.currentTimeMillis()));
 
             try (Connection connection = DataBase.getDorm()) {
@@ -43,6 +44,8 @@ public class DormPost {
                         ControlWrite.isCheckUINReport(connection,
                                 Long.parseLong(request.queryParams(DataConfig.DB_DORM_REPORT_UIN))) &&
                         Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REPORT_CHILDREN)) > 0 &&
+                        ControlWrite.isCheckEducationalForm(connection,
+                                Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REPORT_EDUCATIONAL_FORM_ID))) &&
                         ControlWrite.isCheckPhone(request.queryParams(DataConfig.DB_DORM_REPORT_PHONE)) &&
                         ControlWrite.isCheckAddress(request.queryParams(DataConfig.DB_DORM_REPORT_ADDRESS)) &&
                         ControlWrite.isCheckStatus(connection,
@@ -110,6 +113,9 @@ public class DormPost {
                             statement.setNull(16, Types.NVARCHAR);
                     }
 
+                    statement.setInt(17,
+                            Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REPORT_EDUCATIONAL_FORM_ID)));
+
                     if (statement.executeUpdate() > 0) {
                         response.status(201);
 
@@ -149,7 +155,8 @@ public class DormPost {
                 request.queryParams(DataConfig.DB_DORM_REQUEST_CHILDREN) != null &&
                 request.queryParams(DataConfig.DB_DORM_REQUEST_DATE_RESIDENCE) != null &&
                 request.queryParams(DataConfig.DB_DORM_REQUEST_GROUP) != null &&
-                request.queryParams(DataConfig.DB_DORM_REQUEST_GENDER_ID) != null) {
+                request.queryParams(DataConfig.DB_DORM_REQUEST_GENDER_ID) != null &&
+                request.queryParams(DataConfig.DB_DORM_REQUEST_EDUCATIONAL_FORM_ID) != null) {
             String date = DateText.getDateText(new Date(System.currentTimeMillis()));
 
             try (Connection connection = DataBase.getDorm()) {
@@ -161,6 +168,8 @@ public class DormPost {
                         Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REQUEST_CHILDREN)) > 0 &&
                         ControlWrite.isCheckPhone(request.queryParams(DataConfig.DB_DORM_REQUEST_PHONE)) &&
                         ControlWrite.isCheckGroup(request.queryParams(DataConfig.DB_DORM_REQUEST_GROUP)) &&
+                        ControlWrite.isCheckEducationalForm(connection,
+                                Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REQUEST_EDUCATIONAL_FORM_ID))) &&
                         ControlWrite.isCheckAddress(request.queryParams(DataConfig.DB_DORM_REQUEST_ADDRESS)) &&
                         ControlWrite.isCheckGender(connection,
                                 Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REQUEST_GENDER_ID))) &&
@@ -219,8 +228,11 @@ public class DormPost {
                     else
                         statement.setNull(3, Types.INTEGER);
 
+                    statement.setInt(17,
+                            Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REQUEST_EDUCATIONAL_FORM_ID)));
+
                     if (oldRequestId > 0)
-                        statement.setInt(17, oldRequestId);
+                        statement.setInt(18, oldRequestId);
 
                     if (ControlWrite.isCheckEmailRequest(connection,
                             request.queryParams(DataConfig.DB_DORM_REQUEST_EMAIL),

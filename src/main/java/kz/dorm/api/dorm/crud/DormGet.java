@@ -88,6 +88,14 @@ public class DormGet {
                                 result.getInt(DataConfig.DB_DORM_ROOM_FLOOR_ID),
                                 result.getInt(DataConfig.DB_DORM_FLOOR_DORM_ID)));
 
+            statement = connection.prepareStatement(StatementSQL.select().selectEducationalForms());
+            result = statement.executeQuery();
+
+            while (result.next())
+                dormDB.getEducationalForms()
+                .add(new EducationalForm(result.getInt(DataConfig.DB_DORM_EDUCATIONAL_FORM_ID),
+                        result.getInt(DataConfig.DB_DORM_EDUCATIONAL_FORM_NAME_ID)));
+
             response.status(200);
 
             return new Gson().toJson(dormDB);
@@ -264,7 +272,8 @@ public class DormGet {
                                 result.getString(DataConfig.DB_DORM_PARENT_FATHER_AS_NAME_L),
                                 result.getString(DataConfig.DB_DORM_PARENT_FATHER_AS_PATRONYMIC),
                                 result.getString(DataConfig.DB_DORM_PARENT_FATHER_AS_PHONE)),
-                        result.getInt(DataConfig.DB_DORM_REPORT_STATUS_ID)));
+                        result.getInt(DataConfig.DB_DORM_REPORT_STATUS_ID),
+                        result.getInt(DataConfig.DB_DORM_REPORT_EDUCATIONAL_FORM_ID)));
 
             response.status(200);
 
@@ -340,7 +349,8 @@ public class DormGet {
                                 result.getString(DataConfig.DB_DORM_PARENT_FATHER_AS_NAME_L),
                                 result.getString(DataConfig.DB_DORM_PARENT_FATHER_AS_PATRONYMIC),
                                 result.getString(DataConfig.DB_DORM_PARENT_FATHER_AS_PHONE)),
-                        result.getInt(DataConfig.DB_DORM_REQUEST_ACTIVE)));
+                        result.getInt(DataConfig.DB_DORM_REQUEST_ACTIVE),
+                        result.getInt(DataConfig.DB_DORM_REQUEST_EDUCATIONAL_FORM_ID)));
 
             response.status(200);
 
@@ -394,7 +404,8 @@ public class DormGet {
                                             result.getString(DataConfig.DB_DORM_PARENT_FATHER_AS_NAME_L),
                                             result.getString(DataConfig.DB_DORM_PARENT_FATHER_AS_PATRONYMIC),
                                             result.getString(DataConfig.DB_DORM_PARENT_FATHER_AS_PHONE)),
-                                    result.getInt(DataConfig.DB_DORM_REQUEST_ACTIVE)));
+                                    result.getInt(DataConfig.DB_DORM_REQUEST_ACTIVE),
+                                    result.getInt(DataConfig.DB_DORM_REQUEST_EDUCATIONAL_FORM_ID)));
 
                 response.status(400);
 

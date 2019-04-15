@@ -11,10 +11,16 @@ INSERT INTO `names` (`names`.`id`, `names`.`name_ru`, `names`.`name_kz`, `names`
 INSERT INTO `names` (`names`.`id`, `names`.`name_ru`, `names`.`name_kz`, `names`.`name_en`) VALUES (7, 'Академическая, 5/1', '', '');
 INSERT INTO `names` (`names`.`id`, `names`.`name_ru`, `names`.`name_kz`, `names`.`name_en`) VALUES (8, 'Академическая, 5', '', '');
 INSERT INTO `names` (`names`.`id`, `names`.`name_ru`, `names`.`name_kz`, `names`.`name_en`) VALUES (9, 'Комиссарова, 32', '', '');
+INSERT INTO `names` (`names`.`id`, `names`.`name_ru`, `names`.`name_kz`, `names`.`name_en`) VALUES (10, 'Грант МОН РК', '', '');
+INSERT INTO `names` (`names`.`id`, `names`.`name_ru`, `names`.`name_kz`, `names`.`name_en`) VALUES (11, 'Платное', '', '');
 
 -- Genders
 INSERT INTO `genders` (`genders`.`id`, `genders`.`name_id`) VALUES (1, 1);
 INSERT INTO `genders` (`genders`.`id`, `genders`.`name_id`) VALUES (2, 2);
+
+-- Educational Form
+INSERT INTO `educational_form` (`educational_form`.`id`, `educational_form`.`name_id`) VALUES (1, 10);
+INSERT INTO `educational_form` (`educational_form`.`id`, `educational_form`.`name_id`) VALUES (2, 11);
 
 -- Status
 INSERT INTO `status` (`status`.`id`, `status`.`name_id`, `status`.`active`) VALUES (1, 3, 0);

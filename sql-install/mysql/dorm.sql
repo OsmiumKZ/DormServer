@@ -93,6 +93,7 @@ CREATE TABLE `genders` (
 -- `name_f` - Имя
 -- `name_l` - Фамилия
 -- `patronymic` - Отчество
+-- `educational_form_id` - ID формы обучения.
 --
 CREATE TABLE `reports` (
 	`id` INT NOT NULL AUTO_INCREMENT,
@@ -112,7 +113,8 @@ CREATE TABLE `reports` (
 	`name_f_id` VARCHAR(40) NOT NULL,
 	`name_l_id` VARCHAR(40) NOT NULL,
 	`patronymic_id` VARCHAR(40) NULL,
-	PRIMARY KEY (`id`)) 
+	`educational_form_id` INT NOT NULL,
+	PRIMARY KEY (`id`))
 	ENGINE = InnoDB
 	DEFAULT CHARACTER SET = utf8;
 	
@@ -192,6 +194,7 @@ CREATE TABLE `accounts` (
 -- `date_residence` - Дата начала проживания.
 -- `date_residence` - Дата создания.
 -- `active` - (0 - открыт) и (1 - закрыт). Или же (0 - не прочтен) и (1 - прочтен).
+-- `educational_form_id` - ID формы обучения.
 --
 
 CREATE TABLE `requests` (
@@ -212,7 +215,8 @@ CREATE TABLE `requests` (
 	`date_residence` DATE NOT NULL,
 	`date_create` DATETIME NOT NULL,
 	`active` INT NOT NULL,
-	PRIMARY KEY (`id`)) 
+	`educational_form_id` INT NOT NULL,
+	PRIMARY KEY (`id`))
 	ENGINE = InnoDB
 	DEFAULT CHARACTER SET = utf8;
 	
@@ -243,7 +247,7 @@ CREATE TABLE `parents` (
 --
 -- Структура таблицы "Имя"
 --
--- `id` - ID заявления
+-- `id` - ID имени
 -- `name` - Имя
 --
 
@@ -259,8 +263,8 @@ CREATE TABLE `name_f` (
 --
 -- Структура таблицы "Фамилия"
 --
--- `id` - ID заявления
--- `name` - Имя
+-- `id` - ID фамилии
+-- `name` - Фамилия
 --
 
 CREATE TABLE `name_l` (
@@ -275,13 +279,29 @@ CREATE TABLE `name_l` (
 --
 -- Структура таблицы "Отчество"
 --
--- `id` - ID заявления
--- `name` - Имя
+-- `id` - ID отчества
+-- `name` - Отчество
 --
 
 CREATE TABLE `patronymic` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`name` VARCHAR(40) NOT NULL,
 	PRIMARY KEY (`id`)) 
+	ENGINE = InnoDB
+	DEFAULT CHARACTER SET = utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы "Форма обучения"
+--
+-- `id` - ID формы обучения.
+-- `name_id` - ID Название
+--
+
+CREATE TABLE `educational_form` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`name_id` INT NOT NULL,
+	PRIMARY KEY (`id`))
 	ENGINE = InnoDB
 	DEFAULT CHARACTER SET = utf8;

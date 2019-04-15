@@ -85,6 +85,7 @@ GO
 -- [name_f] - Имя
 -- [name_l] - Фамилия
 -- [patronymic] - Отчество
+-- [educational_form_id] - ID формы обучения
 --
 CREATE TABLE [reports]
     ([id] INT IDENTITY (1, 1) PRIMARY KEY,
@@ -103,7 +104,8 @@ CREATE TABLE [reports]
      [parent_id_father] INT NULL,
      [name_f_id] NVARCHAR(40) NOT NULL,
      [name_l_id] NVARCHAR(40) NOT NULL,
-     [patronymic_id] NVARCHAR(40) NULL)
+     [patronymic_id] NVARCHAR(40) NULL),
+     [educational_form_id] INT NOT NULL
 GO
 	
 -- --------------------------------------------------------
@@ -176,6 +178,7 @@ GO
 -- [date_residence] - Дата начала проживания.
 -- [date_create] - Дата создания.
 -- [active] - (0 - открыт) и (1 - закрыт). Или же (0 - не прочтен) и (1 - прочтен).
+-- [educational_form_id] - ID формы обучения.
 --
 
 CREATE TABLE [requests]
@@ -195,7 +198,8 @@ CREATE TABLE [requests]
      [children] INT NOT NULL,
      [date_residence] DATE NOT NULL,
      [date_create] DATETIME NOT NULL,
-     [active] INT NOT NULL)
+     [active] INT NOT NULL),
+     [educational_form_id] INT NOT NULL)
 GO
 	
 -- --------------------------------------------------------
@@ -223,7 +227,7 @@ GO
 --
 -- Структура таблицы "Имя"
 --
--- [id] - ID заявления
+-- [id] - ID имени
 -- [name] - Имя
 --
 
@@ -237,8 +241,8 @@ GO
 --
 -- Структура таблицы "Фамилия"
 --
--- [id] - ID заявления
--- [name] - Имя
+-- [id] - ID фамилии
+-- [name] - Фамилия
 --
 
 CREATE TABLE [name_l]
@@ -251,11 +255,25 @@ GO
 --
 -- Структура таблицы "Отчество"
 --
--- [id] - ID заявления
--- [name] - Имя
+-- [id] - ID отчества
+-- [name] - Отчество
 --
 
 CREATE TABLE [patronymic]
     ([id] INT IDENTITY (1, 1) PRIMARY KEY,
      [name] NVARCHAR(40) NOT NULL)
+GO
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы "Форма обучения"
+--
+-- [id] - ID ID формы обучения.
+-- [name_id] - ID Название
+--
+
+CREATE TABLE [patronymic]
+    ([id] INT IDENTITY (1, 1) PRIMARY KEY,
+     [name_id] INT NOT NULL)
 GO

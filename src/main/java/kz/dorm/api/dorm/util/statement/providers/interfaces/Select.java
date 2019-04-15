@@ -139,4 +139,14 @@ public interface Select {
      * Получить электронную почту, если есть в активных.
      */
     String selectActiveEmailRequest();
+
+    /**
+     * Получить формы обучения.
+     */
+    String selectEducationalForms();
+
+    /**
+     * Получить форму обучения по ID.
+     */
+    String selectEducationalFormId();
 }
