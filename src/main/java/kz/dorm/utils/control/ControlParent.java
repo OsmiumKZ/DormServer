@@ -1,4 +1,4 @@
-package kz.dorm.utils;
+package kz.dorm.utils.control;
 
 import com.google.gson.Gson;
 import kz.dorm.api.dorm.util.gson.Parent;

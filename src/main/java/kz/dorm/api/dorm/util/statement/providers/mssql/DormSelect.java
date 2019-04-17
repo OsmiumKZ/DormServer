@@ -104,7 +104,10 @@ public class DormSelect implements Select {
         return "SELECT [" + DataConfig.DB_DORM_REPORT + "].[" + DataConfig.DB_DORM_REPORT_ID + "],\n" +
                 "\t[" + DataConfig.DB_DORM_REPORT + "].[" + DataConfig.DB_DORM_REPORT_UIN + "],\n" +
                 "\t[" + DataConfig.DB_DORM_REPORT + "].[" + DataConfig.DB_DORM_REPORT_EMAIL + "],\n" +
-                "\t[" + DataConfig.DB_DORM_REPORT + "].[" + DataConfig.DB_DORM_REPORT_ADDRESS + "],\n" +
+                "\t[" + DataConfig.DB_DORM_RESIDENCE_PERMIT + "].[" + DataConfig.DB_DORM_RESIDENCE_PERMIT_CITY_NAME_AS_CITY + "],\n" +
+                "\t[" + DataConfig.DB_DORM_RESIDENCE_PERMIT + "].[" + DataConfig.DB_DORM_RESIDENCE_PERMIT_ADDRESS + "],\n" +
+                "\t[" + DataConfig.DB_DORM_RESIDENCE_PERMIT + "].[" + DataConfig.DB_DORM_RESIDENCE_PERMIT_COUNTRY_ID + "],\n" +
+                "\t[" + DataConfig.DB_DORM_REPORT + "].[" + DataConfig.DB_DORM_REPORT_GROUP + "],\n" +
                 "\t[" + DataConfig.DB_DORM_REPORT + "].[" + DataConfig.DB_DORM_REPORT_PHONE + "],\n" +
                 "\t[" + DataConfig.DB_DORM_REPORT + "].[" + DataConfig.DB_DORM_REPORT_GENDER_ID + "],\n" +
                 "\t[" + DataConfig.DB_DORM_REPORT + "].[" + DataConfig.DB_DORM_REPORT_STATUS_ID + "],\n" +
@@ -136,6 +139,17 @@ public class DormSelect implements Select {
                 "\t[" + DataConfig.DB_DORM_PATRONYMIC + "].[" + DataConfig.DB_DORM_PATRONYMIC_NAME + "]\n" +
                 "\t\tAS [" + DataConfig.DB_DORM_PATRONYMIC + "]\n" +
                 "FROM [" + DataConfig.DB_DORM_REPORT + "]\n" +
+                "INNER JOIN\n" +
+                "\t(SELECT [" + DataConfig.DB_DORM_RESIDENCE_PERMIT + "].[" + DataConfig.DB_DORM_RESIDENCE_PERMIT_ID + "],\n" +
+                "\t\t[" + DataConfig.DB_DORM_RESIDENCE_PERMIT + "].[" + DataConfig.DB_DORM_RESIDENCE_PERMIT_COUNTRY_ID + "],\n" +
+                "\t\t[" + DataConfig.DB_DORM_RESIDENCE_PERMIT + "].[" + DataConfig.DB_DORM_RESIDENCE_PERMIT_ADDRESS + "],\n" +
+                "\t\t[" + DataConfig.DB_DORM_CITY + "].[" + DataConfig.DB_DORM_CITY_NAME + "]\n" +
+                "\t\t\tAS [" + DataConfig.DB_DORM_RESIDENCE_PERMIT_CITY_NAME_AS_CITY + "]\n" +
+                "\tFROM [" + DataConfig.DB_DORM_RESIDENCE_PERMIT + "]\n" +
+                "\tINNER JOIN [" + DataConfig.DB_DORM_CITY + "]\n" +
+                "\tON [" + DataConfig.DB_DORM_RESIDENCE_PERMIT + "].[" + DataConfig.DB_DORM_RESIDENCE_PERMIT_CITY_ID + "]=[" + DataConfig.DB_DORM_CITY + "].[" + DataConfig.DB_DORM_CITY_ID + "])\n" +
+                "\tAS [" + DataConfig.DB_DORM_RESIDENCE_PERMIT + "]\n" +
+                "ON [" + DataConfig.DB_DORM_REPORT + "].[" + DataConfig.DB_DORM_REPORT_RESIDENCE_PERMIT_ID + "]=[" + DataConfig.DB_DORM_RESIDENCE_PERMIT + "].[" + DataConfig.DB_DORM_RESIDENCE_PERMIT_ID + "]\n" +
                 "INNER JOIN [" + DataConfig.DB_DORM_NAME_F + "]\n" +
                 "ON [" + DataConfig.DB_DORM_REPORT + "].[" + DataConfig.DB_DORM_REPORT_NAME_F_ID + "]=[" + DataConfig.DB_DORM_NAME_F + "].[" + DataConfig.DB_DORM_NAME_F_ID + "]\n" +
                 "INNER JOIN [" + DataConfig.DB_DORM_NAME_L + "]\n" +
@@ -205,7 +219,9 @@ public class DormSelect implements Select {
                 "\t[" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_UIN + "],\n" +
                 "\t[" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_ACTIVE + "],\n" +
                 "\t[" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_EMAIL + "],\n" +
-                "\t[" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_ADDRESS + "],\n" +
+                "\t[" + DataConfig.DB_DORM_RESIDENCE_PERMIT + "].[" + DataConfig.DB_DORM_RESIDENCE_PERMIT_CITY_NAME_AS_CITY + "],\n" +
+                "\t[" + DataConfig.DB_DORM_RESIDENCE_PERMIT + "].[" + DataConfig.DB_DORM_RESIDENCE_PERMIT_ADDRESS + "],\n" +
+                "\t[" + DataConfig.DB_DORM_RESIDENCE_PERMIT + "].[" + DataConfig.DB_DORM_RESIDENCE_PERMIT_COUNTRY_ID + "],\n" +
                 "\t[" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_PHONE + "],\n" +
                 "\t[" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_GROUP + "],\n" +
                 "\t[" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_GENDER_ID + "],\n" +
@@ -236,6 +252,17 @@ public class DormSelect implements Select {
                 "\t[" + DataConfig.DB_DORM_PATRONYMIC + "].[" + DataConfig.DB_DORM_PATRONYMIC_NAME + "]\n" +
                 "\t\tAS [" + DataConfig.DB_DORM_PATRONYMIC + "]\n" +
                 "FROM [" + DataConfig.DB_DORM_REQUEST + "]\n" +
+                "INNER JOIN\n" +
+                "\t(SELECT [" + DataConfig.DB_DORM_RESIDENCE_PERMIT + "].[" + DataConfig.DB_DORM_RESIDENCE_PERMIT_ID + "],\n" +
+                "\t\t[" + DataConfig.DB_DORM_RESIDENCE_PERMIT + "].[" + DataConfig.DB_DORM_RESIDENCE_PERMIT_COUNTRY_ID + "],\n" +
+                "\t\t[" + DataConfig.DB_DORM_RESIDENCE_PERMIT + "].[" + DataConfig.DB_DORM_RESIDENCE_PERMIT_ADDRESS + "],\n" +
+                "\t\t[" + DataConfig.DB_DORM_CITY + "].[" + DataConfig.DB_DORM_CITY_NAME + "]\n" +
+                "\t\t\tAS [" + DataConfig.DB_DORM_RESIDENCE_PERMIT_CITY_NAME_AS_CITY + "]\n" +
+                "\tFROM [" + DataConfig.DB_DORM_RESIDENCE_PERMIT + "]\n" +
+                "\tINNER JOIN [" + DataConfig.DB_DORM_CITY + "]\n" +
+                "\tON [" + DataConfig.DB_DORM_RESIDENCE_PERMIT + "].[" + DataConfig.DB_DORM_RESIDENCE_PERMIT_CITY_ID + "]=[" + DataConfig.DB_DORM_CITY + "].[" + DataConfig.DB_DORM_CITY_ID + "])\n" +
+                "\tAS [" + DataConfig.DB_DORM_RESIDENCE_PERMIT + "]\n" +
+                "ON [" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_RESIDENCE_PERMIT_ID + "]=[" + DataConfig.DB_DORM_RESIDENCE_PERMIT + "].[" + DataConfig.DB_DORM_RESIDENCE_PERMIT_ID + "]\n" +
                 "INNER JOIN [" + DataConfig.DB_DORM_NAME_F + "]\n" +
                 "ON [" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_NAME_F_ID + "]=[" + DataConfig.DB_DORM_NAME_F + "].[" + DataConfig.DB_DORM_NAME_F_ID + "]\n" +
                 "INNER JOIN [" + DataConfig.DB_DORM_NAME_L + "]\n" +
@@ -667,5 +694,45 @@ public class DormSelect implements Select {
         return "SELECT *\n" +
                 "FROM [" + DataConfig.DB_DORM_EDUCATIONAL_FORM + "]\n" +
                 "WHERE [" + DataConfig.DB_DORM_EDUCATIONAL_FORM + "].[" + DataConfig.DB_DORM_EDUCATIONAL_FORM_ID + "]=?";
+    }
+
+    /**
+     * Получить страны.
+     */
+    @Override
+    public String selectCountries() {
+        return "SELECT *\n" +
+                "FROM [" + DataConfig.DB_DORM_COUNTRY + "]";
+    }
+
+    /**
+     * Получить найденные города.
+     */
+    @Override
+    public String selectSearchCity() {
+        return "SELECT [" + DataConfig.DB_DORM_CITY + "].[" + DataConfig.DB_DORM_CITY_NAME + "]\n" +
+                "FROM [" + DataConfig.DB_DORM_CITY + "]\n" +
+                "WHERE [" + DataConfig.DB_DORM_CITY + "].[" + DataConfig.DB_DORM_CITY_NAME + "]\n" +
+                "LIKE ?";
+    }
+
+    /**
+     * Получить страну по ID.
+     */
+    @Override
+    public String selectCountriesId() {
+        return "SELECT *\n" +
+                "FROM [" + DataConfig.DB_DORM_COUNTRY + "]\n" +
+                "WHERE [" + DataConfig.DB_DORM_COUNTRY + "].[" + DataConfig.DB_DORM_COUNTRY_ID + "]=?";
+    }
+
+    /**
+     * Получить город по названию.
+     */
+    @Override
+    public String selectCityName() {
+        return "SELECT *\n" +
+                "FROM [" + DataConfig.DB_DORM_CITY + "]\n" +
+                "WHERE [" + DataConfig.DB_DORM_CITY + "].[" + DataConfig.DB_DORM_CITY_NAME + "]=?";
     }
 }

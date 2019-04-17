@@ -7,6 +7,8 @@ import kz.dorm.api.dorm.util.statement.providers.sort.EnumSortReport;
 import kz.dorm.api.dorm.util.statement.providers.sort.EnumSortRequest;
 import kz.dorm.docx.DocxConstructor;
 import kz.dorm.utils.*;
+import kz.dorm.utils.control.ControlParent;
+import kz.dorm.utils.control.ControlWrite;
 import kz.dorm.utils.token.Token;
 import org.eclipse.jetty.http.HttpStatus;
 import spark.Request;
@@ -95,6 +97,14 @@ public class DormGet {
                 dormDB.getEducationalForms()
                 .add(new EducationalForm(result.getInt(DataConfig.DB_DORM_EDUCATIONAL_FORM_ID),
                         result.getInt(DataConfig.DB_DORM_EDUCATIONAL_FORM_NAME_ID)));
+
+            statement = connection.prepareStatement(StatementSQL.select().selectCountries());
+            result = statement.executeQuery();
+
+            while (result.next())
+                dormDB.getCountries()
+                .add(new Country(result.getInt(DataConfig.DB_DORM_COUNTRY_ID),
+                        result.getString(DataConfig.DB_DORM_COUNTRY_NAME)));
 
             response.status(200);
 
@@ -248,7 +258,9 @@ public class DormGet {
                 reports.add(new Report(result.getInt(DataConfig.DB_DORM_REPORT_ID),
                         result.getLong(DataConfig.DB_DORM_REPORT_UIN),
                         result.getString(DataConfig.DB_DORM_REPORT_EMAIL),
-                        result.getString(DataConfig.DB_DORM_REPORT_ADDRESS),
+                        new ResidencePermit(result.getString(DataConfig.DB_DORM_RESIDENCE_PERMIT_CITY_NAME_AS_CITY),
+                                result.getInt(DataConfig.DB_DORM_RESIDENCE_PERMIT_COUNTRY_ID),
+                                result.getString(DataConfig.DB_DORM_RESIDENCE_PERMIT_ADDRESS)),
                         result.getString(DataConfig.DB_DORM_REPORT_PHONE),
                         result.getInt(DataConfig.DB_DORM_REPORT_GENDER_ID),
                         new RoomOne(result.getInt(DataConfig.DB_DORM_ROOM_AS_ROOM_ID),
@@ -273,7 +285,8 @@ public class DormGet {
                                 result.getString(DataConfig.DB_DORM_PARENT_FATHER_AS_PATRONYMIC),
                                 result.getString(DataConfig.DB_DORM_PARENT_FATHER_AS_PHONE)),
                         result.getInt(DataConfig.DB_DORM_REPORT_STATUS_ID),
-                        result.getInt(DataConfig.DB_DORM_REPORT_EDUCATIONAL_FORM_ID)));
+                        result.getInt(DataConfig.DB_DORM_REPORT_EDUCATIONAL_FORM_ID),
+                        result.getString(DataConfig.DB_DORM_REPORT_GROUP)));
 
             response.status(200);
 
@@ -326,7 +339,9 @@ public class DormGet {
                         .Request(result.getInt(DataConfig.DB_DORM_REQUEST_ID),
                         result.getLong(DataConfig.DB_DORM_REQUEST_UIN),
                         result.getString(DataConfig.DB_DORM_REQUEST_EMAIL),
-                        result.getString(DataConfig.DB_DORM_REQUEST_ADDRESS),
+                        new ResidencePermit(result.getString(DataConfig.DB_DORM_RESIDENCE_PERMIT_CITY_NAME_AS_CITY),
+                                result.getInt(DataConfig.DB_DORM_RESIDENCE_PERMIT_COUNTRY_ID),
+                                result.getString(DataConfig.DB_DORM_RESIDENCE_PERMIT_ADDRESS)),
                         result.getString(DataConfig.DB_DORM_REQUEST_PHONE),
                         result.getString(DataConfig.DB_DORM_REQUEST_GROUP),
                         result.getInt(DataConfig.DB_DORM_REQUEST_GENDER_ID),
@@ -381,7 +396,9 @@ public class DormGet {
                                     .Request(result.getInt(DataConfig.DB_DORM_REQUEST_ID),
                                     result.getLong(DataConfig.DB_DORM_REQUEST_UIN),
                                     result.getString(DataConfig.DB_DORM_REQUEST_EMAIL),
-                                    result.getString(DataConfig.DB_DORM_REQUEST_ADDRESS),
+                                    new ResidencePermit(result.getString(DataConfig.DB_DORM_RESIDENCE_PERMIT_CITY_NAME_AS_CITY),
+                                            result.getInt(DataConfig.DB_DORM_RESIDENCE_PERMIT_COUNTRY_ID),
+                                            result.getString(DataConfig.DB_DORM_RESIDENCE_PERMIT_ADDRESS)),
                                     result.getString(DataConfig.DB_DORM_REQUEST_PHONE),
                                     result.getString(DataConfig.DB_DORM_REQUEST_GROUP),
                                     result.getInt(DataConfig.DB_DORM_REQUEST_GENDER_ID),
@@ -453,12 +470,12 @@ public class DormGet {
                 request.queryParams(DataConfig.DB_DORM_REQUEST_DATE_RESIDENCE) != null &&
                 request.queryParams(DataConfig.DB_DORM_REQUEST_CHILDREN) != null &&
                 request.queryParams(DataConfig.DB_DORM_REQUEST_PHONE) != null &&
-                request.queryParams(DataConfig.DB_DORM_REQUEST_ADDRESS) != null &&
+                request.queryParams(DataConfig.DB_DORM_REQUEST_ADDRESS_FULL) != null &&
                 request.queryParams(DataConfig.DB_DORM_REQUEST_GENDER_ID) != null &&
                 request.queryParams(DataConfig.DB_DORM_REQUEST_ROOM_ID) != null) {
             if (ControlWrite.isCheckPhone(request.queryParams(DataConfig.DB_DORM_REQUEST_PHONE)) &&
                     ControlWrite.isCheckGroup(request.queryParams(DataConfig.DB_DORM_REQUEST_GROUP)) &&
-                    ControlWrite.isCheckAddress(request.queryParams(DataConfig.DB_DORM_REQUEST_ADDRESS)) &&
+                    ControlWrite.isCheckAddressFull(request.queryParams(DataConfig.DB_DORM_REQUEST_ADDRESS_FULL)) &&
                     ControlWrite.isCheckNames(request.queryParams(DataConfig.DB_DORM_NAME_F),
                             request.queryParams(DataConfig.DB_DORM_NAME_L))) {
                 String patronymic = null;
@@ -512,11 +529,11 @@ public class DormGet {
         if (request.queryParams(DataConfig.DB_DORM_NAME_F) != null &&
                 request.queryParams(DataConfig.DB_DORM_NAME_L) != null &&
                 request.queryParams(DataConfig.DB_DORM_REPORT_GENDER_ID) != null &&
-                request.queryParams(DataConfig.DB_DORM_REPORT_ADDRESS) != null &&
+                request.queryParams(DataConfig.DB_DORM_REPORT_ADDRESS_FULL) != null &&
                 request.queryParams(DataConfig.DB_DORM_REPORT_PHONE) != null &&
                 request.queryParams(DataConfig.DB_DORM_REQUEST_ROOM_ID) != null) {
             if (ControlWrite.isCheckPhone(request.queryParams(DataConfig.DB_DORM_REPORT_PHONE)) &&
-                    ControlWrite.isCheckAddress(request.queryParams(DataConfig.DB_DORM_REPORT_ADDRESS)) &&
+                    ControlWrite.isCheckAddressFull(request.queryParams(DataConfig.DB_DORM_REPORT_ADDRESS_FULL)) &&
                     ControlWrite.isCheckNames(request.queryParams(DataConfig.DB_DORM_NAME_F),
                             request.queryParams(DataConfig.DB_DORM_NAME_L))) {
                 String patronymic = null;
@@ -549,6 +566,37 @@ public class DormGet {
                 response.status(400);
 
                 return HttpStatus.getCode(400).getMessage();
+            }
+        } else {
+            response.status(400);
+
+            return HttpStatus.getCode(400).getMessage();
+        }
+    }
+
+    /**
+     * Получить найденные города.
+     */
+    public static String searchCity(Request request, Response response){
+        if (request.queryParams(DataConfig.GLOBAL_SEARCH_CITY_TEXT) != null) {
+            response.status(200);
+
+            try (Connection connection = DataBase.getDorm()) {
+                List<String> list = new ArrayList<>();
+                PreparedStatement statement = connection
+                        .prepareStatement(StatementSQL.select().selectSearchCity());
+
+                statement.setString(1, request.queryParams(DataConfig.GLOBAL_SEARCH_CITY_TEXT) + "%");
+                ResultSet result = statement.executeQuery();
+
+                while (result.next())
+                    list.add(result.getString(DataConfig.DB_DORM_CITY_NAME));
+
+                return new Gson().toJson(list);
+            } catch (Exception e) {
+                response.status(409);
+
+                return HttpStatus.getCode(409).getMessage();
             }
         } else {
             response.status(400);

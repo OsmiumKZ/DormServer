@@ -41,15 +41,16 @@ public class DormInsert implements Insert {
                 "\t[" + DataConfig.DB_DORM_REPORT + "].[" + DataConfig.DB_DORM_REPORT_NAME_F_ID + "],\n" +
                 "\t[" + DataConfig.DB_DORM_REPORT + "].[" + DataConfig.DB_DORM_REPORT_NAME_L_ID + "],\n" +
                 "\t[" + DataConfig.DB_DORM_REPORT + "].[" + DataConfig.DB_DORM_REPORT_PATRONYMIC_ID + "],\n" +
-                "\t[" + DataConfig.DB_DORM_REPORT + "].[" + DataConfig.DB_DORM_REPORT_ADDRESS + "],\n" +
+                "\t[" + DataConfig.DB_DORM_REPORT + "].[" + DataConfig.DB_DORM_REPORT_RESIDENCE_PERMIT_ID + "],\n" +
                 "\t[" + DataConfig.DB_DORM_REPORT + "].[" + DataConfig.DB_DORM_REPORT_PHONE + "],\n" +
                 "\t[" + DataConfig.DB_DORM_REPORT + "].[" + DataConfig.DB_DORM_REPORT_CHILDREN + "],\n" +
                 "\t[" + DataConfig.DB_DORM_REPORT + "].[" + DataConfig.DB_DORM_REPORT_DATE_RESIDENCE + "],\n" +
                 "\t[" + DataConfig.DB_DORM_REPORT + "].[" + DataConfig.DB_DORM_REPORT_PARENT_ID_MOTHER + "],\n" +
                 "\t[" + DataConfig.DB_DORM_REPORT + "].[" + DataConfig.DB_DORM_REPORT_PARENT_ID_FATHER + "],\n" +
                 "\t[" + DataConfig.DB_DORM_REPORT + "].[" + DataConfig.DB_DORM_REPORT_EMAIL + "],\n" +
-                "\t[" + DataConfig.DB_DORM_REPORT + "].[" + DataConfig.DB_DORM_REPORT_EDUCATIONAL_FORM_ID + "])\n" +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "\t[" + DataConfig.DB_DORM_REPORT + "].[" + DataConfig.DB_DORM_REPORT_EDUCATIONAL_FORM_ID + "],\n" +
+                "\t[" + DataConfig.DB_DORM_REPORT + "].[" + DataConfig.DB_DORM_REPORT_GROUP + "])\n" +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     }
 
     /**
@@ -64,7 +65,7 @@ public class DormInsert implements Insert {
                 "\t[" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_UIN + "],\n" +
                 "\t[" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_ROOM_ID + "],\n" +
                 "\t[" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_GENDER_ID + "],\n" +
-                "\t[" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_ADDRESS + "],\n" +
+                "\t[" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_RESIDENCE_PERMIT_ID + "],\n" +
                 "\t[" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_PHONE + "],\n" +
                 "\t[" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_GROUP + "],\n" +
                 "\t[" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_PARENT_ID_MOTHER + "],\n" +
@@ -115,5 +116,25 @@ public class DormInsert implements Insert {
                 "\t[" + DataConfig.DB_DORM_PARENT + "].[" + DataConfig.DB_DORM_PARENT_PATRONYMIC_ID + "],\n" +
                 "\t[" + DataConfig.DB_DORM_PARENT + "].[" + DataConfig.DB_DORM_PARENT_PHONE + "])\n" +
                 "VALUES (?, ?, ?, ?)";
+    }
+
+    /**
+     * Добавить город.
+     */
+    @Override
+    public String insertCity() {
+        return "INSERT INTO [" + DataConfig.DB_DORM_CITY + "] ([" + DataConfig.DB_DORM_CITY + "].[" + DataConfig.DB_DORM_CITY_NAME + "])\n" +
+                "VALUE (?)";
+    }
+
+    /**
+     * Добавить вид на жительство.
+     */
+    @Override
+    public String insertResidencePermit() {
+        return "INSERT INTO [" + DataConfig.DB_DORM_RESIDENCE_PERMIT + "] ([" + DataConfig.DB_DORM_RESIDENCE_PERMIT + "].[" + DataConfig.DB_DORM_RESIDENCE_PERMIT_COUNTRY_ID + "],\n" +
+                "\t[" + DataConfig.DB_DORM_RESIDENCE_PERMIT + "].[" + DataConfig.DB_DORM_RESIDENCE_PERMIT_CITY_ID + "],\n" +
+                "\t[" + DataConfig.DB_DORM_RESIDENCE_PERMIT + "].[" + DataConfig.DB_DORM_RESIDENCE_PERMIT_ADDRESS + "])\n" +
+                "VALUE (?, ?, ?)";
     }
 }

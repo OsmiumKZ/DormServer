@@ -1,7 +1,9 @@
-package kz.dorm.utils;
+package kz.dorm.utils.control;
 
 import kz.dorm.api.dorm.util.gson.Parent;
 import kz.dorm.api.dorm.util.statement.providers.StatementSQL;
+import kz.dorm.utils.DataBase;
+import kz.dorm.utils.DataConfig;
 
 import java.sql.*;
 import java.util.regex.Pattern;
@@ -186,6 +188,16 @@ public class ControlWrite {
     }
 
     /**
+     * Проверка полного адреса на корректность.
+     */
+    public static boolean isCheckAddressFull(String addressFull) {
+        String regex = "[\\-,.а-яёА-ЯЁ0-9 ]{5,140}$";
+        Pattern pattern = Pattern.compile(regex);
+
+        return pattern.matcher(addressFull).matches();
+    }
+
+    /**
      * Проверка группы на корректность.
      */
     public static boolean isCheckGroup(String group) {
@@ -335,5 +347,36 @@ public class ControlWrite {
         } else {
             return false;
         }
+    }
+
+    /**
+     * Проверка города.
+     */
+    public static boolean isCheckCity(String city){
+        if (city != null){
+            String regex = "[А-ЯЁ][а-яё]{1,39}$";
+            Pattern pattern = Pattern.compile(regex);
+
+            return pattern.matcher(city).matches();
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Проверка страны.
+     */
+    public static boolean isCheckCountry(Connection connection, int countryId) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement(StatementSQL.select().selectCountriesId());
+        statement.setInt(1, countryId);
+
+        return statement.executeQuery().next();
+    }
+
+    /**
+     * Добавить вид на жительство в БД.
+     */
+    public static int writeResidencePermit(Connection connection, String jsonOne, String jsonTwo) throws SQLException {
+        return ControlResidencePermit.writeResidencePermit(connection, jsonOne, jsonTwo);
     }
 }

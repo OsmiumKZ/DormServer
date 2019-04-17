@@ -2,7 +2,7 @@ package kz.dorm.docx.handler;
 
 import kz.dorm.api.dorm.util.gson.Parent;
 import kz.dorm.docx.util.DataConfigRequest;
-import kz.dorm.utils.ControlWrite;
+import kz.dorm.utils.control.ControlWrite;
 import kz.dorm.utils.DateText;
 import org.docx4j.Docx4J;
 import org.docx4j.model.datastorage.migration.VariablePrepare;
@@ -16,7 +16,6 @@ import padeg.lib.Padeg;
 import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.util.*;
-import java.util.logging.Logger;
 
 public class HandlerRequest {
 

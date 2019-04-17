@@ -3,7 +3,7 @@ package kz.dorm.docx;
 import kz.dorm.api.dorm.util.gson.Parent;
 import kz.dorm.docx.handler.HandlerDirection;
 import kz.dorm.docx.handler.HandlerRequest;
-import kz.dorm.utils.ControlWrite;
+import kz.dorm.utils.control.ControlWrite;
 import kz.dorm.utils.DataConfig;
 import spark.Request;
 
@@ -22,7 +22,7 @@ public class DocxConstructor {
                 request.queryParams(DataConfig.DB_DORM_REQUEST_PHONE),
                 father,
                 mother,
-                request.queryParams(DataConfig.DB_DORM_REQUEST_ADDRESS),
+                request.queryParams(DataConfig.DB_DORM_REQUEST_ADDRESS_FULL),
                 request.queryParams(DataConfig.DB_DORM_REQUEST_GENDER_ID),
                 request.queryParams(DataConfig.DB_DORM_REQUEST_ROOM_ID),
                 request.queryParams(DataConfig.DB_DORM_REQUEST_ID));
@@ -41,7 +41,7 @@ public class DocxConstructor {
                 request.queryParams(DataConfig.DB_DORM_REQUEST_PHONE),
                 father,
                 mother,
-                request.queryParams(DataConfig.DB_DORM_REQUEST_ADDRESS),
+                request.queryParams(DataConfig.DB_DORM_REQUEST_ADDRESS_FULL),
                 request.queryParams(DataConfig.DB_DORM_REQUEST_GENDER_ID),
                 request.queryParams(DataConfig.DB_DORM_REQUEST_ROOM_ID),
                 String.valueOf(requestId));
@@ -72,7 +72,7 @@ public class DocxConstructor {
                 patronymic,
                 request.queryParams(DataConfig.DB_DORM_REPORT_GENDER_ID),
                 request.queryParams(DataConfig.DB_DORM_REQUEST_ROOM_ID),
-                request.queryParams(DataConfig.DB_DORM_REPORT_ADDRESS),
+                request.queryParams(DataConfig.DB_DORM_REPORT_ADDRESS_FULL),
                 request.queryParams(DataConfig.DB_DORM_REPORT_PHONE));
     }
 

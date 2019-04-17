@@ -1,6 +1,6 @@
 package kz.dorm.util;
 
-import kz.dorm.utils.ControlWrite;
+import kz.dorm.utils.control.ControlWrite;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;

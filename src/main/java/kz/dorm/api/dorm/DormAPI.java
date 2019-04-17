@@ -102,7 +102,7 @@ public class DormAPI {
              * & {@link DataConfig#DB_DORM_REQUEST_DATE_RESIDENCE} = Дата заселения.
              * & {@link DataConfig#DB_DORM_REQUEST_CHILDREN} = Сколько детей в семье.
              * & {@link DataConfig#DB_DORM_REQUEST_PHONE} = Телефонный номер.
-             * & {@link DataConfig#DB_DORM_REQUEST_ADDRESS} = Адрес проживания.
+             * & {@link DataConfig#DB_DORM_REQUEST_ADDRESS_FULL} = Полный адрес проживания.
              * & {@link DataConfig#DB_DORM_REQUEST_GENDER_ID} = ID гендера.
              * & {@link DataConfig#DB_DORM_REQUEST_ROOM_ID} = ID этажа.
              * [&] {@link DataConfig#DB_DORM_PATRONYMIC} = Отчество.
@@ -126,7 +126,7 @@ public class DormAPI {
              * & {@link DataConfig#DB_DORM_NAME_F} = Имя.
              * & {@link DataConfig#DB_DORM_NAME_L} = Фамилия.
              * & {@link DataConfig#DB_DORM_REPORT_GENDER_ID} = ID гендера.
-             * & {@link DataConfig#DB_DORM_REPORT_ADDRESS} = Адрес проживания.
+             * & {@link DataConfig#DB_DORM_REPORT_ADDRESS_FULL} = Полный адрес проживания.
              * & {@link DataConfig#DB_DORM_REPORT_PHONE} = Телефонный номер.
              * & {@link DataConfig#DB_DORM_REQUEST_ROOM_ID} = ID комнаты.
              * [&] {@link DataConfig#DB_DORM_PATRONYMIC} = Отчество.
@@ -153,6 +153,22 @@ public class DormAPI {
             get("/search/name", (request, response) -> {
                 if (DomainHTTP.getDorm(request.host())) {
                     return DormGet.searchName(request, response);
+                } else {
+                    response.status(404);
+
+                    return HttpStatus.getCode(404).getMessage();
+                }
+            });
+
+            /** {Not Javadoc}
+             * Поиск городов. Подсказка.
+             *
+             * http://localhost/api/search/city ?
+             * & {@link DataConfig#GLOBAL_SEARCH_CITY_TEXT} = Текст для поиска городов.
+             */
+            get("/search/city", (request, response) -> {
+                if (DomainHTTP.getDorm(request.host())) {
+                    return DormGet.searchCity(request, response);
                 } else {
                     response.status(404);
 
@@ -260,7 +276,7 @@ public class DormAPI {
              * [&] {@link DataConfig#DB_DORM_REPORT_EMAIL} = Электронная почта.
              * [&] {@link DataConfig#DB_DORM_REPORT_AS_FATHER} = Папа json.
              * [&] {@link DataConfig#DB_DORM_REPORT_AS_MOTHER} = Мама json.
-             * & {@link DataConfig#DB_DORM_REPORT_ADDRESS} = Адрес проживания.
+             * & {@link DataConfig#DB_DORM_RESIDENCE_PERMIT} = Вид на жительство.
              * & {@link DataConfig#DB_DORM_REPORT_PHONE} = Телефон.
              * & {@link DataConfig#DB_DORM_REPORT_STATUS_ID} = ID статуса.
              * & {@link DataConfig#DB_DORM_REPORT_CHILDREN} = Сколько в семье детей.
@@ -294,7 +310,7 @@ public class DormAPI {
              * [&] {@link DataConfig#DB_DORM_REQUEST_EMAIL} = Электронная почта.
              * [&] {@link DataConfig#DB_DORM_REQUEST_AS_FATHER} = Папа json.
              * [&] {@link DataConfig#DB_DORM_REQUEST_AS_MOTHER} = Мама json.
-             * & {@link DataConfig#DB_DORM_REQUEST_ADDRESS} = Адрес проживания.
+             * & {@link DataConfig#DB_DORM_RESIDENCE_PERMIT} = Вид на жительство.
              * & {@link DataConfig#DB_DORM_REQUEST_PHONE} = Телефон.
              * & {@link DataConfig#DB_DORM_REQUEST_GROUP} = Группа.
              * & {@link DataConfig#DB_DORM_REQUEST_GENDER_ID} = ID гендера.

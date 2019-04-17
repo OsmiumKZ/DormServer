@@ -4,6 +4,8 @@ import kz.dorm.api.dorm.util.gson.Parent;
 import kz.dorm.api.dorm.util.statement.providers.StatementSQL;
 import kz.dorm.docx.DocxConstructor;
 import kz.dorm.utils.*;
+import kz.dorm.utils.control.ControlParent;
+import kz.dorm.utils.control.ControlWrite;
 import kz.dorm.utils.email.Email;
 import kz.dorm.utils.email.EmailMessage;
 import org.eclipse.jetty.http.HttpStatus;
@@ -29,10 +31,10 @@ public class DormPost {
                 request.queryParams(DataConfig.DB_DORM_REPORT_ROOM_ID) != null &&
                 request.queryParams(DataConfig.DB_DORM_NAME_F) != null &&
                 request.queryParams(DataConfig.DB_DORM_NAME_L) != null &&
-                request.queryParams(DataConfig.DB_DORM_REPORT_ADDRESS) != null &&
                 request.queryParams(DataConfig.DB_DORM_REPORT_CHILDREN) != null &&
                 request.queryParams(DataConfig.DB_DORM_REPORT_DATE_RESIDENCE) != null &&
                 request.queryParams(DataConfig.DB_DORM_REPORT_PHONE) != null &&
+                request.queryParams(DataConfig.DB_DORM_REPORT_GROUP) != null &&
                 request.queryParams(DataConfig.DB_DORM_REPORT_STATUS_ID) != null &&
                 request.queryParams(DataConfig.DB_DORM_REPORT_EDUCATIONAL_FORM_ID) != null) {
             String date = DateText.getDateText(new Date(System.currentTimeMillis()));
@@ -43,11 +45,11 @@ public class DormPost {
                         Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REPORT_GENDER_ID))) &&
                         ControlWrite.isCheckUINReport(connection,
                                 Long.parseLong(request.queryParams(DataConfig.DB_DORM_REPORT_UIN))) &&
+                        ControlWrite.isCheckGroup(request.queryParams(DataConfig.DB_DORM_REPORT_GROUP)) &&
                         Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REPORT_CHILDREN)) > 0 &&
                         ControlWrite.isCheckEducationalForm(connection,
                                 Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REPORT_EDUCATIONAL_FORM_ID))) &&
                         ControlWrite.isCheckPhone(request.queryParams(DataConfig.DB_DORM_REPORT_PHONE)) &&
-                        ControlWrite.isCheckAddress(request.queryParams(DataConfig.DB_DORM_REPORT_ADDRESS)) &&
                         ControlWrite.isCheckStatus(connection,
                                 Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REPORT_STATUS_ID))) &&
                         ControlWrite.isCheckGender(connection,
@@ -77,8 +79,6 @@ public class DormPost {
 
                     statement.setInt(8,
                             ControlWrite.writeNameL(connection, request.queryParams(DataConfig.DB_DORM_NAME_L)));
-
-                    statement.setString(10, request.queryParams(DataConfig.DB_DORM_REPORT_ADDRESS));
                     statement.setString(11, request.queryParams(DataConfig.DB_DORM_REPORT_PHONE));
 
                     statement.setInt(12,
@@ -116,6 +116,13 @@ public class DormPost {
                     statement.setInt(17,
                             Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REPORT_EDUCATIONAL_FORM_ID)));
 
+                    statement.setString(18, request.queryParams(DataConfig.DB_DORM_REPORT_GROUP));
+
+                    statement.setInt(10,
+                            ControlWrite.writeResidencePermit(connection,
+                                    request.headers(DataConfig.DB_DORM_RESIDENCE_PERMIT),
+                                    request.queryParams(DataConfig.DB_DORM_RESIDENCE_PERMIT)));
+
                     if (statement.executeUpdate() > 0) {
                         response.status(201);
 
@@ -150,7 +157,6 @@ public class DormPost {
                 request.queryParams(DataConfig.DB_DORM_NAME_L) != null &&
                 request.queryParams(DataConfig.DB_DORM_REQUEST_UIN) != null &&
                 request.queryParams(DataConfig.DB_DORM_REQUEST_ROOM_ID) != null &&
-                request.queryParams(DataConfig.DB_DORM_REQUEST_ADDRESS) != null &&
                 request.queryParams(DataConfig.DB_DORM_REQUEST_PHONE) != null &&
                 request.queryParams(DataConfig.DB_DORM_REQUEST_CHILDREN) != null &&
                 request.queryParams(DataConfig.DB_DORM_REQUEST_DATE_RESIDENCE) != null &&
@@ -170,7 +176,6 @@ public class DormPost {
                         ControlWrite.isCheckGroup(request.queryParams(DataConfig.DB_DORM_REQUEST_GROUP)) &&
                         ControlWrite.isCheckEducationalForm(connection,
                                 Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REQUEST_EDUCATIONAL_FORM_ID))) &&
-                        ControlWrite.isCheckAddress(request.queryParams(DataConfig.DB_DORM_REQUEST_ADDRESS)) &&
                         ControlWrite.isCheckGender(connection,
                                 Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REQUEST_GENDER_ID))) &&
                         ControlWrite.isCheckNames(request.queryParams(DataConfig.DB_DORM_NAME_F),
@@ -200,7 +205,6 @@ public class DormPost {
                     statement.setInt(6,
                             Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REQUEST_GENDER_ID)));
 
-                    statement.setString(7, request.queryParams(DataConfig.DB_DORM_REQUEST_ADDRESS));
                     statement.setString(8, request.queryParams(DataConfig.DB_DORM_REQUEST_PHONE));
                     statement.setString(9, request.queryParams(DataConfig.DB_DORM_REQUEST_GROUP));
 
@@ -244,6 +248,11 @@ public class DormPost {
                         else
                             statement.setNull(16, Types.NVARCHAR);
                     }
+
+                    statement.setInt(7,
+                            ControlWrite.writeResidencePermit(connection,
+                                    request.headers(DataConfig.DB_DORM_RESIDENCE_PERMIT),
+                                    request.queryParams(DataConfig.DB_DORM_RESIDENCE_PERMIT)));
 
                     statement.executeUpdate();
 

@@ -31,4 +31,14 @@ public interface Insert {
      * Добавить родителя.
      */
     String insertParent();
+
+    /**
+     * Добавить город.
+     */
+    String insertCity();
+
+    /**
+     * Добавить вид на жительство.
+     */
+    String insertResidencePermit();
 }

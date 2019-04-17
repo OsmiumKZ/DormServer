@@ -149,4 +149,24 @@ public interface Select {
      * Получить форму обучения по ID.
      */
     String selectEducationalFormId();
+
+    /**
+     * Получить страны.
+     */
+    String selectCountries();
+
+    /**
+     * Получить страну по ID.
+     */
+    String selectCountriesId();
+
+    /**
+     * Получить найденные города.
+     */
+    String selectSearchCity();
+
+    /**
+     * Получить город по названию.
+     */
+    String selectCityName();
 }
