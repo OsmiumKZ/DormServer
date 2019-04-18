@@ -49,11 +49,6 @@ public interface Select {
     String selectRequest();
 
     /**
-     * Получить заявление по ИИНу.
-     */
-    String selectRequestUIN();
-
-    /**
      * Получить заявление по ID.
      */
     String selectRequestId();
@@ -83,11 +78,6 @@ public interface Select {
      * конкретной общаги, с количеством занятых мест.
      */
     String selectRoomsFloorId();
-
-    /**
-     * Возвращает совпадение, если есть уже такой ИИН в отчетах.
-     */
-    String selectActiveUINReport();
 
     /**
      * Проверка комнаты, на допустимый пол студента

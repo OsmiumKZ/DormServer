@@ -72,7 +72,6 @@ GO
 -- [gender_id] - ID пола.
 -- [room_id] - ID комнаты.
 -- [status_id] - ID статуса.
--- [uin] - ИИН.
 -- [date_create] - Дата создания отчета.
 -- [date_update] - Дата обновление отчета.
 -- [email] - Электронная почта.
@@ -87,13 +86,13 @@ GO
 -- [patronymic] - Отчество.
 -- [educational_form_id] - ID формы обучения.
 -- [group] - Группа.
+-- [citizenship_id] - ID гражданства.
 --
 create TABLE [reports]
     ([id] INT IDENTITY (1, 1) PRIMARY KEY,
      [gender_id] INT NOT NULL,
      [room_id] INT NOT NULL,
      [status_id] INT NOT NULL,
-     [uin] BIGINT NOT NULL,
      [date_create] DATETIME NOT NULL,
      [date_update] DATETIME NOT NULL,
      [email] NVARCHAR(254) NULL,
@@ -107,6 +106,7 @@ create TABLE [reports]
      [name_l_id] NVARCHAR(40) NOT NULL,
      [patronymic_id] NVARCHAR(40) NULL,
      [group] NVARCHAR(10) NOT NULL,
+     [citizenship_id] INT NOT NULL,
      [educational_form_id] INT NOT NULL)
 GO
 	
@@ -171,7 +171,6 @@ GO
 -- [residence_permit] - ID вида на жительство
 -- [phone] - Телефон
 -- [group] - Группа
--- [uin] - ИИН
 -- [room_id] - ID комнаты
 -- [gender_id] - ID пола
 -- [parent_id_mother] - ID таблицы [parents] - Мама
@@ -181,6 +180,7 @@ GO
 -- [date_create] - Дата создания.
 -- [active] - (0 - открыт) и (1 - закрыт). Или же (0 - не прочтен) и (1 - прочтен).
 -- [educational_form_id] - ID формы обучения.
+-- [citizenship_id] - ID гражданства.
 --
 
 create TABLE [requests]
@@ -192,7 +192,6 @@ create TABLE [requests]
      [residence_permit_id] INT NOT NULL,
      [phone] NVARCHAR(15) NOT NULL,
      [group] NVARCHAR(10) NOT NULL,
-     [uin] BIGINT NOT NULL,
      [room_id] INT NOT NULL,
      [gender_id] INT NOT NULL,
      [parent_id_mother] INT NULL,
@@ -201,6 +200,7 @@ create TABLE [requests]
      [date_residence] DATE NOT NULL,
      [date_create] DATETIME NOT NULL,
      [active] INT NOT NULL,
+     [citizenship_id] INT NOT NULL,
      [educational_form_id] INT NOT NULL)
 GO
 	
@@ -275,7 +275,7 @@ GO
 -- [name_id] - ID Название
 --
 
-create TABLE [patronymic]
+create TABLE [educational_form]
     ([id] INT IDENTITY (1, 1) PRIMARY KEY,
      [name_id] INT NOT NULL)
 GO
@@ -324,4 +324,20 @@ create TABLE [cities]
      [city_id] INT NOT NULL,
      [country_id] INT NOT NULL,
      [address] NVARCHAR(60) NOT NULL)
+GO
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы "Гражданство"
+--
+-- [id] - ID гражданства.
+-- [country_id] - ID страны.
+-- [number] - номер (ИИН, номер паспорта и т.п.).
+--
+
+create TABLE [citizenships]
+    ([id] INT IDENTITY (1, 1) PRIMARY KEY,
+     [country_id] INT NOT NULL,
+     [number] NVARCHAR(20) NOT NULL)
 GO

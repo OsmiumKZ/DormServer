@@ -34,13 +34,4 @@ public class DormDelete implements Delete {
         return "DELETE FROM `" + DataConfig.DB_DORM_REQUEST + "`\n" +
                 "WHERE `" + DataConfig.DB_DORM_REQUEST + "`.`" + DataConfig.DB_DORM_REQUEST_ID + "`=?";
     }
-
-    /**
-     * Удаление родителя.
-     */
-    @Override
-    public String deleteParentId() {
-        return "DELETE FROM `" + DataConfig.DB_DORM_PARENT + "`\n" +
-                "WHERE `" + DataConfig.DB_DORM_PARENT + "`.`" + DataConfig.DB_DORM_PARENT_ID + "`=?";
-    }
 }

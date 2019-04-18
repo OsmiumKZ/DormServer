@@ -41,4 +41,9 @@ public interface Insert {
      * Добавить вид на жительство.
      */
     String insertResidencePermit();
+
+    /**
+     * Добавить гражданство.
+     */
+    String insertCitizenship();
 }

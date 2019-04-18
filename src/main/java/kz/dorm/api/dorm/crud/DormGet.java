@@ -256,7 +256,8 @@ public class DormGet {
 
             while (result.next())
                 reports.add(new Report(result.getInt(DataConfig.DB_DORM_REPORT_ID),
-                        result.getLong(DataConfig.DB_DORM_REPORT_UIN),
+                        new Citizenship(result.getInt(DataConfig.DB_DORM_CITIZENSHIP_COUNTRY_ID),
+                                result.getString(DataConfig.DB_DORM_CITIZENSHIP_NUMBER_AS_CITIZENSHIP_NUMBER)),
                         result.getString(DataConfig.DB_DORM_REPORT_EMAIL),
                         new ResidencePermit(result.getString(DataConfig.DB_DORM_RESIDENCE_PERMIT_CITY_NAME_AS_CITY),
                                 result.getInt(DataConfig.DB_DORM_RESIDENCE_PERMIT_COUNTRY_ID),
@@ -337,7 +338,8 @@ public class DormGet {
             while (result.next())
                 reports.add(new kz.dorm.api.dorm.util.gson
                         .Request(result.getInt(DataConfig.DB_DORM_REQUEST_ID),
-                        result.getLong(DataConfig.DB_DORM_REQUEST_UIN),
+                        new Citizenship(result.getInt(DataConfig.DB_DORM_CITIZENSHIP_COUNTRY_ID),
+                                result.getString(DataConfig.DB_DORM_CITIZENSHIP_NUMBER_AS_CITIZENSHIP_NUMBER)),
                         result.getString(DataConfig.DB_DORM_REQUEST_EMAIL),
                         new ResidencePermit(result.getString(DataConfig.DB_DORM_RESIDENCE_PERMIT_CITY_NAME_AS_CITY),
                                 result.getInt(DataConfig.DB_DORM_RESIDENCE_PERMIT_COUNTRY_ID),
@@ -394,7 +396,8 @@ public class DormGet {
                     return new Gson()
                             .toJson(new kz.dorm.api.dorm.util.gson
                                     .Request(result.getInt(DataConfig.DB_DORM_REQUEST_ID),
-                                    result.getLong(DataConfig.DB_DORM_REQUEST_UIN),
+                                    new Citizenship(result.getInt(DataConfig.DB_DORM_CITIZENSHIP_COUNTRY_ID),
+                                            result.getString(DataConfig.DB_DORM_CITIZENSHIP_NUMBER_AS_CITIZENSHIP_NUMBER)),
                                     result.getString(DataConfig.DB_DORM_REQUEST_EMAIL),
                                     new ResidencePermit(result.getString(DataConfig.DB_DORM_RESIDENCE_PERMIT_CITY_NAME_AS_CITY),
                                             result.getInt(DataConfig.DB_DORM_RESIDENCE_PERMIT_COUNTRY_ID),

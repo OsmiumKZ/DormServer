@@ -27,7 +27,7 @@ public class ControlResidencePermit {
     /**
      * Парсинг JSON вида на жительсто.
      */
-    static ResidencePermit parseResidencePermit(String jsonOne, String jsonTwo) throws SQLException {
+    public static ResidencePermit parseResidencePermit(String jsonOne, String jsonTwo) throws SQLException {
         String json;
 
         if (jsonOne != null)

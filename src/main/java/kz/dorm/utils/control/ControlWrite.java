@@ -270,38 +270,6 @@ public class ControlWrite {
     }
 
     /**
-     * Проверка ИИНа для заявлений.
-     */
-    public static boolean isCheckUINRequest(Connection connection, long uin) throws SQLException {
-        if (String.valueOf(uin).length() == 12) {
-            PreparedStatement statement = connection
-                    .prepareStatement(StatementSQL.select().selectActiveUINReport());
-
-            statement.setLong(1, uin);
-
-            return !statement.executeQuery().next();
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Проверка ИИНа для репорта.
-     */
-    public static boolean isCheckUINReport(Connection connection, long uin) throws SQLException {
-        if (String.valueOf(uin).length() == 12) {
-            PreparedStatement statement = connection
-                    .prepareStatement(StatementSQL.select().selectActiveUINReport());
-
-            statement.setLong(1, uin);
-
-            return !statement.executeQuery().next();
-        } else {
-            return false;
-        }
-    }
-
-    /**
      * Проверка электронной почты.
      */
     public static boolean isCheckEmailReport(Connection connection, String email) throws SQLException {
@@ -320,14 +288,12 @@ public class ControlWrite {
     /**
      * Проверка электронной почты.
      */
-    public static boolean isCheckEmailRequest(Connection connection, String email, long uin) throws SQLException {
+    public static boolean isCheckEmailRequest(Connection connection, String email) throws SQLException {
         if (isCheckEmail(email)) {
             PreparedStatement statement = connection
                     .prepareStatement(StatementSQL.select().selectActiveEmailRequest());
 
             statement.setString(1, email);
-            statement.setLong(2, uin);
-            statement.setString(3, email);
 
             return !statement.executeQuery().next();
         } else {
@@ -378,5 +344,12 @@ public class ControlWrite {
      */
     public static int writeResidencePermit(Connection connection, String jsonOne, String jsonTwo) throws SQLException {
         return ControlResidencePermit.writeResidencePermit(connection, jsonOne, jsonTwo);
+    }
+
+    /**
+     * Добавить гражданство в БД.
+     */
+    public static int writeCitizenship(Connection connection, String jsonOne, String jsonTwo) throws SQLException {
+        return ControlCitizenship.writeCitizenship(connection, jsonOne, jsonTwo);
     }
 }

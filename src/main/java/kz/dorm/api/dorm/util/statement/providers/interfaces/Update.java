@@ -11,9 +11,4 @@ public interface Update {
      * Сделать, как прочитанное заявление.
      */
     String updateRequestActive();
-
-    /**
-     * Обновить заявление.
-     */
-    String updateRequest();
 }

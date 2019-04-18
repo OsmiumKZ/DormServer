@@ -26,11 +26,6 @@ public class DormDelete {
                 statement.setInt(1, Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REQUEST_ID)));
                 ResultSet result = statement.executeQuery();
 
-                if (result.next())
-                    deleteParents(connection,
-                            result.getInt(DataConfig.DB_DORM_REQUEST_PARENT_ID_MOTHER),
-                            result.getInt(DataConfig.DB_DORM_REQUEST_PARENT_ID_FATHER));
-
                 statement = connection.prepareStatement(StatementSQL.delete().deleteRequestsId());
                 statement.setInt(1, Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REQUEST_ID)));
 
@@ -57,23 +52,6 @@ public class DormDelete {
             response.status(400);
 
             return HttpStatus.getCode(400).getMessage();
-        }
-    }
-
-    /**
-     * Удалить родителей.
-     */
-    private static void deleteParents(Connection connection, int mother, int father) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement(StatementSQL.delete().deleteParentId());
-
-        if (mother > 0) {
-            statement.setInt(1, mother);
-            statement.executeUpdate();
-        }
-
-        if (father > 0) {
-            statement.setInt(1, father);
-            statement.executeUpdate();
         }
     }
 }

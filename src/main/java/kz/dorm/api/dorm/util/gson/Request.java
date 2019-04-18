@@ -9,9 +9,9 @@ public class Request {
     @SerializedName(DataConfig.DB_DORM_REQUEST_ID)
     private final int id;
 
-    /* ИИН. */
-    @SerializedName(DataConfig.DB_DORM_REQUEST_UIN)
-    private final long uin;
+    /* Гражданство. */
+    @SerializedName(DataConfig.DB_DORM_REQUEST_CITIZENSHIP)
+    private final Citizenship citizenship;
 
     /* Электронная почта. */
     @SerializedName(DataConfig.DB_DORM_REQUEST_EMAIL)
@@ -77,9 +77,9 @@ public class Request {
     @SerializedName(DataConfig.DB_DORM_REQUEST_EDUCATIONAL_FORM_ID)
     private final int educationalFormId;
 
-    public Request(int id, long uin, String email, ResidencePermit residencePermit, String phone, String group, int genderId, RoomOne room, int dormId, int children, String dateResidence, String nameF, String nameL, String patronymic, Parent mother, Parent father, int active, int educationalFormId) {
+    public Request(int id, Citizenship citizenship, String email, ResidencePermit residencePermit, String phone, String group, int genderId, RoomOne room, int dormId, int children, String dateResidence, String nameF, String nameL, String patronymic, Parent mother, Parent father, int active, int educationalFormId) {
         this.id = id;
-        this.uin = uin;
+        this.citizenship = citizenship;
         this.email = email;
         this.residencePermit = residencePermit;
         this.phone = phone;

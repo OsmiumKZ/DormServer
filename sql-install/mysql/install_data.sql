@@ -367,12 +367,3 @@ INSERT INTO `rooms` (`rooms`.`id`, `rooms`.`number`, `rooms`.`max`, `rooms`.`flo
 INSERT INTO `rooms` (`rooms`.`id`, `rooms`.`number`, `rooms`.`max`, `rooms`.`symbol`, `rooms`.`floor_id`) VALUES (122, 79, 1, 'А', 7);
 INSERT INTO `rooms` (`rooms`.`id`, `rooms`.`number`, `rooms`.`max`, `rooms`.`symbol`, `rooms`.`floor_id`) VALUES (123, 79, 1, 'Б',  7);
 INSERT INTO `rooms` (`rooms`.`id`, `rooms`.`number`, `rooms`.`max`, `rooms`.`floor_id`) VALUES (124, 80, 4,  7);
-
-
-SELECT `residence_permit`.`country_id`,
-    `residence_permit`.`address`,
-    `cities`.`name`
-        AS `city`
-FROM `residence_permit`
-INNER JOIN `cities`
-    ON `residence_permit`.`city_id` = `cities`.`id`

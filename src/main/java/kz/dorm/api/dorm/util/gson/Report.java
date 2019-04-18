@@ -9,9 +9,9 @@ public class Report {
     @SerializedName(DataConfig.DB_DORM_REPORT_ID)
     private final int id;
 
-    /* ИИН. */
-    @SerializedName(DataConfig.DB_DORM_REPORT_UIN)
-    private final long uin;
+    /* Гражданство. */
+    @SerializedName(DataConfig.DB_DORM_REPORT_CITIZENSHIP)
+    private final Citizenship citizenship;
 
     /* Электронная почта. */
     @SerializedName(DataConfig.DB_DORM_REPORT_EMAIL)
@@ -85,9 +85,9 @@ public class Report {
     @SerializedName(DataConfig.DB_DORM_REPORT_GROUP)
     private final String group;
 
-    public Report(int id, long uin, String email, ResidencePermit residencePermit, String phone, int genderId, RoomOne room, int dormId, String dateCreate, String dateUpdate, int children, String dateResidence, String nameF, String nameL, String patronymic, Parent mother, Parent father, int statusId, int educationalFormId, String group) {
+    public Report(int id, Citizenship citizenship, String email, ResidencePermit residencePermit, String phone, int genderId, RoomOne room, int dormId, String dateCreate, String dateUpdate, int children, String dateResidence, String nameF, String nameL, String patronymic, Parent mother, Parent father, int statusId, int educationalFormId, String group) {
         this.id = id;
-        this.uin = uin;
+        this.citizenship = citizenship;
         this.email = email;
         this.residencePermit = residencePermit;
         this.phone = phone;

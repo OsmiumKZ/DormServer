@@ -6,9 +6,4 @@ public interface Delete {
      * Удаление заявки.
      */
     String deleteRequestsId();
-
-    /**
-     * Удаление родителя.
-     */
-    String deleteParentId();
 }

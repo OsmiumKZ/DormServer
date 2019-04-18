@@ -267,7 +267,7 @@ public class DormAPI {
              * Создать отчет.
              *
              * http://localhost/api/report ?
-             * & {@link DataConfig#DB_DORM_REPORT_UIN} = ИИН.
+             * & {@link DataConfig#DB_DORM_REPORT_CITIZENSHIP} = Гражданство.
              * & {@link DataConfig#DB_DORM_REPORT_GENDER_ID} = ID гендера.
              * & {@link DataConfig#DB_DORM_REPORT_ROOM_ID} = ID комнаты.
              * & {@link DataConfig#DB_DORM_NAME_F} = Имя.
@@ -305,7 +305,7 @@ public class DormAPI {
              * & {@link DataConfig#DB_DORM_NAME_F} = Имя.
              * & {@link DataConfig#DB_DORM_NAME_L} = Фамилия.
              * [&] {@link DataConfig#DB_DORM_PATRONYMIC} = ID статуса.
-             * & {@link DataConfig#DB_DORM_REQUEST_UIN} = ИИН.
+             * & {@link DataConfig#DB_DORM_REQUEST_CITIZENSHIP} = Гражданство.
              * & {@link DataConfig#DB_DORM_REQUEST_ROOM_ID} = ID комнаты.
              * [&] {@link DataConfig#DB_DORM_REQUEST_EMAIL} = Электронная почта.
              * [&] {@link DataConfig#DB_DORM_REQUEST_AS_FATHER} = Папа json.

@@ -26,8 +26,7 @@ public class DormPost {
      * Создать отчет.
      */
     public static String addReport(Request request, Response response) {
-        if (request.queryParams(DataConfig.DB_DORM_REPORT_UIN) != null &&
-                request.queryParams(DataConfig.DB_DORM_REPORT_GENDER_ID) != null &&
+        if (request.queryParams(DataConfig.DB_DORM_REPORT_GENDER_ID) != null &&
                 request.queryParams(DataConfig.DB_DORM_REPORT_ROOM_ID) != null &&
                 request.queryParams(DataConfig.DB_DORM_NAME_F) != null &&
                 request.queryParams(DataConfig.DB_DORM_NAME_L) != null &&
@@ -43,8 +42,6 @@ public class DormPost {
                 if (ControlWrite.isCheckRoom(connection,
                         Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REPORT_ROOM_ID)),
                         Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REPORT_GENDER_ID))) &&
-                        ControlWrite.isCheckUINReport(connection,
-                                Long.parseLong(request.queryParams(DataConfig.DB_DORM_REPORT_UIN))) &&
                         ControlWrite.isCheckGroup(request.queryParams(DataConfig.DB_DORM_REPORT_GROUP)) &&
                         Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REPORT_CHILDREN)) > 0 &&
                         ControlWrite.isCheckEducationalForm(connection,
@@ -60,7 +57,9 @@ public class DormPost {
                             .prepareStatement(StatementSQL.insert().insertReport());
 
                     statement.setLong(1,
-                            Long.parseLong(request.queryParams(DataConfig.DB_DORM_REPORT_UIN)));
+                            ControlWrite.writeCitizenship(connection,
+                                    request.headers(DataConfig.DB_DORM_REPORT_CITIZENSHIP),
+                                    request.queryParams(DataConfig.DB_DORM_REPORT_CITIZENSHIP)));
 
                     statement.setInt(2,
                             Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REPORT_GENDER_ID)));
@@ -120,8 +119,8 @@ public class DormPost {
 
                     statement.setInt(10,
                             ControlWrite.writeResidencePermit(connection,
-                                    request.headers(DataConfig.DB_DORM_RESIDENCE_PERMIT),
-                                    request.queryParams(DataConfig.DB_DORM_RESIDENCE_PERMIT)));
+                                    request.headers(DataConfig.DB_DORM_REPORT_RESIDENCE_PERMIT),
+                                    request.queryParams(DataConfig.DB_DORM_REPORT_RESIDENCE_PERMIT)));
 
                     if (statement.executeUpdate() > 0) {
                         response.status(201);
@@ -155,7 +154,6 @@ public class DormPost {
     public static String addRequest(Request request, Response response) {
         if (request.queryParams(DataConfig.DB_DORM_NAME_F) != null &&
                 request.queryParams(DataConfig.DB_DORM_NAME_L) != null &&
-                request.queryParams(DataConfig.DB_DORM_REQUEST_UIN) != null &&
                 request.queryParams(DataConfig.DB_DORM_REQUEST_ROOM_ID) != null &&
                 request.queryParams(DataConfig.DB_DORM_REQUEST_PHONE) != null &&
                 request.queryParams(DataConfig.DB_DORM_REQUEST_CHILDREN) != null &&
@@ -169,8 +167,6 @@ public class DormPost {
                 if (ControlWrite.isCheckRoom(connection,
                         Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REQUEST_ROOM_ID)),
                         Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REQUEST_GENDER_ID))) &&
-                        ControlWrite.isCheckUINRequest(connection,
-                                Long.parseLong(request.queryParams(DataConfig.DB_DORM_REQUEST_UIN))) &&
                         Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REQUEST_CHILDREN)) > 0 &&
                         ControlWrite.isCheckPhone(request.queryParams(DataConfig.DB_DORM_REQUEST_PHONE)) &&
                         ControlWrite.isCheckGroup(request.queryParams(DataConfig.DB_DORM_REQUEST_GROUP)) &&
@@ -180,15 +176,9 @@ public class DormPost {
                                 Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REQUEST_GENDER_ID))) &&
                         ControlWrite.isCheckNames(request.queryParams(DataConfig.DB_DORM_NAME_F),
                                 request.queryParams(DataConfig.DB_DORM_NAME_L))) {
-                    int oldRequestId = getOldRequestId(connection, request);
-                    PreparedStatement statement;
-
-                    if (oldRequestId > 0)
-                        statement = connection.prepareStatement(StatementSQL.update().updateRequest());
-                    else
-                        statement = connection
-                                .prepareStatement(StatementSQL.insert().insertRequest(),
-                                        Statement.RETURN_GENERATED_KEYS);
+                    PreparedStatement statement = connection
+                            .prepareStatement(StatementSQL.insert().insertRequest(),
+                                    Statement.RETURN_GENERATED_KEYS);
 
                     statement.setInt(1, ControlWrite.writeNameF(connection,
                             request.queryParams(DataConfig.DB_DORM_NAME_F)));
@@ -197,7 +187,9 @@ public class DormPost {
                             request.queryParams(DataConfig.DB_DORM_NAME_L)));
 
                     statement.setLong(4,
-                            Long.parseLong(request.queryParams(DataConfig.DB_DORM_REQUEST_UIN)));
+                            ControlWrite.writeCitizenship(connection,
+                                    request.headers(DataConfig.DB_DORM_REQUEST_CITIZENSHIP),
+                                    request.queryParams(DataConfig.DB_DORM_REQUEST_CITIZENSHIP)));
 
                     statement.setInt(5,
                             Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REQUEST_ROOM_ID)));
@@ -235,12 +227,8 @@ public class DormPost {
                     statement.setInt(17,
                             Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REQUEST_EDUCATIONAL_FORM_ID)));
 
-                    if (oldRequestId > 0)
-                        statement.setInt(18, oldRequestId);
-
                     if (ControlWrite.isCheckEmailRequest(connection,
-                            request.queryParams(DataConfig.DB_DORM_REQUEST_EMAIL),
-                            Long.parseLong(request.queryParams(DataConfig.DB_DORM_REQUEST_UIN)))) {
+                            request.queryParams(DataConfig.DB_DORM_REQUEST_EMAIL))) {
                         statement.setString(16, request.queryParams(DataConfig.DB_DORM_REQUEST_EMAIL));
                     } else {
                         if (DataConfig.DB_TYPE == EnumDBType.MYSQL)
@@ -251,66 +239,60 @@ public class DormPost {
 
                     statement.setInt(7,
                             ControlWrite.writeResidencePermit(connection,
-                                    request.headers(DataConfig.DB_DORM_RESIDENCE_PERMIT),
-                                    request.queryParams(DataConfig.DB_DORM_RESIDENCE_PERMIT)));
+                                    request.headers(DataConfig.DB_DORM_REQUEST_RESIDENCE_PERMIT),
+                                    request.queryParams(DataConfig.DB_DORM_REQUEST_RESIDENCE_PERMIT)));
 
                     statement.executeUpdate();
 
-                    if (oldRequestId > 0) {
-                        response.status(201);
+                    try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                        if (generatedKeys.next()) {
+                            response.status(201);
 
-                        return "{\"" + DataConfig.DB_DORM_REQUEST_ID + "\": " + oldRequestId + "}";
-                    } else {
-                        try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
-                            if (generatedKeys.next()) {
-                                response.status(201);
+                            if (request.queryParams(DataConfig.DB_DORM_REQUEST_EMAIL) != null) {
+                                String patronymic = null;
 
-                                if (request.queryParams(DataConfig.DB_DORM_REQUEST_EMAIL) != null) {
-                                    String patronymic = null;
+                                if (request.queryParams(DataConfig.DB_DORM_PATRONYMIC) != null &&
+                                        ControlWrite.isCheckText(request.queryParams(DataConfig.DB_DORM_PATRONYMIC)))
+                                    patronymic = request.queryParams(DataConfig.DB_DORM_PATRONYMIC);
 
-                                    if (request.queryParams(DataConfig.DB_DORM_PATRONYMIC) != null &&
-                                            ControlWrite.isCheckText(request.queryParams(DataConfig.DB_DORM_PATRONYMIC)))
-                                        patronymic = request.queryParams(DataConfig.DB_DORM_PATRONYMIC);
+                                Parent father = ControlParent
+                                        .parseParent(request.headers(DataConfig.DB_DORM_REQUEST_AS_FATHER),
+                                                request.queryParams(DataConfig.DB_DORM_REQUEST_AS_FATHER));
 
-                                    Parent father = ControlParent
-                                            .parseParent(request.headers(DataConfig.DB_DORM_REQUEST_AS_FATHER),
-                                                    request.queryParams(DataConfig.DB_DORM_REQUEST_AS_FATHER));
+                                Parent mother = ControlParent
+                                        .parseParent(request.headers(DataConfig.DB_DORM_REQUEST_AS_MOTHER),
+                                                request.queryParams(DataConfig.DB_DORM_REQUEST_AS_MOTHER));
 
-                                    Parent mother = ControlParent
-                                            .parseParent(request.headers(DataConfig.DB_DORM_REQUEST_AS_MOTHER),
-                                                    request.queryParams(DataConfig.DB_DORM_REQUEST_AS_MOTHER));
+                                File file = new File(DocxConstructor
+                                        .createRequest(request,
+                                                patronymic,
+                                                father,
+                                                mother,
+                                                Math.toIntExact(generatedKeys.getLong(1))));
 
-                                    File file = new File(DocxConstructor
-                                            .createRequest(request,
-                                                    patronymic,
-                                                    father,
-                                                    mother,
-                                                    Math.toIntExact(generatedKeys.getLong(1))));
+                                FileDataSource fileDataSource = new FileDataSource(file);
 
-                                    FileDataSource fileDataSource = new FileDataSource(file);
+                                MimeBodyPart attachmentPart = new MimeBodyPart();
+                                attachmentPart.setDataHandler(new DataHandler(fileDataSource));
+                                attachmentPart.setFileName(fileDataSource.getName());
 
-                                    MimeBodyPart attachmentPart = new MimeBodyPart();
-                                    attachmentPart.setDataHandler(new DataHandler(fileDataSource));
-                                    attachmentPart.setFileName(fileDataSource.getName());
+                                Multipart multipart = new MimeMultipart();
+                                multipart.addBodyPart(attachmentPart);
 
-                                    Multipart multipart = new MimeMultipart();
-                                    multipart.addBodyPart(attachmentPart);
+                                Email.sendMessage(request.queryParams(DataConfig.DB_DORM_REQUEST_EMAIL),
+                                        EmailMessage.CREATE_REQUEST,
+                                        request.queryParams(DataConfig.DB_DORM_NAME_F),
+                                        multipart);
 
-                                    Email.sendMessage(request.queryParams(DataConfig.DB_DORM_REQUEST_EMAIL),
-                                            EmailMessage.CREATE_REQUEST,
-                                            request.queryParams(DataConfig.DB_DORM_NAME_F),
-                                            multipart);
-
-                                    file.delete();
-                                }
-
-                                return "{\"" + DataConfig.DB_DORM_REQUEST_ID + "\": " +
-                                        Math.toIntExact(generatedKeys.getLong(1)) + "}";
-                            } else {
-                                response.status(500);
-
-                                return HttpStatus.getCode(500).getMessage();
+                                file.delete();
                             }
+
+                            return "{\"" + DataConfig.DB_DORM_REQUEST_ID + "\": " +
+                                    Math.toIntExact(generatedKeys.getLong(1)) + "}";
+                        } else {
+                            response.status(500);
+
+                            return HttpStatus.getCode(500).getMessage();
                         }
                     }
                 } else {
@@ -327,35 +309,6 @@ public class DormPost {
             response.status(400);
 
             return HttpStatus.getCode(400).getMessage();
-        }
-    }
-
-    /**
-     * Поиск на существование заявления, по ИИН.
-     */
-    private static int getOldRequestId(Connection connection, Request request) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement(StatementSQL.select().selectRequestUIN());
-        statement.setLong(1, Long.parseLong(request.queryParams(DataConfig.DB_DORM_REQUEST_UIN)));
-        ResultSet result = statement.executeQuery();
-        int id = 0;
-
-        if (result.next()) {
-            id = result.getInt(DataConfig.DB_DORM_REQUEST_ID);
-            deleteParent(connection, result.getInt(DataConfig.DB_DORM_REQUEST_PARENT_ID_FATHER));
-            deleteParent(connection, result.getInt(DataConfig.DB_DORM_REQUEST_PARENT_ID_MOTHER));
-        }
-
-        return id;
-    }
-
-    /**
-     * Удаление родителя по ID.
-     */
-    private static void deleteParent(Connection connection, int idParent) throws SQLException {
-        if (idParent > 0) {
-            PreparedStatement statement = connection.prepareStatement(StatementSQL.delete().deleteParentId());
-            statement.setInt(1, idParent);
-            statement.executeUpdate();
         }
     }
 }
