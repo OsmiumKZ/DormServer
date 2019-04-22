@@ -124,16 +124,7 @@ public class DormSelect implements Select {
                 "\t`" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_REPORT_DATE_CREATE + "`,\n" +
                 "\t`" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_REPORT_DATE_UPDATE + "`,\n" +
                 "\t`" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_REPORT_CHILDREN + "`,\n" +
-                "\t`" + DataConfig.DB_DORM_REPORT_AS_MOTHER + "`.`" + DataConfig.DB_DORM_PARENT_MOTHER_AS_ID + "`,\n" +
-                "\t`" + DataConfig.DB_DORM_REPORT_AS_MOTHER + "`.`" + DataConfig.DB_DORM_PARENT_MOTHER_AS_PHONE + "`,\n" +
-                "\t`" + DataConfig.DB_DORM_REPORT_AS_MOTHER + "`.`" + DataConfig.DB_DORM_PARENT_MOTHER_AS_NAME_F + "`,\n" +
-                "\t`" + DataConfig.DB_DORM_REPORT_AS_MOTHER + "`.`" + DataConfig.DB_DORM_PARENT_MOTHER_AS_NAME_L + "`,\n" +
-                "\t`" + DataConfig.DB_DORM_REPORT_AS_MOTHER + "`.`" + DataConfig.DB_DORM_PARENT_MOTHER_AS_PATRONYMIC + "`,\n" +
-                "\t`" + DataConfig.DB_DORM_REPORT_AS_FATHER + "`.`" + DataConfig.DB_DORM_PARENT_FATHER_AS_ID + "`,\n" +
-                "\t`" + DataConfig.DB_DORM_REPORT_AS_FATHER + "`.`" + DataConfig.DB_DORM_PARENT_FATHER_AS_PHONE + "`,\n" +
-                "\t`" + DataConfig.DB_DORM_REPORT_AS_FATHER + "`.`" + DataConfig.DB_DORM_PARENT_FATHER_AS_NAME_F + "`,\n" +
-                "\t`" + DataConfig.DB_DORM_REPORT_AS_FATHER + "`.`" + DataConfig.DB_DORM_PARENT_FATHER_AS_NAME_L + "`,\n" +
-                "\t`" + DataConfig.DB_DORM_REPORT_AS_FATHER + "`.`" + DataConfig.DB_DORM_PARENT_FATHER_AS_PATRONYMIC + "`,\n" +
+                "\t`" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_REPORT_SHELTER_ID + "`,\n" +
                 "\t`" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_REPORT_DATE_RESIDENCE + "`,\n" +
                 "\t`" + DataConfig.DB_DORM_NAME_F + "`.`" + DataConfig.DB_DORM_NAME_F_NAME + "`\n" +
                 "\t\tAS `" + DataConfig.DB_DORM_NAME_F + "`,\n" +
@@ -172,47 +163,7 @@ public class DormSelect implements Select {
                 "\tINNER JOIN `" + DataConfig.DB_DORM_FLOOR + "`\n" +
                 "\tON `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_FLOOR_ID + "`=`" + DataConfig.DB_DORM_FLOOR + "`.`" + DataConfig.DB_DORM_FLOOR_ID + "`)\n" +
                 "\tAS `" + DataConfig.DB_DORM_ROOM + "`\n" +
-                "ON `" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_REPORT_ROOM_ID + "`=`" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_ID + "`\n" +
-                "LEFT JOIN \n" +
-                "\t(SELECT `" + DataConfig.DB_DORM_PARENT + "`.`" + DataConfig.DB_DORM_PARENT_ID + "`\n" +
-                "\t\t\tAS `" + DataConfig.DB_DORM_PARENT_MOTHER_AS_ID + "`,\n" +
-                "\t\t`" + DataConfig.DB_DORM_PARENT + "`.`" + DataConfig.DB_DORM_PARENT_PHONE + "`\n" +
-                "\t\t\tAS `" + DataConfig.DB_DORM_PARENT_MOTHER_AS_PHONE + "`,\n" +
-                "\t\t`" + DataConfig.DB_DORM_NAME_F + "`.`" + DataConfig.DB_DORM_NAME_F_NAME + "`\n" +
-                "\t\t\tAS `" + DataConfig.DB_DORM_PARENT_MOTHER_AS_NAME_F + "`,\n" +
-                "\t\t`" + DataConfig.DB_DORM_NAME_L + "`.`" + DataConfig.DB_DORM_NAME_L_NAME + "`\n" +
-                "\t\t\tAS `" + DataConfig.DB_DORM_PARENT_MOTHER_AS_NAME_L + "`,\n" +
-                "\t\t`" + DataConfig.DB_DORM_PATRONYMIC + "`.`" + DataConfig.DB_DORM_PATRONYMIC_NAME + "`\n" +
-                "\t\t\tAS `" + DataConfig.DB_DORM_PARENT_MOTHER_AS_PATRONYMIC + "`\n" +
-                "\tFROM `" + DataConfig.DB_DORM_PARENT + "`\n" +
-                "\tINNER JOIN `" + DataConfig.DB_DORM_NAME_F + "`\n" +
-                "\tON `" + DataConfig.DB_DORM_PARENT + "`.`" + DataConfig.DB_DORM_PARENT_NAME_F_ID + "`=`" + DataConfig.DB_DORM_NAME_F + "`.`" + DataConfig.DB_DORM_NAME_F_ID + "`\n" +
-                "\tINNER JOIN `" + DataConfig.DB_DORM_NAME_L + "`\n" +
-                "\tON `" + DataConfig.DB_DORM_PARENT + "`.`" + DataConfig.DB_DORM_PARENT_NAME_L_ID + "`=`" + DataConfig.DB_DORM_NAME_L + "`.`" + DataConfig.DB_DORM_NAME_L_ID + "`\n" +
-                "\tLEFT JOIN `" + DataConfig.DB_DORM_PATRONYMIC + "`\n" +
-                "\tON `" + DataConfig.DB_DORM_PARENT + "`.`" + DataConfig.DB_DORM_PARENT_PATRONYMIC_ID + "`=`" + DataConfig.DB_DORM_PATRONYMIC + "`.`" + DataConfig.DB_DORM_PATRONYMIC_ID + "`)\n" +
-                "\tAS `" + DataConfig.DB_DORM_REPORT_AS_MOTHER + "`\n" +
-                "ON `" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_REPORT_PARENT_ID_MOTHER + "`=`" + DataConfig.DB_DORM_REPORT_AS_MOTHER + "`.`" + DataConfig.DB_DORM_PARENT_MOTHER_AS_ID + "`\n" +
-                "LEFT JOIN \n" +
-                "\t(SELECT `" + DataConfig.DB_DORM_PARENT + "`.`" + DataConfig.DB_DORM_PARENT_ID + "`\n" +
-                "\t\t\tAS `" + DataConfig.DB_DORM_PARENT_FATHER_AS_ID + "`,\n" +
-                "\t\t`" + DataConfig.DB_DORM_PARENT + "`.`" + DataConfig.DB_DORM_PARENT_PHONE + "`\n" +
-                "\t\t\tAS `" + DataConfig.DB_DORM_PARENT_FATHER_AS_PHONE + "`,\n" +
-                "\t\t`" + DataConfig.DB_DORM_NAME_F + "`.`" + DataConfig.DB_DORM_NAME_F_NAME + "`\n" +
-                "\t\t\tAS `" + DataConfig.DB_DORM_PARENT_FATHER_AS_NAME_F + "`,\n" +
-                "\t\t`" + DataConfig.DB_DORM_NAME_L + "`.`" + DataConfig.DB_DORM_NAME_L_NAME + "`\n" +
-                "\t\t\tAS `" + DataConfig.DB_DORM_PARENT_FATHER_AS_NAME_L + "`,\n" +
-                "\t\t`" + DataConfig.DB_DORM_PATRONYMIC + "`.`" + DataConfig.DB_DORM_PATRONYMIC_NAME + "`\n" +
-                "\t\t\tAS `" + DataConfig.DB_DORM_PARENT_FATHER_AS_PATRONYMIC + "`\n" +
-                "\tFROM `" + DataConfig.DB_DORM_PARENT + "`\n" +
-                "\tINNER JOIN `" + DataConfig.DB_DORM_NAME_F + "`\n" +
-                "\tON `" + DataConfig.DB_DORM_PARENT + "`.`" + DataConfig.DB_DORM_PARENT_NAME_F_ID + "`=`" + DataConfig.DB_DORM_NAME_F + "`.`" + DataConfig.DB_DORM_NAME_F_ID + "`\n" +
-                "\tINNER JOIN `" + DataConfig.DB_DORM_NAME_L + "`\n" +
-                "\tON `" + DataConfig.DB_DORM_PARENT + "`.`" + DataConfig.DB_DORM_PARENT_NAME_L_ID + "`=`" + DataConfig.DB_DORM_NAME_L + "`.`" + DataConfig.DB_DORM_NAME_L_ID + "`\n" +
-                "\tLEFT JOIN `" + DataConfig.DB_DORM_PATRONYMIC + "`\n" +
-                "\tON `" + DataConfig.DB_DORM_PARENT + "`.`" + DataConfig.DB_DORM_PARENT_PATRONYMIC_ID + "`=`" + DataConfig.DB_DORM_PATRONYMIC + "`.`" + DataConfig.DB_DORM_PATRONYMIC_ID + "`)\n" +
-                "\tAS `" + DataConfig.DB_DORM_REPORT_AS_FATHER + "`\n" +
-                "ON `" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_REPORT_PARENT_ID_FATHER + "`=`" + DataConfig.DB_DORM_REPORT_AS_FATHER + "`.`" + DataConfig.DB_DORM_PARENT_FATHER_AS_ID + "`\n";
+                "ON `" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_REPORT_ROOM_ID + "`=`" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_ID + "`";
     }
 
     /**
@@ -241,16 +192,7 @@ public class DormSelect implements Select {
                 "\t`" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_FLOOR_DORM_ID + "`,\n" +
                 "\t`" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_FLOOR_ID + "`,\n" +
                 "\t`" + DataConfig.DB_DORM_REQUEST + "`.`" + DataConfig.DB_DORM_REQUEST_CHILDREN + "`,\n" +
-                "\t`" + DataConfig.DB_DORM_REQUEST_AS_MOTHER + "`.`" + DataConfig.DB_DORM_PARENT_MOTHER_AS_ID + "`,\n" +
-                "\t`" + DataConfig.DB_DORM_REQUEST_AS_MOTHER + "`.`" + DataConfig.DB_DORM_PARENT_MOTHER_AS_PHONE + "`,\n" +
-                "\t`" + DataConfig.DB_DORM_REQUEST_AS_MOTHER + "`.`" + DataConfig.DB_DORM_PARENT_MOTHER_AS_NAME_F + "`,\n" +
-                "\t`" + DataConfig.DB_DORM_REQUEST_AS_MOTHER + "`.`" + DataConfig.DB_DORM_PARENT_MOTHER_AS_NAME_L + "`,\n" +
-                "\t`" + DataConfig.DB_DORM_REQUEST_AS_MOTHER + "`.`" + DataConfig.DB_DORM_PARENT_MOTHER_AS_PATRONYMIC + "`,\n" +
-                "\t`" + DataConfig.DB_DORM_REQUEST_AS_FATHER + "`.`" + DataConfig.DB_DORM_PARENT_FATHER_AS_ID + "`,\n" +
-                "\t`" + DataConfig.DB_DORM_REQUEST_AS_FATHER + "`.`" + DataConfig.DB_DORM_PARENT_FATHER_AS_PHONE + "`,\n" +
-                "\t`" + DataConfig.DB_DORM_REQUEST_AS_FATHER + "`.`" + DataConfig.DB_DORM_PARENT_FATHER_AS_NAME_F + "`,\n" +
-                "\t`" + DataConfig.DB_DORM_REQUEST_AS_FATHER + "`.`" + DataConfig.DB_DORM_PARENT_FATHER_AS_NAME_L + "`,\n" +
-                "\t`" + DataConfig.DB_DORM_REQUEST_AS_FATHER + "`.`" + DataConfig.DB_DORM_PARENT_FATHER_AS_PATRONYMIC + "`,\n" +
+                "\t`" + DataConfig.DB_DORM_REQUEST + "`.`" + DataConfig.DB_DORM_REQUEST_SHELTER_ID + "`,\n" +
                 "\t`" + DataConfig.DB_DORM_REQUEST + "`.`" + DataConfig.DB_DORM_REQUEST_DATE_RESIDENCE + "`,\n" +
                 "\t`" + DataConfig.DB_DORM_NAME_F + "`.`" + DataConfig.DB_DORM_NAME_F_NAME + "`\n" +
                 "\t\tAS `" + DataConfig.DB_DORM_NAME_F + "`,\n" +
@@ -277,7 +219,7 @@ public class DormSelect implements Select {
                 "LEFT JOIN `" + DataConfig.DB_DORM_PATRONYMIC + "`\n" +
                 "ON `" + DataConfig.DB_DORM_REQUEST + "`.`" + DataConfig.DB_DORM_REQUEST_PATRONYMIC_ID + "`=`" + DataConfig.DB_DORM_PATRONYMIC + "`.`" + DataConfig.DB_DORM_PATRONYMIC_ID + "`\n" +
                 "INNER JOIN `" + DataConfig.DB_DORM_CITIZENSHIP + "`\n" +
-                "ON `" + DataConfig.DB_DORM_REQUEST + "`.`" + DataConfig.DB_DORM_REQUEST_CITIZENSHIPS_ID + "`=`" + DataConfig.DB_DORM_CITIZENSHIP + "`.`" + DataConfig.DB_DORM_CITIZENSHIP_ID + "`\n" +
+                "ON `" + DataConfig.DB_DORM_REQUEST + "`.`" + DataConfig.DB_DORM_REQUEST_CITIZENSHIP_ID + "`=`" + DataConfig.DB_DORM_CITIZENSHIP + "`.`" + DataConfig.DB_DORM_CITIZENSHIP_ID + "`\n" +
                 "INNER JOIN\n" +
                 "\t(SELECT `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_ID + "`,\n" +
                 "\t\t`" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_NUMBER + "`, \n" +
@@ -289,47 +231,75 @@ public class DormSelect implements Select {
                 "\tINNER JOIN `" + DataConfig.DB_DORM_FLOOR + "`\n" +
                 "\tON `" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_FLOOR_ID + "`=`" + DataConfig.DB_DORM_FLOOR + "`.`" + DataConfig.DB_DORM_FLOOR_ID + "`)\n" +
                 "\tAS `" + DataConfig.DB_DORM_ROOM + "`\n" +
-                "ON `" + DataConfig.DB_DORM_REQUEST + "`.`" + DataConfig.DB_DORM_REQUEST_ROOM_ID + "`=`" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_ID + "`\n" +
-                "LEFT JOIN \n" +
-                "\t(SELECT `" + DataConfig.DB_DORM_PARENT + "`.`" + DataConfig.DB_DORM_PARENT_ID + "`\n" +
-                "\t\t\tAS `" + DataConfig.DB_DORM_PARENT_MOTHER_AS_ID + "`,\n" +
-                "\t\t`" + DataConfig.DB_DORM_PARENT + "`.`" + DataConfig.DB_DORM_PARENT_PHONE + "`\n" +
-                "\t\t\tAS `" + DataConfig.DB_DORM_PARENT_MOTHER_AS_PHONE + "`,\n" +
-                "\t\t`" + DataConfig.DB_DORM_NAME_F + "`.`" + DataConfig.DB_DORM_NAME_F_NAME + "`\n" +
-                "\t\t\tAS `" + DataConfig.DB_DORM_PARENT_MOTHER_AS_NAME_F + "`,\n" +
-                "\t\t`" + DataConfig.DB_DORM_NAME_L + "`.`" + DataConfig.DB_DORM_NAME_L_NAME + "`\n" +
-                "\t\t\tAS `" + DataConfig.DB_DORM_PARENT_MOTHER_AS_NAME_L + "`,\n" +
-                "\t\t`" + DataConfig.DB_DORM_PATRONYMIC + "`.`" + DataConfig.DB_DORM_PATRONYMIC_NAME + "`\n" +
-                "\t\t\tAS `" + DataConfig.DB_DORM_PARENT_MOTHER_AS_PATRONYMIC + "`\n" +
-                "\tFROM `" + DataConfig.DB_DORM_PARENT + "`\n" +
-                "\tINNER JOIN `" + DataConfig.DB_DORM_NAME_F + "`\n" +
-                "\tON `" + DataConfig.DB_DORM_PARENT + "`.`" + DataConfig.DB_DORM_PARENT_NAME_F_ID + "`=`" + DataConfig.DB_DORM_NAME_F + "`.`" + DataConfig.DB_DORM_NAME_F_ID + "`\n" +
-                "\tINNER JOIN `" + DataConfig.DB_DORM_NAME_L + "`\n" +
-                "\tON `" + DataConfig.DB_DORM_PARENT + "`.`" + DataConfig.DB_DORM_PARENT_NAME_L_ID + "`=`" + DataConfig.DB_DORM_NAME_L + "`.`" + DataConfig.DB_DORM_NAME_L_ID + "`\n" +
-                "\tLEFT JOIN `" + DataConfig.DB_DORM_PATRONYMIC + "`\n" +
-                "\tON `" + DataConfig.DB_DORM_PARENT + "`.`" + DataConfig.DB_DORM_PARENT_PATRONYMIC_ID + "`=`" + DataConfig.DB_DORM_PATRONYMIC + "`.`" + DataConfig.DB_DORM_PATRONYMIC_ID + "`)\n" +
-                "\tAS `" + DataConfig.DB_DORM_REQUEST_AS_MOTHER + "`\n" +
-                "ON `" + DataConfig.DB_DORM_REQUEST + "`.`" + DataConfig.DB_DORM_REQUEST_PARENT_ID_MOTHER + "`=`" + DataConfig.DB_DORM_REQUEST_AS_MOTHER + "`.`" + DataConfig.DB_DORM_PARENT_MOTHER_AS_ID + "`\n" +
-                "LEFT JOIN \n" +
-                "\t(SELECT `" + DataConfig.DB_DORM_PARENT + "`.`" + DataConfig.DB_DORM_PARENT_ID + "`\n" +
-                "\t\t\tAS `" + DataConfig.DB_DORM_PARENT_FATHER_AS_ID + "`,\n" +
-                "\t\t`" + DataConfig.DB_DORM_PARENT + "`.`" + DataConfig.DB_DORM_PARENT_PHONE + "`\n" +
-                "\t\t\tAS `" + DataConfig.DB_DORM_PARENT_FATHER_AS_PHONE + "`,\n" +
-                "\t\t`" + DataConfig.DB_DORM_NAME_F + "`.`" + DataConfig.DB_DORM_NAME_F_NAME + "`\n" +
-                "\t\t\tAS `" + DataConfig.DB_DORM_PARENT_FATHER_AS_NAME_F + "`,\n" +
-                "\t\t`" + DataConfig.DB_DORM_NAME_L + "`.`" + DataConfig.DB_DORM_NAME_L_NAME + "`\n" +
-                "\t\t\tAS `" + DataConfig.DB_DORM_PARENT_FATHER_AS_NAME_L + "`,\n" +
-                "\t\t`" + DataConfig.DB_DORM_PATRONYMIC + "`.`" + DataConfig.DB_DORM_PATRONYMIC_NAME + "`\n" +
-                "\t\t\tAS `" + DataConfig.DB_DORM_PARENT_FATHER_AS_PATRONYMIC + "`\n" +
-                "\tFROM `" + DataConfig.DB_DORM_PARENT + "`\n" +
-                "\tINNER JOIN `" + DataConfig.DB_DORM_NAME_F + "`\n" +
-                "\tON `" + DataConfig.DB_DORM_PARENT + "`.`" + DataConfig.DB_DORM_PARENT_NAME_F_ID + "`=`" + DataConfig.DB_DORM_NAME_F + "`.`" + DataConfig.DB_DORM_NAME_F_ID + "`\n" +
-                "\tINNER JOIN `" + DataConfig.DB_DORM_NAME_L + "`\n" +
-                "\tON `" + DataConfig.DB_DORM_PARENT + "`.`" + DataConfig.DB_DORM_PARENT_NAME_L_ID + "`=`" + DataConfig.DB_DORM_NAME_L + "`.`" + DataConfig.DB_DORM_NAME_L_ID + "`\n" +
-                "\tLEFT JOIN `" + DataConfig.DB_DORM_PATRONYMIC + "`\n" +
-                "\tON `" + DataConfig.DB_DORM_PARENT + "`.`" + DataConfig.DB_DORM_PARENT_PATRONYMIC_ID + "`=`" + DataConfig.DB_DORM_PATRONYMIC + "`.`" + DataConfig.DB_DORM_PATRONYMIC_ID + "`)\n" +
-                "\tAS `" + DataConfig.DB_DORM_REQUEST_AS_FATHER + "`\n" +
-                "ON `" + DataConfig.DB_DORM_REQUEST + "`.`" + DataConfig.DB_DORM_REQUEST_PARENT_ID_FATHER + "`=`" + DataConfig.DB_DORM_REQUEST_AS_FATHER + "`.`" + DataConfig.DB_DORM_PARENT_FATHER_AS_ID + "`\n";
+                "ON `" + DataConfig.DB_DORM_REQUEST + "`.`" + DataConfig.DB_DORM_REQUEST_ROOM_ID + "`=`" + DataConfig.DB_DORM_ROOM + "`.`" + DataConfig.DB_DORM_ROOM_ID + "`";
+    }
+
+    /**
+     * Получить родителя.
+     */
+    @Override
+    public String selectParent() {
+        return "SELECT `" + DataConfig.DB_DORM_PARENT + "`.`" + DataConfig.DB_DORM_PARENT_PHONE + "`,\n" +
+                "\t`" + DataConfig.DB_DORM_NAME_F + "`.`" + DataConfig.DB_DORM_NAME_F_NAME + "`\n" +
+                "\t\tAS `" + DataConfig.DB_DORM_NAME_F + "`,\n" +
+                "\t`" + DataConfig.DB_DORM_NAME_L + "`.`" + DataConfig.DB_DORM_NAME_L_NAME + "`\n" +
+                "\t\tAS `" + DataConfig.DB_DORM_NAME_L + "`,\n" +
+                "\t`" + DataConfig.DB_DORM_PATRONYMIC + "`.`" + DataConfig.DB_DORM_PATRONYMIC_NAME + "`\n" +
+                "\t\tAS `" + DataConfig.DB_DORM_PATRONYMIC + "`\n" +
+                "FROM `" + DataConfig.DB_DORM_PARENT + "`\n" +
+                "INNER JOIN `" + DataConfig.DB_DORM_NAME_F + "`\n" +
+                "ON `" + DataConfig.DB_DORM_PARENT + "`.`" + DataConfig.DB_DORM_PARENT_NAME_F_ID + "`=`" + DataConfig.DB_DORM_NAME_F + "`.`" + DataConfig.DB_DORM_NAME_F_ID + "`\n" +
+                "INNER JOIN `" + DataConfig.DB_DORM_NAME_L + "`\n" +
+                "ON `" + DataConfig.DB_DORM_PARENT + "`.`" + DataConfig.DB_DORM_PARENT_NAME_L_ID + "`=`" + DataConfig.DB_DORM_NAME_L + "`.`" + DataConfig.DB_DORM_NAME_L_ID + "`\n" +
+                "LEFT JOIN `" + DataConfig.DB_DORM_PATRONYMIC + "`\n" +
+                "ON `" + DataConfig.DB_DORM_PARENT + "`.`" + DataConfig.DB_DORM_PARENT_PATRONYMIC_ID + "`=`" + DataConfig.DB_DORM_PATRONYMIC + "`.`" + DataConfig.DB_DORM_PATRONYMIC_ID + "`\n" +
+                "WHERE `" + DataConfig.DB_DORM_PARENT + "`.`" + DataConfig.DB_DORM_PARENT_ID + "`=?";
+    }
+
+    /**
+     * Получить опекуна.
+     */
+    @Override
+    public String selectGuardian() {
+        return "SELECT `" + DataConfig.DB_DORM_GUARDIAN + "`.`" + DataConfig.DB_DORM_GUARDIAN_PHONE + "`,\n" +
+                "\t`" + DataConfig.DB_DORM_NAME_F + "`.`" + DataConfig.DB_DORM_NAME_F_NAME + "`\n" +
+                "\t\tAS `" + DataConfig.DB_DORM_NAME_F + "`,\n" +
+                "\t`" + DataConfig.DB_DORM_NAME_L + "`.`" + DataConfig.DB_DORM_NAME_L_NAME + "`\n" +
+                "\t\tAS `" + DataConfig.DB_DORM_NAME_L + "`,\n" +
+                "\t`" + DataConfig.DB_DORM_PATRONYMIC + "`.`" + DataConfig.DB_DORM_PATRONYMIC_NAME + "`\n" +
+                "\t\tAS `" + DataConfig.DB_DORM_PATRONYMIC + "`\n" +
+                "FROM `" + DataConfig.DB_DORM_GUARDIAN + "`\n" +
+                "INNER JOIN `" + DataConfig.DB_DORM_NAME_F + "`\n" +
+                "ON `" + DataConfig.DB_DORM_GUARDIAN + "`.`" + DataConfig.DB_DORM_GUARDIAN_NAME_F_ID + "`=`" + DataConfig.DB_DORM_NAME_F + "`.`" + DataConfig.DB_DORM_NAME_F_ID + "`\n" +
+                "INNER JOIN `" + DataConfig.DB_DORM_NAME_L + "`\n" +
+                "ON `" + DataConfig.DB_DORM_GUARDIAN + "`.`" + DataConfig.DB_DORM_GUARDIAN_NAME_L_ID + "`=`" + DataConfig.DB_DORM_NAME_L + "`.`" + DataConfig.DB_DORM_NAME_L_ID + "`\n" +
+                "LEFT JOIN `" + DataConfig.DB_DORM_PATRONYMIC + "`\n" +
+                "ON `" + DataConfig.DB_DORM_GUARDIAN + "`.`" + DataConfig.DB_DORM_GUARDIAN_PATRONYMIC_ID + "`=`" + DataConfig.DB_DORM_PATRONYMIC + "`.`" + DataConfig.DB_DORM_PATRONYMIC_ID + "`\n" +
+                "WHERE `" + DataConfig.DB_DORM_GUARDIAN + "`.`" + DataConfig.DB_DORM_GUARDIAN_ID + "`=?";
+    }
+
+    /**
+     * Получить детский дом.
+     */
+    @Override
+    public String selectOrphanage() {
+        return "SELECT `" + DataConfig.DB_DORM_ORPHANAGE + "`.`" + DataConfig.DB_DORM_ORPHANAGE_ADDRESS + "`,\n" +
+                "\t`" + DataConfig.DB_DORM_ORPHANAGE + "`.`" + DataConfig.DB_DORM_ORPHANAGE_PHONE + "`\n" +
+                "FROM `" + DataConfig.DB_DORM_ORPHANAGE + "`\n" +
+                "WHERE `" + DataConfig.DB_DORM_ORPHANAGE + "`.`" + DataConfig.DB_DORM_ORPHANAGE_ID + "`=?";
+    }
+
+    /**
+     * Получить приют.
+     */
+    @Override
+    public String selectShelter() {
+        return "SELECT `" + DataConfig.DB_DORM_SHELTER + "`.`" + DataConfig.DB_DORM_SHELTER_PARENT_MOTHER_ID + "`,\n" +
+                "\t`" + DataConfig.DB_DORM_SHELTER + "`.`" + DataConfig.DB_DORM_SHELTER_PARENT_FATHER_ID + "`,\n" +
+                "\t`" + DataConfig.DB_DORM_SHELTER + "`.`" + DataConfig.DB_DORM_SHELTER_GUARDIAN_ID + "`,\n" +
+                "\t`" + DataConfig.DB_DORM_SHELTER + "`.`" + DataConfig.DB_DORM_SHELTER_ORPHANAGE_ID + "`\n" +
+                "FROM `" + DataConfig.DB_DORM_SHELTER + "`\n" +
+                "WHERE `" + DataConfig.DB_DORM_SHELTER + "`.`" + DataConfig.DB_DORM_SHELTER_ID + "`=?";
     }
 
     /**

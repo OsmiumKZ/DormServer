@@ -86,8 +86,7 @@ CREATE TABLE `genders` (
 -- `phone` - Телефон
 -- `children` - Сколько в семье детей.
 -- `date_residence` - Дата начала проживания.
--- `parent_id_mother` - ID таблицы `parents` - Мама
--- `parent_id_father` - ID таблицы `parents` - Папа
+-- `shelter_id` - ID приюта
 -- `name_f` - Имя
 -- `name_l` - Фамилия
 -- `patronymic` - Отчество
@@ -107,8 +106,7 @@ CREATE TABLE `reports` (
 	`phone` VARCHAR(15) NOT NULL,
 	`children` INT NOT NULL,
 	`date_residence` DATE NOT NULL,
-	`parent_id_mother` INT NULL,
-	`parent_id_father` INT NULL,
+	`shelter_id` INT NOT NULL,
 	`name_f_id` VARCHAR(40) NOT NULL,
 	`name_l_id` VARCHAR(40) NOT NULL,
 	`patronymic_id` VARCHAR(40) NULL,
@@ -188,8 +186,7 @@ CREATE TABLE `accounts` (
 -- `group` - Группа
 -- `room_id` - ID комнаты
 -- `gender_id` - ID пола
--- `parent_id_mother` - ID таблицы `parents` - Мама
--- `parent_id_father` - ID таблицы `parents` - Папа
+-- `shelter_id` - ID приюта
 -- `children` - Сколько в семье детей.
 -- `date_residence` - Дата начала проживания.
 -- `date_residence` - Дата создания.
@@ -209,8 +206,7 @@ CREATE TABLE `requests` (
 	`group` VARCHAR(10) NOT NULL,
 	`room_id` INT NOT NULL,
 	`gender_id` INT NOT NULL,
-	`parent_id_mother` INT NULL,
-	`parent_id_father` INT NULL,
+	`shelter_id` INT NOT NULL,
 	`children` INT NOT NULL,
 	`date_residence` DATE NOT NULL,
 	`date_create` DATETIME NOT NULL,
@@ -227,11 +223,11 @@ CREATE TABLE `requests` (
 --
 -- Структура таблицы "Родитель"
 --
--- `id` - ID родителя
--- `name_f_id` - Имя
--- `name_l_id` - Фамилия
--- `patronymic_id` - Отчество
--- `phone` - Телефон
+-- `id` - ID родителя.
+-- `name_f_id` - Имя.
+-- `name_l_id` - Фамилия.
+-- `patronymic_id` - Отчество.
+-- `phone` - Телефон.
 --
 
 CREATE TABLE `parents` (
@@ -243,7 +239,69 @@ CREATE TABLE `parents` (
 	PRIMARY KEY (`id`)) 
 	ENGINE = InnoDB
 	DEFAULT CHARACTER SET = utf8;
-	
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы "Опекун"
+--
+-- `id` - ID опекуна.
+-- `name_f_id` - Имя.
+-- `name_l_id` - Фамилия.
+-- `patronymic_id` - Отчество.
+-- `phone` - Телефон.
+--
+
+CREATE TABLE `guardians` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`name_f_id` INT NOT NULL,
+	`name_l_id` INT NOT NULL,
+	`patronymic_id` INT NULL,
+	`phone` VARCHAR(15) NOT NULL,
+	PRIMARY KEY (`id`))
+	ENGINE = InnoDB
+	DEFAULT CHARACTER SET = utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы "Детский дом"
+--
+-- `id` - ID детского дома.
+-- `address` - Адрес.
+-- `phone` - Телефон.
+--
+
+CREATE TABLE `orphanages` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`address` VARCHAR(140) NOT NULL,
+	`phone` VARCHAR(15) NOT NULL,
+	PRIMARY KEY (`id`))
+	ENGINE = InnoDB
+	DEFAULT CHARACTER SET = utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы "Приют"
+--
+-- `id` - ID приюта.
+-- `parent_mother_id` - ID мамы.
+-- `parent_father_id` - ID папы.
+-- `guardian_id` - ID опекуна.
+-- `orphanage_id` - ID детского дома.
+--
+
+CREATE TABLE `shelters` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`parent_mother_id` INT NULL,
+	`parent_father_id` INT NULL,
+	`guardian_id` INT NULL,
+	`orphanage_id` INT NULL,
+	PRIMARY KEY (`id`))
+	ENGINE = InnoDB
+	DEFAULT CHARACTER SET = utf8;
+
 -- --------------------------------------------------------
 
 --

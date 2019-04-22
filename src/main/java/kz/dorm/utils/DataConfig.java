@@ -99,15 +99,15 @@ public class DataConfig {
     public static final String DB_DORM_REQUEST_NAME_L_ID = "name_l_id";
     public static final String DB_DORM_REQUEST_PATRONYMIC_ID = "patronymic_id";
     public static final String DB_DORM_REQUEST_CITIZENSHIP = "citizenship";
-    public static final String DB_DORM_REQUEST_CITIZENSHIPS_ID = "citizenship_id";
+    public static final String DB_DORM_REQUEST_CITIZENSHIP_ID = "citizenship_id";
     public static final String DB_DORM_REQUEST_ROOM_ID = "room_id";
     public static final String DB_DORM_REQUEST_GENDER_ID = "gender_id";
     public static final String DB_DORM_REQUEST_EMAIL = "email";
     public static final String DB_DORM_REQUEST_RESIDENCE_PERMIT_ID = "residence_permit_id";
     public static final String DB_DORM_REQUEST_PHONE = "phone";
     public static final String DB_DORM_REQUEST_GROUP = "group";
-    public static final String DB_DORM_REQUEST_PARENT_ID_MOTHER = "parent_id_mother";
-    public static final String DB_DORM_REQUEST_PARENT_ID_FATHER = "parent_id_father";
+    public static final String DB_DORM_REQUEST_SHELTER_ID = "shelter_id";
+    public static final String DB_DORM_REQUEST_SHELTER = "shelter";
     public static final String DB_DORM_REQUEST_CHILDREN = "children";
     public static final String DB_DORM_REQUEST_DATE_RESIDENCE = "date_residence";
     public static final String DB_DORM_REQUEST_ACTIVE = "active";
@@ -147,8 +147,8 @@ public class DataConfig {
     public static final String DB_DORM_REPORT_PHONE = "phone";
     public static final String DB_DORM_REPORT_CHILDREN = "children";
     public static final String DB_DORM_REPORT_DATE_RESIDENCE = "date_residence";
-    public static final String DB_DORM_REPORT_PARENT_ID_MOTHER = "parent_id_mother";
-    public static final String DB_DORM_REPORT_PARENT_ID_FATHER = "parent_id_father";
+    public static final String DB_DORM_REPORT_SHELTER_ID = "shelter_id";
+    public static final String DB_DORM_REPORT_SHELTER = "shelter";
     public static final String DB_DORM_REPORT_AS_MOTHER = "mother";
     public static final String DB_DORM_REPORT_AS_FATHER = "father";
     public static final String DB_DORM_REPORT_EDUCATIONAL_FORM_ID = "educational_form_id";
@@ -198,4 +198,27 @@ public class DataConfig {
     public static final String DB_DORM_CITIZENSHIP_COUNTRY_ID = "country_id";
     public static final String DB_DORM_CITIZENSHIP_NUMBER = "number";
     public static final String DB_DORM_CITIZENSHIP_NUMBER_AS_CITIZENSHIP_NUMBER = "citizenship_number";
+
+    public static final String DB_DORM_GUARDIAN = "guardians";
+    public static final String DB_DORM_GUARDIAN_ID = "id";
+    public static final String DB_DORM_GUARDIAN_NAME_F_ID = "name_f_id";
+    public static final String DB_DORM_GUARDIAN_NAME_L_ID = "name_l_id";
+    public static final String DB_DORM_GUARDIAN_PATRONYMIC_ID = "patronymic_id";
+    public static final String DB_DORM_GUARDIAN_PHONE = "phone";
+
+    public static final String DB_DORM_ORPHANAGE = "orphanages";
+    public static final String DB_DORM_ORPHANAGE_ID = "id";
+    public static final String DB_DORM_ORPHANAGE_ADDRESS = "address";
+    public static final String DB_DORM_ORPHANAGE_PHONE = "phone";
+
+    public static final String DB_DORM_SHELTER = "shelters";
+    public static final String DB_DORM_SHELTER_ID = "id";
+    public static final String DB_DORM_SHELTER_PARENT_MOTHER_ID = "parent_mother_id";
+    public static final String DB_DORM_SHELTER_PARENT_MOTHER = "parent_mother";
+    public static final String DB_DORM_SHELTER_PARENT_FATHER_ID = "parent_father_id";
+    public static final String DB_DORM_SHELTER_PARENT_FATHER = "parent_father";
+    public static final String DB_DORM_SHELTER_GUARDIAN_ID = "guardian_id";
+    public static final String DB_DORM_SHELTER_GUARDIAN = "guardian";
+    public static final String DB_DORM_SHELTER_ORPHANAGE_ID = "orphanage_id";
+    public static final String DB_DORM_SHELTER_ORPHANAGE = "orphanage";
 }

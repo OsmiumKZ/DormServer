@@ -1,6 +1,6 @@
 package kz.dorm.utils.control;
 
-import kz.dorm.api.dorm.util.gson.Parent;
+import kz.dorm.api.dorm.util.gson.shelters.Parent;
 import kz.dorm.api.dorm.util.statement.providers.StatementSQL;
 import kz.dorm.utils.DataBase;
 import kz.dorm.utils.DataConfig;
@@ -106,10 +106,10 @@ public class ControlWrite {
     }
 
     /**
-     * Добавить родителя.
+     * Добавить приют.
      */
-    public static int writeParent(Connection connection, String jsonOne, String jsonTwo) throws SQLException {
-        return ControlParent.writeParent(connection, jsonOne, jsonTwo);
+    public static int writeShelter(Connection connection, String jsonOne, String jsonTwo) throws SQLException {
+        return ControlShelter.writeShelter(connection, jsonOne, jsonTwo);
     }
 
     /**

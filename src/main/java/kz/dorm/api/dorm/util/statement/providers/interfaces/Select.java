@@ -159,4 +159,24 @@ public interface Select {
      * Получить город по названию.
      */
     String selectCityName();
+
+    /**
+     * Получить родителя.
+     */
+    String selectParent();
+
+    /**
+     * Получить опекуна.
+     */
+    String selectGuardian();
+
+    /**
+     * Получить детский дом.
+     */
+    String selectOrphanage();
+
+    /**
+     * Получить приют.
+     */
+    String selectShelter();
 }

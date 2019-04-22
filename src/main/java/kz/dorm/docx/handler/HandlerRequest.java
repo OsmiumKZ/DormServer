@@ -1,6 +1,5 @@
 package kz.dorm.docx.handler;
 
-import kz.dorm.api.dorm.util.gson.Parent;
 import kz.dorm.docx.util.DataConfigRequest;
 import kz.dorm.utils.control.ControlWrite;
 import kz.dorm.utils.DateText;
@@ -10,7 +9,6 @@ import org.docx4j.openpackaging.exceptions.Docx4JException;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
 import org.docx4j.wml.ContentAccessor;
-import org.docx4j.wml.P;
 import padeg.lib.Padeg;
 
 import javax.xml.bind.JAXBException;
@@ -24,9 +22,8 @@ public class HandlerRequest {
      */
     public static String create(String name_f, String name_l, String patronymic,
                                 String group, int dormId, String date_residence,
-                                String children, String phone, Parent father,
-                                Parent mother, String address, String genderId,
-                                String number) {
+                                String children, String phone, String address,
+                                String genderId, String number) {
         String outFileName = "docs/request_" + phone.substring(1) + ".docx";
         File fileOut = new File(outFileName);
         File file = new File("docs/patterns/request.docx");
@@ -45,7 +42,6 @@ public class HandlerRequest {
             header(map, student, group, phone);
             name(map);
             text(map, dormId, date_residence, children);
-            parent(map, documentPart, father, mother);
             address(map, address);
             rule(map, Integer.parseInt(genderId));
             verification(map, student);
@@ -97,46 +93,6 @@ public class HandlerRequest {
         map.put(DataConfigRequest.DOC_KEY_TEXT_CHILD, DataConfigRequest.DOC_TEXT_CHILD);
         map.put(DataConfigRequest.DOC_KEY_TEXT_CHILD_WRITE, children);
         map.put(DataConfigRequest.DOC_KEY_TEXT_CHILDREN, textChildren(children));
-    }
-
-    /**
-     * Заполнение родительской информации.
-     */
-    private static void parent(Map<String, String> map, MainDocumentPart documentPart,
-                               Parent father, Parent mother) {
-        if (father != null ||
-                mother != null) {
-            map.put(DataConfigRequest.DOC_KEY_PARENT, DataConfigRequest.DOC_PARENT);
-
-            if (father != null) {
-                map.put(DataConfigRequest.DOC_KEY_PARENT_FATHER,
-                        DataConfigRequest.DOC_PARENT_FATHER);
-
-                map.put(DataConfigRequest.DOC_KEY_PARENT_FATHER_FULL_NAME_WRITE,
-                        ControlWrite.getFullName(father));
-
-                map.put(DataConfigRequest.DOC_KEY_PARENT_FATHER_PHONE_WRITE,
-                        father.getPhone());
-            } else {
-                remove(documentPart, P.class, 13);
-            }
-
-            if (mother != null) {
-                map.put(DataConfigRequest.DOC_KEY_PARENT_MOTHER,
-                        DataConfigRequest.DOC_PARENT_MOTHER);
-
-                map.put(DataConfigRequest.DOC_KEY_PARENT_MOTHER_FULL_NAME_WRITE,
-                        ControlWrite.getFullName(mother));
-
-                map.put(DataConfigRequest.DOC_KEY_PARENT_MOTHER_PHONE_WRITE,
-                        mother.getPhone());
-            } else {
-                remove(documentPart, P.class, 14);
-            }
-        } else {
-            for (int i = 0; i < 4; i++)
-                remove(documentPart, P.class, 11);
-        }
     }
 
     /**

@@ -2,12 +2,15 @@ package kz.dorm.api.dorm.crud;
 
 import com.google.gson.Gson;
 import kz.dorm.api.dorm.util.gson.*;
+import kz.dorm.api.dorm.util.gson.shelters.Guardian;
+import kz.dorm.api.dorm.util.gson.shelters.Orphanage;
+import kz.dorm.api.dorm.util.gson.shelters.Parent;
+import kz.dorm.api.dorm.util.gson.shelters.Shelter;
 import kz.dorm.api.dorm.util.statement.providers.StatementSQL;
 import kz.dorm.api.dorm.util.statement.providers.sort.EnumSortReport;
 import kz.dorm.api.dorm.util.statement.providers.sort.EnumSortRequest;
 import kz.dorm.docx.DocxConstructor;
 import kz.dorm.utils.*;
-import kz.dorm.utils.control.ControlParent;
 import kz.dorm.utils.control.ControlWrite;
 import kz.dorm.utils.token.Token;
 import org.eclipse.jetty.http.HttpStatus;
@@ -22,6 +25,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,16 +99,16 @@ public class DormGet {
 
             while (result.next())
                 dormDB.getEducationalForms()
-                .add(new EducationalForm(result.getInt(DataConfig.DB_DORM_EDUCATIONAL_FORM_ID),
-                        result.getInt(DataConfig.DB_DORM_EDUCATIONAL_FORM_NAME_ID)));
+                        .add(new EducationalForm(result.getInt(DataConfig.DB_DORM_EDUCATIONAL_FORM_ID),
+                                result.getInt(DataConfig.DB_DORM_EDUCATIONAL_FORM_NAME_ID)));
 
             statement = connection.prepareStatement(StatementSQL.select().selectCountries());
             result = statement.executeQuery();
 
             while (result.next())
                 dormDB.getCountries()
-                .add(new Country(result.getInt(DataConfig.DB_DORM_COUNTRY_ID),
-                        result.getString(DataConfig.DB_DORM_COUNTRY_NAME)));
+                        .add(new Country(result.getInt(DataConfig.DB_DORM_COUNTRY_ID),
+                                result.getString(DataConfig.DB_DORM_COUNTRY_NAME)));
 
             response.status(200);
 
@@ -277,14 +281,7 @@ public class DormGet {
                         result.getString(DataConfig.DB_DORM_NAME_F),
                         result.getString(DataConfig.DB_DORM_NAME_L),
                         result.getString(DataConfig.DB_DORM_PATRONYMIC),
-                        new Parent(result.getString(DataConfig.DB_DORM_PARENT_MOTHER_AS_NAME_F),
-                                result.getString(DataConfig.DB_DORM_PARENT_MOTHER_AS_NAME_L),
-                                result.getString(DataConfig.DB_DORM_PARENT_MOTHER_AS_PATRONYMIC),
-                                result.getString(DataConfig.DB_DORM_PARENT_MOTHER_AS_PHONE)),
-                        new Parent(result.getString(DataConfig.DB_DORM_PARENT_FATHER_AS_NAME_F),
-                                result.getString(DataConfig.DB_DORM_PARENT_FATHER_AS_NAME_L),
-                                result.getString(DataConfig.DB_DORM_PARENT_FATHER_AS_PATRONYMIC),
-                                result.getString(DataConfig.DB_DORM_PARENT_FATHER_AS_PHONE)),
+                        getShelter(connection, result.getInt(DataConfig.DB_DORM_REPORT_SHELTER_ID)),
                         result.getInt(DataConfig.DB_DORM_REPORT_STATUS_ID),
                         result.getInt(DataConfig.DB_DORM_REPORT_EDUCATIONAL_FORM_ID),
                         result.getString(DataConfig.DB_DORM_REPORT_GROUP)));
@@ -358,14 +355,7 @@ public class DormGet {
                         result.getString(DataConfig.DB_DORM_NAME_F),
                         result.getString(DataConfig.DB_DORM_NAME_L),
                         result.getString(DataConfig.DB_DORM_PATRONYMIC),
-                        new Parent(result.getString(DataConfig.DB_DORM_PARENT_MOTHER_AS_NAME_F),
-                                result.getString(DataConfig.DB_DORM_PARENT_MOTHER_AS_NAME_L),
-                                result.getString(DataConfig.DB_DORM_PARENT_MOTHER_AS_PATRONYMIC),
-                                result.getString(DataConfig.DB_DORM_PARENT_MOTHER_AS_PHONE)),
-                        new Parent(result.getString(DataConfig.DB_DORM_PARENT_FATHER_AS_NAME_F),
-                                result.getString(DataConfig.DB_DORM_PARENT_FATHER_AS_NAME_L),
-                                result.getString(DataConfig.DB_DORM_PARENT_FATHER_AS_PATRONYMIC),
-                                result.getString(DataConfig.DB_DORM_PARENT_FATHER_AS_PHONE)),
+                        getShelter(connection, result.getInt(DataConfig.DB_DORM_REQUEST_SHELTER_ID)),
                         result.getInt(DataConfig.DB_DORM_REQUEST_ACTIVE),
                         result.getInt(DataConfig.DB_DORM_REQUEST_EDUCATIONAL_FORM_ID)));
 
@@ -416,14 +406,7 @@ public class DormGet {
                                     result.getString(DataConfig.DB_DORM_NAME_F),
                                     result.getString(DataConfig.DB_DORM_NAME_L),
                                     result.getString(DataConfig.DB_DORM_PATRONYMIC),
-                                    new Parent(result.getString(DataConfig.DB_DORM_PARENT_MOTHER_AS_NAME_F),
-                                            result.getString(DataConfig.DB_DORM_PARENT_MOTHER_AS_NAME_L),
-                                            result.getString(DataConfig.DB_DORM_PARENT_MOTHER_AS_PATRONYMIC),
-                                            result.getString(DataConfig.DB_DORM_PARENT_MOTHER_AS_PHONE)),
-                                    new Parent(result.getString(DataConfig.DB_DORM_PARENT_FATHER_AS_NAME_F),
-                                            result.getString(DataConfig.DB_DORM_PARENT_FATHER_AS_NAME_L),
-                                            result.getString(DataConfig.DB_DORM_PARENT_FATHER_AS_PATRONYMIC),
-                                            result.getString(DataConfig.DB_DORM_PARENT_FATHER_AS_PHONE)),
+                                    getShelter(connection, result.getInt(DataConfig.DB_DORM_REQUEST_SHELTER_ID)),
                                     result.getInt(DataConfig.DB_DORM_REQUEST_ACTIVE),
                                     result.getInt(DataConfig.DB_DORM_REQUEST_EDUCATIONAL_FORM_ID)));
 
@@ -483,17 +466,11 @@ public class DormGet {
                             request.queryParams(DataConfig.DB_DORM_NAME_L))) {
                 String patronymic = null;
 
-                Parent father = ControlParent.parseParent(request.headers(DataConfig.DB_DORM_REQUEST_AS_FATHER),
-                        request.queryParams(DataConfig.DB_DORM_REQUEST_AS_FATHER));
-
-                Parent mother = ControlParent.parseParent(request.headers(DataConfig.DB_DORM_REQUEST_AS_MOTHER),
-                        request.queryParams(DataConfig.DB_DORM_REQUEST_AS_MOTHER));
-
                 if (request.queryParams(DataConfig.DB_DORM_PATRONYMIC) != null &&
                         ControlWrite.isCheckText(request.queryParams(DataConfig.DB_DORM_PATRONYMIC)))
                     patronymic = request.queryParams(DataConfig.DB_DORM_PATRONYMIC);
 
-                File file = new File(DocxConstructor.createRequest(request, patronymic, father, mother));
+                File file = new File(DocxConstructor.createRequest(request, patronymic));
 
                 response.header("Content-Disposition",
                         "attachment; filename=\"" + file.getName() + "\"");
@@ -580,7 +557,7 @@ public class DormGet {
     /**
      * Получить найденные города.
      */
-    public static String searchCity(Request request, Response response){
+    public static String searchCity(Request request, Response response) {
         if (request.queryParams(DataConfig.GLOBAL_SEARCH_CITY_TEXT) != null) {
             response.status(200);
 
@@ -628,6 +605,88 @@ public class DormGet {
             response.status(409);
 
             return HttpStatus.getCode(409).getMessage();
+        }
+    }
+
+    /**
+     * Получить приют.
+     */
+    private static Shelter getShelter(Connection connection, int shelterId) throws SQLException {
+        PreparedStatement statement = connection
+                .prepareStatement(StatementSQL.select().selectShelter());
+
+        statement.setInt(1, shelterId);
+
+        ResultSet result = statement.executeQuery();
+
+        if (result.next()) {
+            return new Shelter(getParent(connection, result.getInt(DataConfig.DB_DORM_SHELTER_PARENT_MOTHER_ID)),
+                    getParent(connection, result.getInt(DataConfig.DB_DORM_SHELTER_PARENT_FATHER_ID)),
+                    getGuardian(connection, result.getInt(DataConfig.DB_DORM_SHELTER_GUARDIAN_ID)),
+                    getOrphanage(connection, result.getInt(DataConfig.DB_DORM_SHELTER_ORPHANAGE_ID)));
+        } else {
+            throw new SQLException();
+        }
+    }
+
+    /**
+     * Получить родителя.
+     */
+    private static Parent getParent(Connection connection, int parentId) throws SQLException {
+        PreparedStatement statement = connection
+                .prepareStatement(StatementSQL.select().selectParent());
+
+        statement.setInt(1, parentId);
+
+        ResultSet result = statement.executeQuery();
+
+        if (result.next()) {
+            return new Parent(result.getString(DataConfig.DB_DORM_NAME_F),
+                    result.getString(DataConfig.DB_DORM_NAME_L),
+                    result.getString(DataConfig.DB_DORM_PATRONYMIC),
+                    result.getString(DataConfig.DB_DORM_PARENT_PHONE));
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Получить опекуна.
+     */
+    private static Guardian getGuardian(Connection connection, int guardianId) throws SQLException {
+        PreparedStatement statement = connection
+                .prepareStatement(StatementSQL.select().selectGuardian());
+
+        statement.setInt(1, guardianId);
+
+        ResultSet result = statement.executeQuery();
+
+        if (result.next()) {
+            return new Guardian(result.getString(DataConfig.DB_DORM_NAME_F),
+                    result.getString(DataConfig.DB_DORM_NAME_L),
+                    result.getString(DataConfig.DB_DORM_PATRONYMIC),
+                    result.getString(DataConfig.DB_DORM_GUARDIAN_PHONE));
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Получить детский дом.
+     */
+    private static Orphanage getOrphanage(Connection connection, int orphanageId) throws SQLException {
+        PreparedStatement statement = connection
+                .prepareStatement(StatementSQL.select().selectOrphanage());
+
+        statement.setInt(1, orphanageId);
+
+        ResultSet result = statement.executeQuery();
+
+        if (result.next()) {
+            return new Orphanage(result.getString(DataConfig.DB_DORM_ORPHANAGE_ADDRESS),
+                    result.getString(DataConfig.DB_DORM_ORPHANAGE_PHONE));
+        } else {
+            return null;
         }
     }
 }

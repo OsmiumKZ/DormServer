@@ -1,10 +1,11 @@
 package kz.dorm.api.dorm.crud;
 
-import kz.dorm.api.dorm.util.gson.Parent;
 import kz.dorm.api.dorm.util.statement.providers.StatementSQL;
 import kz.dorm.docx.DocxConstructor;
-import kz.dorm.utils.*;
-import kz.dorm.utils.control.ControlParent;
+import kz.dorm.utils.DataBase;
+import kz.dorm.utils.DataConfig;
+import kz.dorm.utils.DateText;
+import kz.dorm.utils.EnumDBType;
 import kz.dorm.utils.control.ControlWrite;
 import kz.dorm.utils.email.Email;
 import kz.dorm.utils.email.EmailMessage;
@@ -31,6 +32,7 @@ public class DormPost {
                 request.queryParams(DataConfig.DB_DORM_NAME_F) != null &&
                 request.queryParams(DataConfig.DB_DORM_NAME_L) != null &&
                 request.queryParams(DataConfig.DB_DORM_REPORT_CHILDREN) != null &&
+                request.queryParams(DataConfig.DB_DORM_REPORT_DATE_RESIDENCE) != null &&
                 request.queryParams(DataConfig.DB_DORM_REPORT_DATE_RESIDENCE) != null &&
                 request.queryParams(DataConfig.DB_DORM_REPORT_PHONE) != null &&
                 request.queryParams(DataConfig.DB_DORM_REPORT_GROUP) != null &&
@@ -86,14 +88,9 @@ public class DormPost {
                     statement.setString(13, request.queryParams(DataConfig.DB_DORM_REPORT_DATE_RESIDENCE));
 
                     statement.setInt(14,
-                            ControlWrite.writeParent(connection,
-                                    request.headers(DataConfig.DB_DORM_REPORT_AS_MOTHER),
-                                    request.queryParams(DataConfig.DB_DORM_REPORT_AS_MOTHER)));
-
-                    statement.setInt(15,
-                            ControlWrite.writeParent(connection,
-                                    request.headers(DataConfig.DB_DORM_REPORT_AS_FATHER),
-                                    request.queryParams(DataConfig.DB_DORM_REPORT_AS_FATHER)));
+                            ControlWrite.writeShelter(connection,
+                                    request.headers(DataConfig.DB_DORM_REPORT_SHELTER),
+                                    request.queryParams(DataConfig.DB_DORM_REPORT_SHELTER)));
 
                     if (request.queryParams(DataConfig.DB_DORM_PATRONYMIC) != null)
                         statement.setInt(9,
@@ -104,18 +101,18 @@ public class DormPost {
 
                     if (ControlWrite.isCheckEmailReport(connection,
                             request.queryParams(DataConfig.DB_DORM_REPORT_EMAIL))) {
-                        statement.setString(16, request.queryParams(DataConfig.DB_DORM_REPORT_EMAIL));
+                        statement.setString(15, request.queryParams(DataConfig.DB_DORM_REPORT_EMAIL));
                     } else {
                         if (DataConfig.DB_TYPE == EnumDBType.MYSQL)
-                            statement.setNull(16, Types.VARCHAR);
+                            statement.setNull(15, Types.VARCHAR);
                         else
-                            statement.setNull(16, Types.NVARCHAR);
+                            statement.setNull(15, Types.NVARCHAR);
                     }
 
-                    statement.setInt(17,
+                    statement.setInt(16,
                             Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REPORT_EDUCATIONAL_FORM_ID)));
 
-                    statement.setString(18, request.queryParams(DataConfig.DB_DORM_REPORT_GROUP));
+                    statement.setString(17, request.queryParams(DataConfig.DB_DORM_REPORT_GROUP));
 
                     statement.setInt(10,
                             ControlWrite.writeResidencePermit(connection,
@@ -201,21 +198,16 @@ public class DormPost {
                     statement.setString(9, request.queryParams(DataConfig.DB_DORM_REQUEST_GROUP));
 
                     statement.setInt(10,
-                            ControlWrite.writeParent(connection,
-                                    request.headers(DataConfig.DB_DORM_REQUEST_AS_MOTHER),
-                                    request.queryParams(DataConfig.DB_DORM_REQUEST_AS_MOTHER)));
+                            ControlWrite.writeShelter(connection,
+                                    request.headers(DataConfig.DB_DORM_REQUEST_SHELTER),
+                                    request.queryParams(DataConfig.DB_DORM_REQUEST_SHELTER)));
 
                     statement.setInt(11,
-                            ControlWrite.writeParent(connection,
-                                    request.headers(DataConfig.DB_DORM_REQUEST_AS_FATHER),
-                                    request.queryParams(DataConfig.DB_DORM_REQUEST_AS_FATHER)));
-
-                    statement.setInt(12,
                             Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REQUEST_CHILDREN)));
 
-                    statement.setString(13, date);
-                    statement.setString(14, request.queryParams(DataConfig.DB_DORM_REQUEST_DATE_RESIDENCE));
-                    statement.setInt(15, 0);
+                    statement.setString(12, date);
+                    statement.setString(13, request.queryParams(DataConfig.DB_DORM_REQUEST_DATE_RESIDENCE));
+                    statement.setInt(14, 0);
 
                     if (request.queryParams(DataConfig.DB_DORM_PATRONYMIC) != null)
                         statement.setInt(3,
@@ -224,17 +216,17 @@ public class DormPost {
                     else
                         statement.setNull(3, Types.INTEGER);
 
-                    statement.setInt(17,
+                    statement.setInt(16,
                             Integer.parseInt(request.queryParams(DataConfig.DB_DORM_REQUEST_EDUCATIONAL_FORM_ID)));
 
                     if (ControlWrite.isCheckEmailRequest(connection,
                             request.queryParams(DataConfig.DB_DORM_REQUEST_EMAIL))) {
-                        statement.setString(16, request.queryParams(DataConfig.DB_DORM_REQUEST_EMAIL));
+                        statement.setString(15, request.queryParams(DataConfig.DB_DORM_REQUEST_EMAIL));
                     } else {
                         if (DataConfig.DB_TYPE == EnumDBType.MYSQL)
-                            statement.setNull(16, Types.VARCHAR);
+                            statement.setNull(15, Types.VARCHAR);
                         else
-                            statement.setNull(16, Types.NVARCHAR);
+                            statement.setNull(15, Types.NVARCHAR);
                     }
 
                     statement.setInt(7,
@@ -255,19 +247,9 @@ public class DormPost {
                                         ControlWrite.isCheckText(request.queryParams(DataConfig.DB_DORM_PATRONYMIC)))
                                     patronymic = request.queryParams(DataConfig.DB_DORM_PATRONYMIC);
 
-                                Parent father = ControlParent
-                                        .parseParent(request.headers(DataConfig.DB_DORM_REQUEST_AS_FATHER),
-                                                request.queryParams(DataConfig.DB_DORM_REQUEST_AS_FATHER));
-
-                                Parent mother = ControlParent
-                                        .parseParent(request.headers(DataConfig.DB_DORM_REQUEST_AS_MOTHER),
-                                                request.queryParams(DataConfig.DB_DORM_REQUEST_AS_MOTHER));
-
                                 File file = new File(DocxConstructor
                                         .createRequest(request,
                                                 patronymic,
-                                                father,
-                                                mother,
                                                 Math.toIntExact(generatedKeys.getLong(1))));
 
                                 FileDataSource fileDataSource = new FileDataSource(file);

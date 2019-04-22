@@ -1,6 +1,8 @@
 package kz.dorm.api.dorm.util.gson;
 
 import com.google.gson.annotations.SerializedName;
+import kz.dorm.api.dorm.util.gson.shelters.Parent;
+import kz.dorm.api.dorm.util.gson.shelters.Shelter;
 import kz.dorm.utils.DataConfig;
 
 public class Report {
@@ -65,13 +67,9 @@ public class Report {
     @SerializedName(DataConfig.DB_DORM_PATRONYMIC)
     private final String patronymic;
 
-    /* Мама. */
-    @SerializedName(DataConfig.DB_DORM_REPORT_AS_MOTHER)
-    private final Parent mother;
-
-    /* Папа. */
-    @SerializedName(DataConfig.DB_DORM_REPORT_AS_FATHER)
-    private final Parent father;
+    /* Приют. */
+    @SerializedName(DataConfig.DB_DORM_REPORT_SHELTER)
+    private final Shelter shelter;
 
     /* Статус. */
     @SerializedName(DataConfig.DB_DORM_REPORT_STATUS_ID)
@@ -85,7 +83,7 @@ public class Report {
     @SerializedName(DataConfig.DB_DORM_REPORT_GROUP)
     private final String group;
 
-    public Report(int id, Citizenship citizenship, String email, ResidencePermit residencePermit, String phone, int genderId, RoomOne room, int dormId, String dateCreate, String dateUpdate, int children, String dateResidence, String nameF, String nameL, String patronymic, Parent mother, Parent father, int statusId, int educationalFormId, String group) {
+    public Report(int id, Citizenship citizenship, String email, ResidencePermit residencePermit, String phone, int genderId, RoomOne room, int dormId, String dateCreate, String dateUpdate, int children, String dateResidence, String nameF, String nameL, String patronymic, Shelter shelter, int statusId, int educationalFormId, String group) {
         this.id = id;
         this.citizenship = citizenship;
         this.email = email;
@@ -101,8 +99,7 @@ public class Report {
         this.nameF = nameF;
         this.nameL = nameL;
         this.patronymic = patronymic;
-        this.mother = mother;
-        this.father = father;
+        this.shelter = shelter;
         this.statusId = statusId;
         this.educationalFormId = educationalFormId;
         this.group = group;

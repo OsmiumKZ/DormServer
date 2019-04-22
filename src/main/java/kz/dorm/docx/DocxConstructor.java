@@ -1,6 +1,5 @@
 package kz.dorm.docx;
 
-import kz.dorm.api.dorm.util.gson.Parent;
 import kz.dorm.docx.handler.HandlerDirection;
 import kz.dorm.docx.handler.HandlerRequest;
 import kz.dorm.utils.control.ControlWrite;
@@ -12,7 +11,7 @@ public class DocxConstructor {
     /**
      * Создание документа "Заявление".
      */
-    public static String createRequest(Request request, String patronymic, Parent father, Parent mother) {
+    public static String createRequest(Request request, String patronymic) {
         return createRequest(request.queryParams(DataConfig.DB_DORM_NAME_F),
                 request.queryParams(DataConfig.DB_DORM_NAME_L),
                 patronymic,
@@ -20,8 +19,6 @@ public class DocxConstructor {
                 request.queryParams(DataConfig.DB_DORM_REQUEST_DATE_RESIDENCE),
                 request.queryParams(DataConfig.DB_DORM_REQUEST_CHILDREN),
                 request.queryParams(DataConfig.DB_DORM_REQUEST_PHONE),
-                father,
-                mother,
                 request.queryParams(DataConfig.DB_DORM_REQUEST_ADDRESS_FULL),
                 request.queryParams(DataConfig.DB_DORM_REQUEST_GENDER_ID),
                 request.queryParams(DataConfig.DB_DORM_REQUEST_ROOM_ID),
@@ -31,7 +28,7 @@ public class DocxConstructor {
     /**
      * Создание документа "Заявление".
      */
-    public static String createRequest(Request request, String patronymic, Parent father, Parent mother, int requestId) {
+    public static String createRequest(Request request, String patronymic, int requestId) {
         return createRequest(request.queryParams(DataConfig.DB_DORM_NAME_F),
                 request.queryParams(DataConfig.DB_DORM_NAME_L),
                 patronymic,
@@ -39,8 +36,6 @@ public class DocxConstructor {
                 request.queryParams(DataConfig.DB_DORM_REQUEST_DATE_RESIDENCE),
                 request.queryParams(DataConfig.DB_DORM_REQUEST_CHILDREN),
                 request.queryParams(DataConfig.DB_DORM_REQUEST_PHONE),
-                father,
-                mother,
                 request.queryParams(DataConfig.DB_DORM_REQUEST_ADDRESS_FULL),
                 request.queryParams(DataConfig.DB_DORM_REQUEST_GENDER_ID),
                 request.queryParams(DataConfig.DB_DORM_REQUEST_ROOM_ID),
@@ -52,15 +47,13 @@ public class DocxConstructor {
      */
     public static String createRequest(String name_f, String name_l, String patronymic,
                                        String group, String date_residence, String children,
-                                       String phone, Parent father, Parent mother,
-                                       String address, String genderId, String roomId,
-                                       String number) {
+                                       String phone, String address, String genderId,
+                                       String roomId, String number) {
         return HandlerRequest
                 .create(name_f, name_l, patronymic,
                         group, ControlWrite.getIdDormForRoom(roomId), date_residence,
-                        children, phone, father,
-                        mother, address, genderId,
-                        number);
+                        children, phone, address,
+                        genderId, number);
     }
 
     /**

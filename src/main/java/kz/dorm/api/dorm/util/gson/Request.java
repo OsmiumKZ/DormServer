@@ -1,6 +1,8 @@
 package kz.dorm.api.dorm.util.gson;
 
 import com.google.gson.annotations.SerializedName;
+import kz.dorm.api.dorm.util.gson.shelters.Parent;
+import kz.dorm.api.dorm.util.gson.shelters.Shelter;
 import kz.dorm.utils.DataConfig;
 
 public class Request {
@@ -61,13 +63,9 @@ public class Request {
     @SerializedName(DataConfig.DB_DORM_PATRONYMIC)
     private final String patronymic;
 
-    /* Мама. */
-    @SerializedName(DataConfig.DB_DORM_REQUEST_AS_MOTHER)
-    private final Parent mother;
-
-    /* Папа. */
-    @SerializedName(DataConfig.DB_DORM_REQUEST_AS_FATHER)
-    private final Parent father;
+    /* Приют. */
+    @SerializedName(DataConfig.DB_DORM_REQUEST_SHELTER)
+    private final Shelter shelter;
 
     /* Статус заявления. */
     @SerializedName(DataConfig.DB_DORM_REQUEST_ACTIVE)
@@ -77,7 +75,7 @@ public class Request {
     @SerializedName(DataConfig.DB_DORM_REQUEST_EDUCATIONAL_FORM_ID)
     private final int educationalFormId;
 
-    public Request(int id, Citizenship citizenship, String email, ResidencePermit residencePermit, String phone, String group, int genderId, RoomOne room, int dormId, int children, String dateResidence, String nameF, String nameL, String patronymic, Parent mother, Parent father, int active, int educationalFormId) {
+    public Request(int id, Citizenship citizenship, String email, ResidencePermit residencePermit, String phone, String group, int genderId, RoomOne room, int dormId, int children, String dateResidence, String nameF, String nameL, String patronymic, Shelter shelter, int active, int educationalFormId) {
         this.id = id;
         this.citizenship = citizenship;
         this.email = email;
@@ -92,8 +90,7 @@ public class Request {
         this.nameF = nameF;
         this.nameL = nameL;
         this.patronymic = patronymic;
-        this.mother = mother;
-        this.father = father;
+        this.shelter = shelter;
         this.active = active;
         this.educationalFormId = educationalFormId;
     }

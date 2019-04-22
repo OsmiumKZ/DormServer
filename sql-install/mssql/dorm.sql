@@ -79,8 +79,7 @@ GO
 -- [phone] - Телефон.
 -- [children] - Сколько в семье детей.
 -- [date_residence] - Дата начала проживания.
--- [parent_id_mother] - ID таблицы [parents] - Мама.
--- [parent_id_father] - ID таблицы [parents] - Папа.
+-- [shelter_id] - ID приюта
 -- [name_f] - Имя.
 -- [name_l] - Фамилия.
 -- [patronymic] - Отчество.
@@ -100,8 +99,7 @@ create TABLE [reports]
      [phone] NVARCHAR(15) NOT NULL,
      [children] INT NOT NULL,
      [date_residence] DATE NOT NULL,
-     [parent_id_mother] INT NULL,
-     [parent_id_father] INT NULL,
+     [shelter_id] INT NOT NULL,
      [name_f_id] NVARCHAR(40) NOT NULL,
      [name_l_id] NVARCHAR(40) NOT NULL,
      [patronymic_id] NVARCHAR(40) NULL,
@@ -173,8 +171,7 @@ GO
 -- [group] - Группа
 -- [room_id] - ID комнаты
 -- [gender_id] - ID пола
--- [parent_id_mother] - ID таблицы [parents] - Мама
--- [parent_id_father] - ID таблицы [parents] - Папа
+-- [shelter_id] - ID приюта
 -- [children] - Сколько в семье детей.
 -- [date_residence] - Дата начала проживания.
 -- [date_create] - Дата создания.
@@ -194,8 +191,7 @@ create TABLE [requests]
      [group] NVARCHAR(10) NOT NULL,
      [room_id] INT NOT NULL,
      [gender_id] INT NOT NULL,
-     [parent_id_mother] INT NULL,
-     [parent_id_father] INT NULL,
+     [shelter_id] INT NOT NULL,
      [children] INT NOT NULL,
      [date_residence] DATE NOT NULL,
      [date_create] DATETIME NOT NULL,
@@ -222,6 +218,62 @@ create TABLE [parents]
      [name_l_id] INT NOT NULL,
      [patronymic_id] INT NULL,
      [phone] NVARCHAR(15) NOT NULL)
+GO
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы "Опекун"
+--
+-- [id] - ID опекуна
+-- [name_f_id] - Имя
+-- [name_l_id] - Фамилия
+-- [patronymic_id] - Отчество
+-- [phone] - Телефон
+--
+
+create TABLE [guardians]
+    ([id] INT IDENTITY (1, 1) PRIMARY KEY,
+     [name_f_id] INT NOT NULL,
+     [name_l_id] INT NOT NULL,
+     [patronymic_id] INT NULL,
+     [phone] NVARCHAR(15) NOT NULL)
+GO
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы "Детский дом"
+--
+-- [id] - ID детского дома.
+-- [address] - Адрес
+-- [phone] - Телефон
+--
+
+create TABLE [orphanages]
+    ([id] INT IDENTITY (1, 1) PRIMARY KEY,
+     [address] NVARCHAR(140) NOT NULL,
+     [phone] NVARCHAR(15) NOT NULL)
+GO
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы "Приют"
+--
+-- [id] - ID детского дома.
+-- [parent_mother_id] - ID мамы.
+-- [parent_father_id] - ID папы.
+-- [guardian_id] - ID опекуна.
+-- [orphanage_id] - ID детского дома.
+--
+
+create TABLE [shelters]
+    ([id] INT IDENTITY (1, 1) PRIMARY KEY,
+     [parent_mother_id] INT NULL,
+     [parent_father_id] INT NULL,
+     [guardian_id] INT NULL,
+     [orphanage_id] INT NULL)
 GO
 	
 -- --------------------------------------------------------
