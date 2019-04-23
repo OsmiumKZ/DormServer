@@ -15,7 +15,7 @@ public enum EnumSortRequest {
                         "ORDER BY `" + DataConfig.DB_DORM_REQUEST + "`.`" + DataConfig.DB_DORM_REQUEST_ID + "`\n" +
                         DataConfig.DB_MAX_ITEM_LIST_STRING_MYSQL;
             } else {                                      // MSSQL.
-                return "SELECT *\nFROM\n\t(SELECT ROW_NUMBER() OVER (ORDER BY [" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_CHILDREN + "])\n\t\tAS [row_num], *\n\tFROM\n\t\t(" +
+                return "SELECT *\nFROM\n\t(SELECT ROW_NUMBER() OVER (ORDER BY [" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_ID + "])\n\t\tAS [row_num], *\n\tFROM\n\t\t(" +
                         StatementSQL.select().selectRequest() +
                         "WHERE [" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_GENDER_ID + "]=?" +
                         ")\n\tAS [" + DataConfig.DB_DORM_REQUEST + "])\nAS [" + DataConfig.DB_DORM_REQUEST + "]\nWHERE [" + DataConfig.DB_DORM_REQUEST + "].[row_num] >=?\n\tAND [" + DataConfig.DB_DORM_REQUEST + "].[row_num] <?\nORDER BY [" + DataConfig.DB_DORM_REQUEST + "].[row_num]";
@@ -79,6 +79,23 @@ public enum EnumSortRequest {
                 return "SELECT *\nFROM\n\t(SELECT ROW_NUMBER() OVER (ORDER BY [" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_ID + "]) - 1\n\t\tAS [row_num], *\n\tFROM\n\t\t(" +
                         StatementSQL.select().selectRequest() +
                         "WHERE [" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_ACTIVE + "]=0\n" +
+                        ")\n\tAS [" + DataConfig.DB_DORM_REQUEST + "])\nAS [" + DataConfig.DB_DORM_REQUEST + "]\nWHERE [" + DataConfig.DB_DORM_REQUEST + "].[row_num] >=?\n\tAND [" + DataConfig.DB_DORM_REQUEST + "].[row_num] <?\nORDER BY [" + DataConfig.DB_DORM_REQUEST + "].[row_num]";
+            }
+        }
+    },
+    EDUCATIONAL_FORM(DataConfig.SORT_EDUCATIONAL_FORM) { // Для выбора формы обучения.
+
+        @Override
+        public String selectSortedRequest() {
+            if (DataConfig.DB_TYPE == EnumDBType.MYSQL) { // MySQL.
+                return StatementSQL.select().selectRequest() +
+                        "WHERE `" + DataConfig.DB_DORM_REQUEST + "`.`" + DataConfig.DB_DORM_REQUEST_EDUCATIONAL_FORM_ID + "`=?\n" +
+                        "ORDER BY `" + DataConfig.DB_DORM_REQUEST + "`.`" + DataConfig.DB_DORM_REQUEST_ID + "`\n" +
+                        DataConfig.DB_MAX_ITEM_LIST_STRING_MYSQL;
+            } else {                                      // MSSQL.
+                return "SELECT *\nFROM\n\t(SELECT ROW_NUMBER() OVER (ORDER BY [" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_ID + "])\n\t\tAS [row_num], *\n\tFROM\n\t\t(" +
+                        StatementSQL.select().selectRequest() +
+                        "WHERE [" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_EDUCATIONAL_FORM_ID + "]=?" +
                         ")\n\tAS [" + DataConfig.DB_DORM_REQUEST + "])\nAS [" + DataConfig.DB_DORM_REQUEST + "]\nWHERE [" + DataConfig.DB_DORM_REQUEST + "].[row_num] >=?\n\tAND [" + DataConfig.DB_DORM_REQUEST + "].[row_num] <?\nORDER BY [" + DataConfig.DB_DORM_REQUEST + "].[row_num]";
             }
         }

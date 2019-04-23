@@ -96,6 +96,23 @@ public enum EnumSortReport {
                         ")\n\tAS [" + DataConfig.DB_DORM_REPORT + "])\nAS [" + DataConfig.DB_DORM_REPORT + "]\nWHERE [" + DataConfig.DB_DORM_REPORT + "].[row_num] >=?\n\tAND [" + DataConfig.DB_DORM_REPORT + "].[row_num] <?\nORDER BY [" + DataConfig.DB_DORM_REPORT + "].[row_num]";
             }
         }
+    },
+    EDUCATIONAL_FORM(DataConfig.SORT_EDUCATIONAL_FORM) { // Для выбора формы обучения.
+
+        @Override
+        public String selectSortedReport() {
+            if (DataConfig.DB_TYPE == EnumDBType.MYSQL) { // MySQL.
+                return StatementSQL.select().selectReport() +
+                        "WHERE `" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_REPORT_EDUCATIONAL_FORM_ID + "`=?\n" +
+                        "ORDER BY `" + DataConfig.DB_DORM_REPORT + "`.`" + DataConfig.DB_DORM_REPORT_ID + "`\n" +
+                        DataConfig.DB_MAX_ITEM_LIST_STRING_MYSQL;
+            } else {                                      // MSSQL.
+                return "SELECT *\nFROM\n\t(SELECT ROW_NUMBER() OVER (ORDER BY [" + DataConfig.DB_DORM_REPORT + "].[" + DataConfig.DB_DORM_REPORT_ID + "])\n\t\tAS [row_num], *\n\tFROM\n\t\t(" +
+                        StatementSQL.select().selectReport() +
+                        "WHERE [" + DataConfig.DB_DORM_REPORT + "].[" + DataConfig.DB_DORM_REPORT_EDUCATIONAL_FORM_ID + "]=?\n" +
+                        ")\n\tAS [" + DataConfig.DB_DORM_REPORT + "])\nAS [" + DataConfig.DB_DORM_REPORT + "]\nWHERE [" + DataConfig.DB_DORM_REPORT + "].[row_num] >=?\n\tAND [" + DataConfig.DB_DORM_REPORT + "].[row_num] <?\nORDER BY [" + DataConfig.DB_DORM_REPORT + "].[row_num]";
+            }
+        }
     };
 
     /* Название параметра. */

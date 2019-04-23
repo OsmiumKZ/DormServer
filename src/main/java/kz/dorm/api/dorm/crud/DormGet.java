@@ -243,7 +243,17 @@ public class DormGet {
             if (EnumSortReport.GENDER == sortReport) {
                 int genderId = request.queryParams(DataConfig.GLOBAL_SORT_GENDER_ID) != null ?
                         Integer.parseInt(request.queryParams(DataConfig.GLOBAL_SORT_GENDER_ID)) : 1;
+
                 statement.setInt(1, genderId);
+                statement.setInt(2, page);
+
+                if (DataConfig.DB_TYPE == EnumDBType.MSSQL)
+                    statement.setInt(3, DataConfig.DB_MAX_ITEM_LIST_INT * (page + 1));
+            } else if (EnumSortReport.EDUCATIONAL_FORM == sortReport) {
+                int educationalFormId = request.queryParams(DataConfig.GLOBAL_SORT_EDUCATIONAL_FORM_ID) != null ?
+                        Integer.parseInt(request.queryParams(DataConfig.GLOBAL_SORT_EDUCATIONAL_FORM_ID)) : 1;
+
+                statement.setInt(1, educationalFormId);
                 statement.setInt(2, page);
 
                 if (DataConfig.DB_TYPE == EnumDBType.MSSQL)
@@ -318,6 +328,15 @@ public class DormGet {
                         Integer.parseInt(request.queryParams(DataConfig.GLOBAL_SORT_GENDER_ID)) : 1;
 
                 statement.setInt(1, genderId);
+                statement.setInt(2, page);
+
+                if (DataConfig.DB_TYPE == EnumDBType.MSSQL)
+                    statement.setInt(3, DataConfig.DB_MAX_ITEM_LIST_INT * (page + 1));
+            } else if (EnumSortRequest.EDUCATIONAL_FORM == sortRequest) {
+                int educationalFormId = request.queryParams(DataConfig.GLOBAL_SORT_EDUCATIONAL_FORM_ID) != null ?
+                        Integer.parseInt(request.queryParams(DataConfig.GLOBAL_SORT_EDUCATIONAL_FORM_ID)) : 1;
+
+                statement.setInt(1, educationalFormId);
                 statement.setInt(2, page);
 
                 if (DataConfig.DB_TYPE == EnumDBType.MSSQL)
