@@ -80,39 +80,41 @@ CREATE TABLE `genders` (
 -- `gender_id` - ID пола
 -- `room_id` - ID комнаты
 -- `status_id` - ID статуса
--- `uin` - ИИН
 -- `date_create` - Дата создания отчета
 -- `date_update` - Дата обновление отчета
 -- `email` - Электронная почта
--- `address` - Место проживания
 -- `phone` - Телефон
 -- `children` - Сколько в семье детей.
 -- `date_residence` - Дата начала проживания.
--- `parent_id_mother` - ID таблицы `parents` - Мама
--- `parent_id_father` - ID таблицы `parents` - Папа
+-- `shelter_id` - ID приюта
 -- `name_f` - Имя
 -- `name_l` - Фамилия
 -- `patronymic` - Отчество
+-- `educational_form_id` - ID формы обучения.
+-- `group` - Группа.
+-- `residence_permit` - ID вида на жительство.
+-- `citizenship_id` - ID гражданства.
 --
 CREATE TABLE `reports` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`gender_id` INT NOT NULL,
 	`room_id` INT NOT NULL,
 	`status_id` INT NOT NULL,
-	`uin` BIGINT NOT NULL,
 	`date_create` DATETIME NOT NULL,
 	`date_update` DATETIME NOT NULL,
 	`email` VARCHAR(254) NULL,
-	`address` VARCHAR(60) NOT NULL,
 	`phone` VARCHAR(15) NOT NULL,
 	`children` INT NOT NULL,
 	`date_residence` DATE NOT NULL,
-	`parent_id_mother` INT NULL,
-	`parent_id_father` INT NULL,
+	`shelter_id` INT NOT NULL,
 	`name_f_id` VARCHAR(40) NOT NULL,
 	`name_l_id` VARCHAR(40) NOT NULL,
 	`patronymic_id` VARCHAR(40) NULL,
-	PRIMARY KEY (`id`)) 
+	`educational_form_id` INT NOT NULL,
+	`group` VARCHAR(10) NOT NULL,
+	`residence_permit_id` INT NOT NULL,
+	`citizenship_id` INT NOT NULL,
+	PRIMARY KEY (`id`))
 	ENGINE = InnoDB
 	DEFAULT CHARACTER SET = utf8;
 	
@@ -180,18 +182,18 @@ CREATE TABLE `accounts` (
 -- `name_l` - Фамилия
 -- `patronymic` - Отчество
 -- `email` - Электронная почта
--- `address` - Место проживания
 -- `phone` - Телефон
 -- `group` - Группа
--- `uin` - ИИН
 -- `room_id` - ID комнаты
 -- `gender_id` - ID пола
--- `parent_id_mother` - ID таблицы `parents` - Мама
--- `parent_id_father` - ID таблицы `parents` - Папа
+-- `shelter_id` - ID приюта
 -- `children` - Сколько в семье детей.
 -- `date_residence` - Дата начала проживания.
 -- `date_residence` - Дата создания.
 -- `active` - (0 - открыт) и (1 - закрыт). Или же (0 - не прочтен) и (1 - прочтен).
+-- `educational_form_id` - ID формы обучения.
+-- `residence_permit` - ID вида на жительство.
+-- `citizenship_id` - ID гражданства.
 --
 
 CREATE TABLE `requests` (
@@ -200,19 +202,19 @@ CREATE TABLE `requests` (
 	`name_l_id` VARCHAR(40) NOT NULL,
 	`patronymic_id` VARCHAR(40) NULL,
 	`email` VARCHAR(254) NULL,
-	`address` VARCHAR(60) NOT NULL,
 	`phone` VARCHAR(15) NOT NULL,
 	`group` VARCHAR(10) NOT NULL,
-	`uin` BIGINT NOT NULL,
 	`room_id` INT NOT NULL,
 	`gender_id` INT NOT NULL,
-	`parent_id_mother` INT NULL,
-	`parent_id_father` INT NULL,
+	`shelter_id` INT NOT NULL,
 	`children` INT NOT NULL,
 	`date_residence` DATE NOT NULL,
 	`date_create` DATETIME NOT NULL,
 	`active` INT NOT NULL,
-	PRIMARY KEY (`id`)) 
+	`educational_form_id` INT NOT NULL,
+	`residence_permit_id` INT NOT NULL,
+	`citizenship_id` INT NOT NULL,
+	PRIMARY KEY (`id`))
 	ENGINE = InnoDB
 	DEFAULT CHARACTER SET = utf8;
 	
@@ -221,11 +223,11 @@ CREATE TABLE `requests` (
 --
 -- Структура таблицы "Родитель"
 --
--- `id` - ID родителя
--- `name_f_id` - Имя
--- `name_l_id` - Фамилия
--- `patronymic_id` - Отчество
--- `phone` - Телефон
+-- `id` - ID родителя.
+-- `name_f_id` - Имя.
+-- `name_l_id` - Фамилия.
+-- `patronymic_id` - Отчество.
+-- `phone` - Телефон.
 --
 
 CREATE TABLE `parents` (
@@ -237,13 +239,75 @@ CREATE TABLE `parents` (
 	PRIMARY KEY (`id`)) 
 	ENGINE = InnoDB
 	DEFAULT CHARACTER SET = utf8;
-	
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы "Опекун"
+--
+-- `id` - ID опекуна.
+-- `name_f_id` - Имя.
+-- `name_l_id` - Фамилия.
+-- `patronymic_id` - Отчество.
+-- `phone` - Телефон.
+--
+
+CREATE TABLE `guardians` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`name_f_id` INT NOT NULL,
+	`name_l_id` INT NOT NULL,
+	`patronymic_id` INT NULL,
+	`phone` VARCHAR(15) NOT NULL,
+	PRIMARY KEY (`id`))
+	ENGINE = InnoDB
+	DEFAULT CHARACTER SET = utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы "Детский дом"
+--
+-- `id` - ID детского дома.
+-- `address` - Адрес.
+-- `phone` - Телефон.
+--
+
+CREATE TABLE `orphanages` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`address` VARCHAR(140) NOT NULL,
+	`phone` VARCHAR(15) NOT NULL,
+	PRIMARY KEY (`id`))
+	ENGINE = InnoDB
+	DEFAULT CHARACTER SET = utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы "Приют"
+--
+-- `id` - ID приюта.
+-- `parent_mother_id` - ID мамы.
+-- `parent_father_id` - ID папы.
+-- `guardian_id` - ID опекуна.
+-- `orphanage_id` - ID детского дома.
+--
+
+CREATE TABLE `shelters` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`parent_mother_id` INT NULL,
+	`parent_father_id` INT NULL,
+	`guardian_id` INT NULL,
+	`orphanage_id` INT NULL,
+	PRIMARY KEY (`id`))
+	ENGINE = InnoDB
+	DEFAULT CHARACTER SET = utf8;
+
 -- --------------------------------------------------------
 
 --
 -- Структура таблицы "Имя"
 --
--- `id` - ID заявления
+-- `id` - ID имени
 -- `name` - Имя
 --
 
@@ -259,8 +323,8 @@ CREATE TABLE `name_f` (
 --
 -- Структура таблицы "Фамилия"
 --
--- `id` - ID заявления
--- `name` - Имя
+-- `id` - ID фамилии
+-- `name` - Фамилия
 --
 
 CREATE TABLE `name_l` (
@@ -275,13 +339,99 @@ CREATE TABLE `name_l` (
 --
 -- Структура таблицы "Отчество"
 --
--- `id` - ID заявления
--- `name` - Имя
+-- `id` - ID отчества
+-- `name` - Отчество
 --
 
 CREATE TABLE `patronymic` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`name` VARCHAR(40) NOT NULL,
 	PRIMARY KEY (`id`)) 
+	ENGINE = InnoDB
+	DEFAULT CHARACTER SET = utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы "Форма обучения"
+--
+-- `id` - ID формы обучения.
+-- `name_id` - ID Название
+--
+
+CREATE TABLE `educational_form` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`name_id` INT NOT NULL,
+	PRIMARY KEY (`id`))
+	ENGINE = InnoDB
+	DEFAULT CHARACTER SET = utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы "Город"
+--
+-- `id` - ID города.
+-- `name` - Город
+--
+
+CREATE TABLE `cities` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(40) NOT NULL,
+	PRIMARY KEY (`id`))
+	ENGINE = InnoDB
+	DEFAULT CHARACTER SET = utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы "Страна"
+--
+-- `id` - ID страны.
+-- `name` - Страна
+--
+
+CREATE TABLE `countries` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(40) NOT NULL,
+	PRIMARY KEY (`id`))
+	ENGINE = InnoDB
+	DEFAULT CHARACTER SET = utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы "Вид на жительство"
+--
+-- `id` - ID вида на жительства.
+-- `city_id` - ID города
+-- `country_id` - ID страны
+-- `address` - Адрес
+--
+
+CREATE TABLE `residence_permit` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`city_id` INT NOT NULL,
+	`country_id` INT NOT NULL,
+	`address` VARCHAR(60) NOT NULL,
+	PRIMARY KEY (`id`))
+	ENGINE = InnoDB
+	DEFAULT CHARACTER SET = utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы "Гражданство"
+--
+-- `id` - ID гражданства.
+-- `country_id` - ID страны.
+-- `number` - номер (ИИН, номер паспорта и т.п.).
+--
+
+CREATE TABLE `citizenships` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`country_id` INT NOT NULL,
+	`number` VARCHAR(20) NOT NULL,
+	PRIMARY KEY (`id`))
 	ENGINE = InnoDB
 	DEFAULT CHARACTER SET = utf8;

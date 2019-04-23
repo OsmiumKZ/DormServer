@@ -18,10 +18,6 @@ public class DataConfigRequest {
     public static final String DOC_TEXT_CHILD_TWO = "ребенка.";
     public static final String DOC_TEXT_CHILD_THREE = "детей.";
 
-    public static final String DOC_PARENT = "Родители:";
-    public static final String DOC_PARENT_FATHER = "Папа:";
-    public static final String DOC_PARENT_MOTHER = "Мама:";
-
     public static final String DOC_ADDRESS = "Адрес проживания";
 
     public static final String DOC_RULE_MALE = "Своевременную оплату за проживание в общежитии " +
@@ -57,14 +53,6 @@ public class DataConfigRequest {
     public static final String DOC_KEY_TEXT_CHILD = "text_child";
     public static final String DOC_KEY_TEXT_CHILD_WRITE = "text_child_write";
     public static final String DOC_KEY_TEXT_CHILDREN = "text_children";
-
-    public static final String DOC_KEY_PARENT = "parent";
-    public static final String DOC_KEY_PARENT_FATHER = "parent_father";
-    public static final String DOC_KEY_PARENT_FATHER_FULL_NAME_WRITE = "parent_father_full_name_write";
-    public static final String DOC_KEY_PARENT_FATHER_PHONE_WRITE = "parent_father_phone_write";
-    public static final String DOC_KEY_PARENT_MOTHER = "parent_mother";
-    public static final String DOC_KEY_PARENT_MOTHER_FULL_NAME_WRITE = "parent_mother_full_name_write";
-    public static final String DOC_KEY_PARENT_MOTHER_PHONE_WRITE = "parent_mother_phone_write";
 
     public static final String DOC_KEY_ADDRESS = "address";
     public static final String DOC_KEY_ADDRESS_WRITE = "address_write";

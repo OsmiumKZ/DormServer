@@ -1,6 +1,8 @@
 package kz.dorm.api.dorm.util.gson;
 
 import com.google.gson.annotations.SerializedName;
+import kz.dorm.api.dorm.util.gson.shelters.Parent;
+import kz.dorm.api.dorm.util.gson.shelters.Shelter;
 import kz.dorm.utils.DataConfig;
 
 public class Report {
@@ -9,17 +11,17 @@ public class Report {
     @SerializedName(DataConfig.DB_DORM_REPORT_ID)
     private final int id;
 
-    /* ИИН. */
-    @SerializedName(DataConfig.DB_DORM_REPORT_UIN)
-    private final long uin;
+    /* Гражданство. */
+    @SerializedName(DataConfig.DB_DORM_REPORT_CITIZENSHIP)
+    private final Citizenship citizenship;
 
     /* Электронная почта. */
     @SerializedName(DataConfig.DB_DORM_REPORT_EMAIL)
     private final String email;
 
-    /* Место проживания. */
-    @SerializedName(DataConfig.DB_DORM_REPORT_ADDRESS)
-    private final String address;
+    /* Вид на жительство. */
+    @SerializedName(DataConfig.DB_DORM_RESIDENCE_PERMIT)
+    private final ResidencePermit residencePermit;
 
     /* Телефон. */
     @SerializedName(DataConfig.DB_DORM_REPORT_PHONE)
@@ -65,23 +67,27 @@ public class Report {
     @SerializedName(DataConfig.DB_DORM_PATRONYMIC)
     private final String patronymic;
 
-    /* Мама. */
-    @SerializedName(DataConfig.DB_DORM_REPORT_AS_MOTHER)
-    private final Parent mother;
-
-    /* Папа. */
-    @SerializedName(DataConfig.DB_DORM_REPORT_AS_FATHER)
-    private final Parent father;
+    /* Приют. */
+    @SerializedName(DataConfig.DB_DORM_REPORT_SHELTER)
+    private final Shelter shelter;
 
     /* Статус. */
     @SerializedName(DataConfig.DB_DORM_REPORT_STATUS_ID)
     private final int statusId;
 
-    public Report(int id, long uin, String email, String address, String phone, int genderId, RoomOne room, int dormId, String dateCreate, String dateUpdate, int children, String dateResidence, String nameF, String nameL, String patronymic, Parent mother, Parent father, int statusId) {
+    /* Форма обучения. */
+    @SerializedName(DataConfig.DB_DORM_REPORT_EDUCATIONAL_FORM_ID)
+    private final int educationalFormId;
+
+    /* Группа. */
+    @SerializedName(DataConfig.DB_DORM_REPORT_GROUP)
+    private final String group;
+
+    public Report(int id, Citizenship citizenship, String email, ResidencePermit residencePermit, String phone, int genderId, RoomOne room, int dormId, String dateCreate, String dateUpdate, int children, String dateResidence, String nameF, String nameL, String patronymic, Shelter shelter, int statusId, int educationalFormId, String group) {
         this.id = id;
-        this.uin = uin;
+        this.citizenship = citizenship;
         this.email = email;
-        this.address = address;
+        this.residencePermit = residencePermit;
         this.phone = phone;
         this.genderId = genderId;
         this.room = room;
@@ -93,8 +99,9 @@ public class Report {
         this.nameF = nameF;
         this.nameL = nameL;
         this.patronymic = patronymic;
-        this.mother = mother;
-        this.father = father;
+        this.shelter = shelter;
         this.statusId = statusId;
+        this.educationalFormId = educationalFormId;
+        this.group = group;
     }
 }

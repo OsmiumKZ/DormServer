@@ -1,9 +1,9 @@
-package kz.dorm.api.dorm.util.gson;
+package kz.dorm.api.dorm.util.gson.shelters;
 
 import com.google.gson.annotations.SerializedName;
 import kz.dorm.utils.DataConfig;
 
-public class Parent {
+public class Guardian {
 
     /* Имя. */
     @SerializedName(DataConfig.DB_DORM_NAME_F)
@@ -18,10 +18,10 @@ public class Parent {
     private final String patronymic;
 
     /* Телефон. */
-    @SerializedName(DataConfig.DB_DORM_PARENT_PHONE)
+    @SerializedName(DataConfig.DB_DORM_GUARDIAN_PHONE)
     private final String phone;
 
-    public Parent(String nameF, String nameL, String patronymic, String phone) {
+    public Guardian(String nameF, String nameL, String patronymic, String phone) {
         this.nameF = nameF;
         this.nameL = nameL;
         this.patronymic = patronymic;

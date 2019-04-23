@@ -1,6 +1,8 @@
 package kz.dorm.api.dorm.util.gson;
 
 import com.google.gson.annotations.SerializedName;
+import kz.dorm.api.dorm.util.gson.shelters.Parent;
+import kz.dorm.api.dorm.util.gson.shelters.Shelter;
 import kz.dorm.utils.DataConfig;
 
 public class Request {
@@ -9,17 +11,17 @@ public class Request {
     @SerializedName(DataConfig.DB_DORM_REQUEST_ID)
     private final int id;
 
-    /* ИИН. */
-    @SerializedName(DataConfig.DB_DORM_REQUEST_UIN)
-    private final long uin;
+    /* Гражданство. */
+    @SerializedName(DataConfig.DB_DORM_REQUEST_CITIZENSHIP)
+    private final Citizenship citizenship;
 
     /* Электронная почта. */
     @SerializedName(DataConfig.DB_DORM_REQUEST_EMAIL)
     private final String email;
 
-    /* Место проживания. */
-    @SerializedName(DataConfig.DB_DORM_REQUEST_ADDRESS)
-    private final String address;
+    /* Вид на жительство. */
+    @SerializedName(DataConfig.DB_DORM_RESIDENCE_PERMIT)
+    private final ResidencePermit residencePermit;
 
     /* Телефон. */
     @SerializedName(DataConfig.DB_DORM_REQUEST_PHONE)
@@ -61,23 +63,23 @@ public class Request {
     @SerializedName(DataConfig.DB_DORM_PATRONYMIC)
     private final String patronymic;
 
-    /* Мама. */
-    @SerializedName(DataConfig.DB_DORM_REQUEST_AS_MOTHER)
-    private final Parent mother;
-
-    /* Папа. */
-    @SerializedName(DataConfig.DB_DORM_REQUEST_AS_FATHER)
-    private final Parent father;
+    /* Приют. */
+    @SerializedName(DataConfig.DB_DORM_REQUEST_SHELTER)
+    private final Shelter shelter;
 
     /* Статус заявления. */
     @SerializedName(DataConfig.DB_DORM_REQUEST_ACTIVE)
     private final int active;
 
-    public Request(int id, long uin, String email, String address, String phone, String group, int genderId, RoomOne room, int dormId, int children, String dateResidence, String nameF, String nameL, String patronymic, Parent mother, Parent father, int active) {
+    /* Форма обучения. */
+    @SerializedName(DataConfig.DB_DORM_REQUEST_EDUCATIONAL_FORM_ID)
+    private final int educationalFormId;
+
+    public Request(int id, Citizenship citizenship, String email, ResidencePermit residencePermit, String phone, String group, int genderId, RoomOne room, int dormId, int children, String dateResidence, String nameF, String nameL, String patronymic, Shelter shelter, int active, int educationalFormId) {
         this.id = id;
-        this.uin = uin;
+        this.citizenship = citizenship;
         this.email = email;
-        this.address = address;
+        this.residencePermit = residencePermit;
         this.phone = phone;
         this.group = group;
         this.genderId = genderId;
@@ -88,8 +90,8 @@ public class Request {
         this.nameF = nameF;
         this.nameL = nameL;
         this.patronymic = patronymic;
-        this.mother = mother;
-        this.father = father;
+        this.shelter = shelter;
         this.active = active;
+        this.educationalFormId = educationalFormId;
     }
 }
