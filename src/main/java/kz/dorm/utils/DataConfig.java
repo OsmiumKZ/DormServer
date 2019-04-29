@@ -186,6 +186,7 @@ public class DataConfig {
     public static final String DB_DORM_CITIZENSHIP_COUNTRY_ID = "country_id";
     public static final String DB_DORM_CITIZENSHIP_NUMBER = "number";
     public static final String DB_DORM_CITIZENSHIP_NUMBER_AS_CITIZENSHIP_NUMBER = "citizenship_number";
+    public static final String DB_DORM_CITIZENSHIP_COUNTRY_ID_AS_CITIZENSHIP_COUNTRY_ID = "citizenship_country_id";
 
     public static final String DB_DORM_GUARDIAN = "guardians";
     public static final String DB_DORM_GUARDIAN_ID = "id";

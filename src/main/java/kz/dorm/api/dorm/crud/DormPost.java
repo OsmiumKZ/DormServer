@@ -261,10 +261,11 @@ public class DormPost {
                                 Multipart multipart = new MimeMultipart();
                                 multipart.addBodyPart(attachmentPart);
 
-                                Email.sendMessage(request.queryParams(DataConfig.DB_DORM_REQUEST_EMAIL),
-                                        EmailMessage.CREATE_REQUEST,
-                                        request.queryParams(DataConfig.DB_DORM_NAME_F),
-                                        multipart);
+                                if (request.queryParams(DataConfig.DB_DORM_REQUEST_EMAIL) != null)
+                                    Email.sendMessage(request.queryParams(DataConfig.DB_DORM_REQUEST_EMAIL),
+                                            EmailMessage.CREATE_REQUEST,
+                                            request.queryParams(DataConfig.DB_DORM_NAME_F),
+                                            multipart);
 
                                 file.delete();
                             }

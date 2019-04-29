@@ -138,7 +138,8 @@ public class DormPut {
             statement.setInt(1, id);
             ResultSet result = statement.executeQuery();
 
-            if (result.next())
+            if (result.next() &&
+                    result.getString(columnEmail) != null)
                 Email.sendMessage(result.getString(columnEmail),
                         emailMessage,
                         DataBase.getNameF(connection, result.getInt(columnNameF)));

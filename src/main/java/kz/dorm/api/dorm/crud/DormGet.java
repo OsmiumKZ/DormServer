@@ -270,7 +270,7 @@ public class DormGet {
 
             while (result.next())
                 reports.add(new Report(result.getInt(DataConfig.DB_DORM_REPORT_ID),
-                        new Citizenship(result.getInt(DataConfig.DB_DORM_CITIZENSHIP_COUNTRY_ID),
+                        new Citizenship(result.getInt(DataConfig.DB_DORM_CITIZENSHIP_COUNTRY_ID_AS_CITIZENSHIP_COUNTRY_ID),
                                 result.getString(DataConfig.DB_DORM_CITIZENSHIP_NUMBER_AS_CITIZENSHIP_NUMBER)),
                         result.getString(DataConfig.DB_DORM_REPORT_EMAIL),
                         new ResidencePermit(result.getString(DataConfig.DB_DORM_RESIDENCE_PERMIT_CITY_NAME_AS_CITY),
@@ -348,13 +348,13 @@ public class DormGet {
                     statement.setInt(2, DataConfig.DB_MAX_ITEM_LIST_INT * (page + 1));
             }
 
-            List<kz.dorm.api.dorm.util.gson.Request> reports = new ArrayList<>();
+            List<kz.dorm.api.dorm.util.gson.Request> requests = new ArrayList<>();
             ResultSet result = statement.executeQuery();
 
             while (result.next())
-                reports.add(new kz.dorm.api.dorm.util.gson
+                requests.add(new kz.dorm.api.dorm.util.gson
                         .Request(result.getInt(DataConfig.DB_DORM_REQUEST_ID),
-                        new Citizenship(result.getInt(DataConfig.DB_DORM_CITIZENSHIP_COUNTRY_ID),
+                        new Citizenship(result.getInt(DataConfig.DB_DORM_CITIZENSHIP_COUNTRY_ID_AS_CITIZENSHIP_COUNTRY_ID),
                                 result.getString(DataConfig.DB_DORM_CITIZENSHIP_NUMBER_AS_CITIZENSHIP_NUMBER)),
                         result.getString(DataConfig.DB_DORM_REQUEST_EMAIL),
                         new ResidencePermit(result.getString(DataConfig.DB_DORM_RESIDENCE_PERMIT_CITY_NAME_AS_CITY),
@@ -380,7 +380,7 @@ public class DormGet {
 
             response.status(200);
 
-            return new Gson().toJson(reports);
+            return new Gson().toJson(requests);
         } catch (Exception e) {
             response.status(409);
 

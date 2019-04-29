@@ -31,7 +31,8 @@ public class DormDelete {
 
                 if (statement.executeUpdate() != 0) {
                     response.status(200);
-                    if (result.getString(DataConfig.DB_DORM_REQUEST_EMAIL) != null)
+                    if (result.next() &&
+                            result.getString(DataConfig.DB_DORM_REQUEST_EMAIL) != null)
                         Email.sendMessage(result.getString(DataConfig.DB_DORM_REQUEST_EMAIL),
                                 EmailMessage.DELETE_REQUEST,
                                 DataBase.getNameF(connection,

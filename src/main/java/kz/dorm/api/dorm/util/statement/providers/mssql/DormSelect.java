@@ -1,7 +1,6 @@
 package kz.dorm.api.dorm.util.statement.providers.mssql;
 
 import kz.dorm.api.dorm.util.statement.providers.interfaces.Select;
-import kz.dorm.docx.util.DataConfigDirection;
 import kz.dorm.utils.DataConfig;
 
 public class DormSelect implements Select {
@@ -103,7 +102,8 @@ public class DormSelect implements Select {
     @Override
     public String selectReport() {
         return "SELECT [" + DataConfig.DB_DORM_REPORT + "].[" + DataConfig.DB_DORM_REPORT_ID + "],\n" +
-                "\t[" + DataConfig.DB_DORM_CITIZENSHIP + "].[" + DataConfig.DB_DORM_CITIZENSHIP_COUNTRY_ID + "],\n" +
+                "\t[" + DataConfig.DB_DORM_CITIZENSHIP + "].[" + DataConfig.DB_DORM_CITIZENSHIP_COUNTRY_ID + "]\n" +
+                "\t\tAS [" + DataConfig.DB_DORM_CITIZENSHIP_COUNTRY_ID_AS_CITIZENSHIP_COUNTRY_ID + "],\n" +
                 "\t[" + DataConfig.DB_DORM_CITIZENSHIP + "].[" + DataConfig.DB_DORM_CITIZENSHIP_NUMBER + "]\n" +
                 "\t\tAS [" + DataConfig.DB_DORM_CITIZENSHIP_NUMBER_AS_CITIZENSHIP_NUMBER + "],\n" +
                 "\t[" + DataConfig.DB_DORM_REPORT + "].[" + DataConfig.DB_DORM_REPORT_EMAIL + "],\n" +
@@ -172,7 +172,8 @@ public class DormSelect implements Select {
     @Override
     public String selectRequest() {
         return "SELECT [" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_ID + "],\n" +
-                "\t[" + DataConfig.DB_DORM_CITIZENSHIP + "].[" + DataConfig.DB_DORM_CITIZENSHIP_COUNTRY_ID + "],\n" +
+                "\t[" + DataConfig.DB_DORM_CITIZENSHIP + "].[" + DataConfig.DB_DORM_CITIZENSHIP_COUNTRY_ID + "]\n" +
+                "\t\tAS [" + DataConfig.DB_DORM_CITIZENSHIP_COUNTRY_ID_AS_CITIZENSHIP_COUNTRY_ID + "],\n" +
                 "\t[" + DataConfig.DB_DORM_CITIZENSHIP + "].[" + DataConfig.DB_DORM_CITIZENSHIP_NUMBER + "]\n" +
                 "\t\tAS [" + DataConfig.DB_DORM_CITIZENSHIP_NUMBER_AS_CITIZENSHIP_NUMBER + "],\n" +
                 "\t[" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_ACTIVE + "],\n" +
