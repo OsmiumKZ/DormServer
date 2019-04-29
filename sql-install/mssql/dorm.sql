@@ -371,7 +371,7 @@ GO
 -- [address] - Адрес
 --
 
-create TABLE [cities]
+create TABLE [residence_permit]
     ([id] INT IDENTITY (1, 1) PRIMARY KEY,
      [city_id] INT NOT NULL,
      [country_id] INT NOT NULL,
