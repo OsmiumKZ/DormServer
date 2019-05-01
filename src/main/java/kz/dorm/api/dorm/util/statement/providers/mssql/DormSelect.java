@@ -112,6 +112,7 @@ public class DormSelect implements Select {
                 "\t[" + DataConfig.DB_DORM_RESIDENCE_PERMIT + "].[" + DataConfig.DB_DORM_RESIDENCE_PERMIT_COUNTRY_ID + "],\n" +
                 "\t[" + DataConfig.DB_DORM_REPORT + "].[" + DataConfig.DB_DORM_REPORT_GROUP + "],\n" +
                 "\t[" + DataConfig.DB_DORM_REPORT + "].[" + DataConfig.DB_DORM_REPORT_PHONE + "],\n" +
+                "\t[" + DataConfig.DB_DORM_REPORT + "].[" + DataConfig.DB_DORM_REPORT_EDUCATIONAL_FORM_ID + "],\n" +
                 "\t[" + DataConfig.DB_DORM_REPORT + "].[" + DataConfig.DB_DORM_REPORT_GENDER_ID + "],\n" +
                 "\t[" + DataConfig.DB_DORM_REPORT + "].[" + DataConfig.DB_DORM_REPORT_STATUS_ID + "],\n" +
                 "\t[" + DataConfig.DB_DORM_ROOM + "].[" + DataConfig.DB_DORM_ROOM_ID + "]\n" +
@@ -178,6 +179,7 @@ public class DormSelect implements Select {
                 "\t\tAS [" + DataConfig.DB_DORM_CITIZENSHIP_NUMBER_AS_CITIZENSHIP_NUMBER + "],\n" +
                 "\t[" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_ACTIVE + "],\n" +
                 "\t[" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_EMAIL + "],\n" +
+                "\t[" + DataConfig.DB_DORM_REQUEST + "].[" + DataConfig.DB_DORM_REQUEST_EDUCATIONAL_FORM_ID + "],\n" +
                 "\t[" + DataConfig.DB_DORM_RESIDENCE_PERMIT + "].[" + DataConfig.DB_DORM_RESIDENCE_PERMIT_CITY_NAME_AS_CITY + "],\n" +
                 "\t[" + DataConfig.DB_DORM_RESIDENCE_PERMIT + "].[" + DataConfig.DB_DORM_RESIDENCE_PERMIT_ADDRESS + "],\n" +
                 "\t[" + DataConfig.DB_DORM_RESIDENCE_PERMIT + "].[" + DataConfig.DB_DORM_RESIDENCE_PERMIT_COUNTRY_ID + "],\n" +
